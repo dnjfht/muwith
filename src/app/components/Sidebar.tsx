@@ -9,12 +9,12 @@ import { GoSearch } from 'react-icons/go';
 import { BsFileMusic } from 'react-icons/bs';
 import { CiCirclePlus } from 'react-icons/ci';
 
-const [minWidth, maxWidth, defaultWidth] = [72, 1480, 72];
+const MIN_WIDTH = 72;
+const MAX_WIDTH = 1480;
+const DEFAULT_WIDTH = 72;
 
 export default function Sidebar() {
-  const [width, setWidth] = useState<number>(
-    localStorage.getItem('sidebarWidth') ? parseInt(localStorage.getItem('sidebarWidth')!) : defaultWidth,
-  );
+  const [width, setWidth] = useState<number>(Number(localStorage.getItem('sidebarWidth')) || DEFAULT_WIDTH);
 
   const isResized = useRef(false);
 
@@ -26,9 +26,7 @@ export default function Sidebar() {
 
       setWidth((previousWidth) => {
         const newWidth = previousWidth + e.movementX / 2;
-
-        const isWidthInRange = newWidth >= minWidth && newWidth <= maxWidth;
-
+        const isWidthInRange = newWidth >= MIN_WIDTH && newWidth <= MAX_WIDTH;
         return isWidthInRange ? newWidth : previousWidth;
       });
     });
