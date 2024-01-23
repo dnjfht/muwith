@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      spacing: {
+        calc_1: "calc(100% - 740px)",
+        calc_2: "calc(100% - 80px)",
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -22,6 +27,10 @@ const config: Config = {
         spin: "spin 3s linear infinite",
       },
     },
+  },
+  corePlugins: {
+    aspectRatio: true,
+    lineClamp: true,
   },
   plugins: [require("tailwind-scrollbar-hide")],
 };

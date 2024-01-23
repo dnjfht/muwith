@@ -1,12 +1,12 @@
-import Button from "../Button";
+import Image from "next/image";
+import Button from "../components/Button";
 
 export default function Auth() {
   return (
     <div className="w-full h-screen px-[92px] py-[120px] box-border flex items-center justify-between overflow-hidden">
-      <div>
+      <div className="w-calc_1">
         <h1 className="text-[6.25rem] font-[900] leading-snug">
           음악 스트리밍 플렛폼
-          <br />
           <span className="italic">MUWITH.</span>
         </h1>
 
@@ -25,24 +25,30 @@ export default function Auth() {
         </div>
       </div>
 
-      <div className="relative">
+      <div className="w-[740px] relative">
         <div className="animate-spin">
-          <img
+          <Image
             className="w-[740px]"
-            src="./image/lp_record.png"
+            width={740}
+            height={0}
+            src="/image/lp_record.png"
             alt="lp_record"
           />
 
-          <img
-            className="absolute top-[50%] mt-[-9rem] left-[50%] ml-[-8.3125rem]"
-            src="./image/lp_record_logo.png"
+          <Image
+            className="absolute top-[50%] mt-[-9rem] left-[50%] ml-[-8.1rem]"
+            width={260}
+            height={0}
+            src="/image/lp_record_logo.png"
             alt="lp_record_logo"
           />
         </div>
 
-        <img
+        <Image
           className="w-[300px] absolute top-[0] right-[-50px] rotate-6"
-          src="./image/lp_record_2.png"
+          width={353}
+          height={0}
+          src="/image/lp_record_2.png"
           alt="lp_record_2"
         />
       </div>
