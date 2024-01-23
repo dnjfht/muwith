@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Button from "../components/Button";
+import Image from 'next/image';
+import Button from '../../components/Button';
 
 export default function Auth() {
   return (
@@ -10,30 +10,18 @@ export default function Auth() {
           <span className="italic">MUWITH.</span>
         </h1>
 
-        <p className="text-[#707070] text-[1.5rem]">
-          인제 어디서나 기분과 분위기에 맞는 음악을 플레이하세요.
-        </p>
+        <p className="text-[#707070] text-[1.5rem]">인제 어디서나 기분과 분위기에 맞는 음악을 플레이하세요.</p>
 
         <div className="mt-[108px] flex flex-col gap-y-3">
           <Button type="button" btnText="Google 로그인" disabled={false} />
           <Button type="button" btnText="Kakao 로그인" disabled={false} />
-          <Button
-            type="button"
-            btnText="아직 계정이 없다면? : MUWOTH 회원가입 하기"
-            disabled={false}
-          />
+          <Button type="button" btnText="아직 계정이 없다면? : MUWOTH 회원가입 하기" disabled={false} />
         </div>
       </div>
 
       <div className="w-[740px] relative">
         <div className="animate-spin">
-          <Image
-            className="w-[740px]"
-            width={740}
-            height={0}
-            src="/image/lp_record.png"
-            alt="lp_record"
-          />
+          <Image className="w-[740px]" width={740} height={0} src="/image/lp_record.png" alt="lp_record" />
 
           <Image
             className="absolute top-[50%] mt-[-9rem] left-[50%] ml-[-8.1rem]"
