@@ -2,21 +2,36 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-
-import { HiOutlineHome, HiHome } from 'react-icons/hi2';
-import { GoSearch } from 'react-icons/go';
-import { BsFileMusic } from 'react-icons/bs';
-import { CiCirclePlus } from 'react-icons/ci';
+import SidebarMenu from './SidebarMenu';
+import MyLibrary from './MyLibrary';
 
 const MIN_WIDTH = 72;
 const MAX_WIDTH = 1480;
 const DEFAULT_WIDTH = 72;
 
 export default function Sidebar() {
-  const [width, setWidth] = useState<number>(Number(localStorage.getItem('sidebarWidth')) || DEFAULT_WIDTH);
+  const [isClient, setIsClient] = useState<boolean>(false);
+  const [width, setWidth] = useState<number>(
+    typeof Window !== 'undefined' && localStorage.getItem('sidebarWidth')
+      ? Number(localStorage.getItem('sidebarWidth'))
+      : typeof Window !== 'undefined' && !localStorage.getItem('sidebarWidth')
+        ? DEFAULT_WIDTH
+        : 0,
+  );
 
   const isResized = useRef(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('sidebarWidth')) {
+      setWidth(Number(localStorage.getItem('sidebarWidth')));
+    } else {
+      setWidth(DEFAULT_WIDTH);
+    }
+  }, []);
 
   useEffect(() => {
     window.addEventListener('mousemove', (e) => {
@@ -42,63 +57,34 @@ export default function Sidebar() {
 
   const pathname = usePathname();
 
+  const userId: string = '04be41a9-0594-4033-aeb4-6ca1ac8e2e49';
+
   return (
-    <div className="flex">
-      <div style={{ width: `${width / 16}rem` }} className="grid grid-rows-[1fr_6fr]">
-        <div
-          className={`${
-            width > 250 ? 'items-start' : 'items-center'
-          } p-5 box-border bg-[#ebebeb] rounded-lg shadow-lg flex flex-col justify-center gap-y-4 text-[1.5rem]`}
-        >
-          <Link href="/" className={`${pathname === '/' ? '' : 'text-[#a6a6a6]'} flex items-center gap-x-3`}>
-            {pathname === '/' ? <HiHome /> : <HiOutlineHome />}
-
-            <p className={`${width > 250 ? 'block' : 'hidden'} text-[1rem]`}>홈</p>
-          </Link>
-
-          <Link
-            href="/search"
-            className={`${pathname === '/search' ? '' : 'text-[#a6a6a6]'} flex items-center gap-x-3`}
-          >
-            <GoSearch />
-
-            <p className={`${width > 250 ? 'block' : 'hidden'} text-[1rem]`}>검색하기</p>
-          </Link>
-        </div>
-
-        <div className="mt-2 p-[6px] box-border bg-[#ebebeb] rounded-lg shadow-lg text-[1.5rem]">
-          <div className={`${width > 250 && 'flex justify-between items-center'}`}>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-
-                setWidth(72);
-              }}
+    <>
+      {isClient && (
+        <div className="flex">
+          <div style={{ width: `${width / 16}rem` }} className="grid grid-rows-[1fr_6fr]">
+            <div
               className={`${
-                width > 250 ? 'justify-start gap-x-3' : 'w-full justify-center'
-              } p-[14px] box-border flex flex-row items-center text-[#a6a6a6]`}
+                width > 250 ? 'items-start' : 'items-center'
+              } p-5 box-border bg-[#ebebeb] rounded-lg shadow-lg flex flex-col justify-center gap-y-4 text-[1.5rem] font-bold`}
             >
-              <BsFileMusic />
+              <SidebarMenu LinkHref="/" menuTitle="홈" width={width} />
+              <SidebarMenu LinkHref="/search" menuTitle="검색하기" width={width} />
+            </div>
 
-              <p className={`${width > 250 ? 'block' : 'hidden'} text-[1rem]`}>내 라이브러리</p>
-            </button>
-
-            {width > 250 && (
-              <button className="px-[14px] text-[#a6a6a6]">
-                <CiCirclePlus />
-              </button>
-            )}
+            <MyLibrary width={width} setWidth={setWidth} />
           </div>
-        </div>
-      </div>
 
-      {/* Handle */}
-      <div
-        className="w-2 cursor-col-resize"
-        onMouseDown={() => {
-          isResized.current = true;
-        }}
-      />
-    </div>
+          {/* Handle */}
+          <div
+            className="w-2 cursor-col-resize"
+            onMouseDown={() => {
+              isResized.current = true;
+            }}
+          />
+        </div>
+      )}
+    </>
   );
 }
