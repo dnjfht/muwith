@@ -1,0 +1,221 @@
+{
+  "04be41a9-0594-4033-aeb4-6ca1ac8e2e49": {
+    "my_library": [
+      {
+        "id": 1,
+        "thumbnail": "/image/my_library/playlist1_thumbnail.png",
+        "title": "좋아요 표시한 곡",
+        "description": "플레이리스트 · 3곡",
+        "author": "dnjfht",
+        "songs": [
+          {
+            "image": "/image/my_library/playlist1_song1.png",
+            "title": "우리 다투게 돼도 이것만 기억해 줄래 눈을 맞추고 서로가 서로의 손잡아 주며 낮은 목소리와 예쁜 말투로 상처 주지 않게 노력을 하고 ●",
+            "artist": "그리즐리",
+            "album": "꽃zip2",
+            "date": "2024-01-21",
+            "duration": "3:18",
+            "isLikeSong": true
+          },
+          {
+            "image": "/image/my_library/playlist1_song2.png",
+            "title": "MOVIE",
+            "artist": "JUNNY",
+            "album": "MOVIE",
+            "date": "2024-01-15",
+            "duration": "3:03",
+            "isLikeSong": true
+          },
+          {
+            "image": "/image/my_library/playlist1_song3.png",
+            "title": "생각해 (feat. 박재범)",
+            "artist": "레디, 박재범",
+            "album": "생각해",
+            "date": "2024-01-12",
+            "duration": "3:51",
+            "isLikeSong": true
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "thumbnail": "/image/my_library/playlist2_thumbnail.png",
+        "title": "RIIZE",
+        "description": "아티스트"
+      },
+      {
+        "id": 3,
+        "thumbnail": "/image/my_library/playlist3_thumbnail.png",
+        "title": "술 마실때 들으면, 분위기 야해지는 알앤비 힙합",
+        "description": "플레이리스트 · Manal · 64곡",
+        "description2": "서울의 밤이 생각나는 플레이리스트 (서울 날 기다려 내가 곧 다시 올거야 💕)",
+        "author": "Manal",
+        "likes": 259,
+        "isLikeTracks": true,
+        "songs": [
+          {
+            "image": "/image/my_library/playlist3_song1.png",
+            "title": "Justin Bieber (feat. Jay Park)",
+            "artist": "쿠기, 박재범",
+            "album": "EMO #1",
+            "date": "2024-03-09",
+            "duration": "3:37",
+            "isLikeSong": false
+          },
+          {
+            "image": "/image/my_library/playlist3_song2.png",
+            "title": "Is You Down",
+            "artist": "Jimmy Brown, Minshik, Harms",
+            "album": "Is You Down",
+            "date": "2024-03-09",
+            "duration": "4:19",
+            "isLikeSong": false
+          },
+          {
+            "image": "/image/my_library/playlist3_song3.png",
+            "title": "미안해 (1000) (Prod. by Girlnexxtdoor)",
+            "artist": "식케이, Crush",
+            "album": "FL1P",
+            "date": "2022-03-09",
+            "duration": "3:41",
+            "isLikeSong": true
+          },
+          {
+            "image": "/image/my_library/playlist3_song4.png",
+            "title": "생각해 (feat. 박재범)",
+            "artist": "레디, 박재범",
+            "album": "생각해",
+            "date": "2024-01-12",
+            "duration": "3:51",
+            "isLikeSong": true
+          },
+          {
+            "image": "/image/my_library/playlist3_song5.png",
+            "title": "Droppa (Feat. GRAY)",
+            "artist": "멜로, GRAY",
+            "album": "사인히어(SignHere) episode6",
+            "date": "2022-03-09",
+            "duration": "3:57",
+            "isLikeSong": false
+          },
+          {
+            "image": "/image/my_library/playlist3_song6.png",
+            "title": "SMILE (Feat. 보이비) (Prod. WOOGIE)",
+            "artist": "멜로, 보이비",
+            "album": "사인히어(SignHere) episode2",
+            "date": "2022-03-09",
+            "duration": "4:18",
+            "isLikeSong": false
+          },
+          {
+            "image": "/image/my_library/playlist3_song7.png",
+            "title": "Runners",
+            "artist": "CAMO",
+            "album": "Fragile",
+            "date": "2022-03-09",
+            "duration": "2:28",
+            "isLikeSong": false
+          },
+          {
+            "image": "/image/my_library/playlist3_song8.png",
+            "title": "Stand by you",
+            "artist": "레디",
+            "album": "Stand by you",
+            "date": "2022-03-09",
+            "duration": "2:34",
+            "isLikeSong": true
+          },
+          {
+            "image": "/image/my_library/playlist3_song9.png",
+            "title": "지켜줄게",
+            "artist": "기리보이",
+            "album": "성인식",
+            "date": "2022-03-09",
+            "duration": "4:12",
+            "isLikeSong": false
+          },
+          {
+            "image": "/image/my_library/playlist3_song10.png",
+            "title": "전화기를 꺼놔 (Feat. ELO) - Remix",
+            "artist": "박재범, ELO",
+            "album": "EVERYTHING YOU WANTED",
+            "date": "2022-03-09",
+            "duration": "4:03",
+            "isLikeSong": false
+          },
+          {
+            "image": "/image/my_library/playlist3_song11.png",
+            "title": "Like Me",
+            "artist": "pH-1",
+            "album": "HALO",
+            "date": "2022-03-09",
+            "duration": "3:51",
+            "isLikeSong": false
+          },
+          {
+            "image": "/image/my_library/playlist3_song12.png",
+            "title": "LOVE IN DA CAR",
+            "artist": "MINO",
+            "album": "'TO INFINITY.'",
+            "date": "2022-03-09",
+            "duration": "3:33",
+            "isLikeSong": false
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "thumbnail": "/image/my_library/playlist4_thumbnail.png",
+        "title": "Drama - The 4th Mini Album",
+        "description": "플레이리스트 · aespa · 7곡",
+        "artist": "aespa",
+        "releaseYear": 2023,
+        "isLikeTracks": true,
+        "songs": [
+          {
+            "title": "Drama",
+            "artist": "aespa",
+            "duration": "3:34",
+            "isLikeSong": false
+          },
+          {
+            "title": "Trick or Trick",
+            "artist": "aespa",
+            "duration": "2:55",
+            "isLikeSong": false
+          },
+          {
+            "title": "Don't Blink",
+            "artist": "aespa",
+            "duration": "2:49",
+            "isLikeSong": false
+          },
+          {
+            "title": "Hot Air Balloon",
+            "artist": "aespa",
+            "duration": "3:18",
+            "isLikeSong": false
+          },
+          {
+            "title": "YOLO",
+            "artist": "aespa",
+            "duration": "3:09",
+            "isLikeSong": false
+          },
+          {
+            "title": "You",
+            "artist": "aespa",
+            "duration": "3:23",
+            "isLikeSong": false
+          },
+          {
+            "title": "Better Things",
+            "artist": "aespa",
+            "duration": "3:23",
+            "isLikeSong": true
+          }
+        ]
+      }
+    ]
+  }
+}
