@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Button from '../../components/Button';
+import ButtonWrap from '@/app/components/ButtonWrap';
 
 export default function Auth() {
   return (
@@ -13,9 +13,7 @@ export default function Auth() {
         <p className="text-[#707070] text-[1.5rem]">인제 어디서나 기분과 분위기에 맞는 음악을 플레이하세요.</p>
 
         <div className="mt-[108px] flex flex-col gap-y-3">
-          <Button type="button" btnText="Google 로그인" disabled={false} />
-          <Button type="button" btnText="Kakao 로그인" disabled={false} />
-          <Button type="button" btnText="아직 계정이 없다면? : MUWOTH 회원가입 하기" disabled={false} />
+          <ButtonWrap />
         </div>
       </div>
 
