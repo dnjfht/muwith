@@ -1,10 +1,13 @@
+'use client';
+
 interface Props {
   type: string;
   btnText: string;
   disabled: boolean;
+  onClick?: () => void;
 }
 
-const Button = ({ type, btnText, disabled }: Props) => {
+const Button = ({ type, btnText, disabled, onClick }: Props) => {
   return (
     <input
       className={`${
@@ -13,6 +16,7 @@ const Button = ({ type, btnText, disabled }: Props) => {
       type={type}
       value={btnText}
       disabled={disabled}
+      onClick={onClick}
     />
   );
 };

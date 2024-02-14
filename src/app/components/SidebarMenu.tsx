@@ -5,30 +5,35 @@ import Link from 'next/link';
 import { HiOutlineHome, HiHome } from 'react-icons/hi2';
 import { GoSearch } from 'react-icons/go';
 import { usePathname } from 'next/navigation';
+import { AppPage } from '../types';
 
-interface Props {
+interface SidebarMenuProps {
   LinkHref: string;
   menuTitle: string;
-  width: number;
+  isHiddenMenuTitle: boolean;
 }
 
-const SidebarMenu = ({ LinkHref, menuTitle, width }: Props) => {
+const SidebarMenu = ({ LinkHref, menuTitle, isHiddenMenuTitle }: SidebarMenuProps) => {
   const pathname = usePathname();
+
+  const isPointLink =
+    (menuTitle === '홈' && pathname === AppPage.HOME) || (menuTitle === '검색하기' && pathname === AppPage.SEARCH);
+  const linkTextColor = isPointLink ? '' : 'text-[#2828284c]';
 
   return (
     <Link
       href={LinkHref}
-      className={`${(menuTitle === '홈' && pathname === '/') || (menuTitle === '검색하기' && pathname === '/search') ? '' : 'text-[rgba(40,40,40,0.3)]'} flex items-center gap-x-3 hover:text-[rgba(40,40,40,1)] transition-all duration-500 font-bold`}
+      className={`${linkTextColor} flex items-center gap-x-3 hover:text-[rgba(40,40,40,1)] transition-all duration-500 font-bold`}
     >
-      {menuTitle === '홈' && pathname === '/' ? (
+      {menuTitle === '홈' && pathname === AppPage.HOME ? (
         <HiHome />
-      ) : menuTitle === '홈' && pathname !== '/' ? (
+      ) : menuTitle === '홈' && pathname !== AppPage.HOME ? (
         <HiOutlineHome />
       ) : (
         <GoSearch />
       )}
 
-      <p className={`${width > 250 ? 'block' : 'hidden'} text-[1rem]`}>{menuTitle}</p>
+      <p className={`${isHiddenMenuTitle ? 'hidden' : 'block'} text-[1rem]`}>{menuTitle}</p>
     </Link>
   );
 };

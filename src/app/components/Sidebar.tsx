@@ -1,15 +1,16 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation';
-import SidebarMenu from './SidebarMenu';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { MIN_MENU_TITLE_WIDTH } from '../layout-constants';
 import MyLibrary from './MyLibrary';
-
-const MIN_WIDTH = 72;
-const MAX_WIDTH = 1480;
-const DEFAULT_WIDTH = 72;
+import SidebarMenu from './SidebarMenu';
+import { AppPage } from '../types';
 
 export default function Sidebar() {
+  const MIN_WIDTH = 72;
+  const MAX_WIDTH = 1480;
+  const DEFAULT_WIDTH = 72;
+
   const [isClient, setIsClient] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(
     typeof Window !== 'undefined' && localStorage.getItem('sidebarWidth')
@@ -19,6 +20,7 @@ export default function Sidebar() {
         : 0,
   );
 
+  const isHiddenMenuTitle = MIN_MENU_TITLE_WIDTH > width;
   const isResized = useRef(false);
 
   useEffect(() => {
@@ -26,12 +28,8 @@ export default function Sidebar() {
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem('sidebarWidth')) {
-      setWidth(Number(localStorage.getItem('sidebarWidth')));
-    } else {
-      setWidth(DEFAULT_WIDTH);
-    }
-  }, []);
+    localStorage.setItem('sidebarWidth', String(width));
+  }, [width]);
 
   useEffect(() => {
     window.addEventListener('mousemove', (e) => {
@@ -51,12 +49,6 @@ export default function Sidebar() {
     });
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('sidebarWidth', String(width));
-  }, [width]);
-
-  const pathname = usePathname();
-
   const userId: string = '04be41a9-0594-4033-aeb4-6ca1ac8e2e49';
 
   return (
@@ -66,14 +58,14 @@ export default function Sidebar() {
           <div style={{ width: `${width / 16}rem` }} className="grid grid-rows-[1fr_6fr]">
             <div
               className={`${
-                width > 250 ? 'items-start' : 'items-center'
+                isHiddenMenuTitle ? 'items-center' : 'items-start'
               } p-5 box-border bg-[#ebebeb] rounded-lg shadow-lg flex flex-col justify-center gap-y-4 text-[1.5rem] font-bold`}
             >
-              <SidebarMenu LinkHref="/" menuTitle="홈" width={width} />
-              <SidebarMenu LinkHref="/search" menuTitle="검색하기" width={width} />
+              <SidebarMenu LinkHref={AppPage.HOME} menuTitle="홈" isHiddenMenuTitle={isHiddenMenuTitle} />
+              <SidebarMenu LinkHref={AppPage.SEARCH} menuTitle="검색하기" isHiddenMenuTitle={isHiddenMenuTitle} />
             </div>
 
-            <MyLibrary width={width} setWidth={setWidth} />
+            <MyLibrary width={width} setWidth={setWidth} isHiddenMenuTitle={isHiddenMenuTitle} />
           </div>
 
           {/* Handle */}
