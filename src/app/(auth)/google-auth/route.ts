@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     .then((res) => res.json())
     .then((result) => result.id_token);
 
-  // 회원가입
+  // 회원가입이 되어 있지 않은 경우에만 회원가입 진행
   const signUpInfo = await fetch(BASE_URL2 + '/auth/signup-by-sso', {
     method: 'POST',
     headers: {
@@ -39,8 +39,22 @@ export async function GET(request: NextRequest) {
       name: `userName${Math.random()}`,
     }),
   })
-    .then((res) => res.json())
-    .then((result) => result);
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    })
+    .then((result) => result)
+    .catch((error) => {
+      console.error('회원가입 중 오류 발생', error);
+      if (error.status === 400) {
+        // 이미 가입한 유저인 경우
+        // 이미 가입된 회원이므로 넘어감
+      } else {
+        console.error('알 수 없는 오류가 발생했습니다.');
+      }
+    });
 
   // 로그인
   const accessToken = await fetch(BASE_URL2 + '/auth/transfer-sso-token', {
@@ -53,13 +67,32 @@ export async function GET(request: NextRequest) {
       token: googleIdToken,
     }),
   })
-    .then((res) => res.json())
-    .then((result) => result.accessToken);
-
-  console.log('get accessToken', accessToken);
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      return res.json();
+    })
+    .then((result) => result.accessToken)
+    .catch((error) => {
+      console.error('로그인 중 오류 발생', error);
+      if (error.status === 401) {
+        // Google 로그인에서 잘못된 토큰이 입력된 경우
+        console.error('잘못된 Google ID token입니다.');
+      } else if (error.status === 400) {
+        // 잘못된 소셜 로그인 유형이 입력된 경우
+        console.error('잘못된 SSO platform입니다.');
+      } else if (error.status === 403) {
+        // 회원가입 하지 않은 유저인 경우
+        console.error('회원가입 하지 않은 유저입니다.');
+      } else {
+        console.error('알 수 없는 오류가 발생했습니다.');
+      }
+    });
 
   // 쿠키 설정
-  cookies().set('accessToken', accessToken);
+  const oneDay = 24 * 60 * 60 * 1000;
+  cookies().set('accessToken', accessToken, { expires: Date.now() + oneDay });
 
   redirect('/');
 }

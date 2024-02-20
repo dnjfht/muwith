@@ -12,6 +12,32 @@ interface MyLibraryProps {
 }
 
 export default function MyLibrary({ width, setWidth, isHiddenMenuTitle }: MyLibraryProps) {
+  function getMenuColumns(width: number) {
+    if (isHiddenMenuTitle && width > 0 && width < 340) {
+      return 'grid-cols-1';
+    } else if (!isHiddenMenuTitle && width > 0 && width < 340) {
+      return 'grid-cols-2';
+    } else if (width >= 340 && width < 500) {
+      return 'grid-cols-3';
+    } else if (width >= 500 && width < 660) {
+      return 'grid-cols-4';
+    } else if (width >= 660 && width < 800) {
+      return 'grid-cols-5';
+    } else if (width >= 800 && width < 1000) {
+      return 'grid-cols-6';
+    } else if (width >= 1000 && width < 1120) {
+      return 'grid-cols-7';
+    } else if (width >= 1120 && width < 1260) {
+      return 'grid-cols-8';
+    } else if (width >= 1260 && width < 1400) {
+      return 'grid-cols-9';
+    } else if (width >= 1400) {
+      return 'grid-cols-10';
+    }
+  }
+
+  const menuColumns = getMenuColumns(width);
+
   return (
     <div className="mt-2 p-[6px] box-border bg-[#ebebeb] rounded-lg shadow-lg text-[1.5rem]">
       <div className={`${!isHiddenMenuTitle && 'flex justify-between items-center'}`}>
@@ -50,9 +76,7 @@ export default function MyLibrary({ width, setWidth, isHiddenMenuTitle }: MyLibr
         </>
       )}
 
-      <div
-        className={`${!isHiddenMenuTitle && width < 340 ? 'grid grid-cols-2 gap-x-[3px]' : width > 340 && width < 500 ? 'grid grid-cols-3 gap-x-[3px]' : width > 500 && width < 700 ? 'grid grid-cols-4 gap-x-[3px]' : width > 700 && width < 1000 ? 'grid grid-cols-6 gap-x-[3px]' : width > 1000 && width < 1120 ? 'grid grid-cols-7 gap-x-[3px]' : width > 1120 && width < 1260 ? 'grid grid-cols-8 gap-x-[3px]' : width > 1260 && width < 1400 ? 'grid grid-cols-9 gap-x-[3px]' : width > 1400 ? 'grid grid-cols-10 gap-x-[3px]' : 'flex flex-col items-center'} w-full py-[6px]`}
-      >
+      <div className={`grid ${menuColumns} gap-x-[3px] w-full py-[6px]`}>
         <MyLibraryData width={width} />
       </div>
     </div>

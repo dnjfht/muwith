@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const state = atom({
-  key: 'State',
-  default: '',
+export const SidebarWidthState = atom({
+  key: 'sidebarWidthState',
+  default: 0,
 });
