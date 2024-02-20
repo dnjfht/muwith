@@ -4,6 +4,8 @@ import Image from 'next/image';
 
 import { GoChevronUp, GoChevronDown } from 'react-icons/go';
 
+import { CiPlay1, CiPause1 } from 'react-icons/ci';
+
 interface PlayBarProps {
   currentPlayList?: {
     id: string;
@@ -17,12 +19,18 @@ interface PlayBarProps {
   }[];
   setOpenCurrentPlayTrackDetail: React.Dispatch<React.SetStateAction<boolean>>;
   openCurrentPlayTrackDetail: boolean;
+  player: YT.Player | null;
+  musicPlayState: boolean;
+  setMusicPlayState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function PlayBar({
   currentPlayList,
   setOpenCurrentPlayTrackDetail,
   openCurrentPlayTrackDetail,
+  player,
+  musicPlayState,
+  setMusicPlayState,
 }: PlayBarProps) {
   const { thumbnail, title, artist } = currentPlayList?.[0] ?? {};
 
@@ -53,6 +61,23 @@ export default function PlayBar({
         <div>
           <p>{title}</p>
           <p className="text-[0.875rem] text-[#a1a1a1]">{artist}</p>
+        </div>
+
+        <div>
+          <button
+            onClick={() => {
+              if (!musicPlayState) {
+                player?.playVideo();
+                setMusicPlayState(true);
+              } else {
+                player?.pauseVideo();
+                setMusicPlayState(false);
+              }
+            }}
+            className="p-4 border-[1px] border-solid border-white rounded-full text-white text-[2rem]"
+          >
+            {!musicPlayState ? <CiPlay1 /> : <CiPause1 />}
+          </button>
         </div>
       </div>
     </div>
