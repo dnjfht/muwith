@@ -55,9 +55,7 @@ export default function Playlist() {
           <div className="w-full text-[0.875rem] text-white">
             <p>플레이리스트</p>
 
-            <h1
-              className={`${textBgColor} mt-5 text-[4.375rem] text-[#232426] font-bold whitespace-pre-wrap line-clamp-1`}
-            >
+            <h1 className={`${textBgColor} mt-5 text-[3rem] text-[#232426] font-bold whitespace-pre-wrap line-clamp-1`}>
               <ReactTyped
                 strings={[data.title]}
                 typeSpeed={50} //타이핑 속도

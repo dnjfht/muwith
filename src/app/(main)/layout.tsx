@@ -2,7 +2,6 @@
 
 import '../globals.css';
 import Sidebar from '../components/Sidebar';
-import { BASE_URL2 } from '../api/common';
 import { useCookies } from 'next-client-cookies';
 import PlayBar from '../components/PlayBar';
 import CurrentPlayDetail from '../components/CurrentPlayDetail';
@@ -47,7 +46,7 @@ export default function MainRootLayout({ children }: React.PropsWithChildren) {
   const [currentPlaylist, setCurrentPlaylist] = useState<CurrentPlaylistData | null>(null);
   const [openCurrentPlayTrackDetail, setOpenCurrentPlayTrackDetail] = useState<boolean>(false);
   const [player, setPlayer] = useState<YT.Player | null>(null);
-  const [musicPlayState, setMusicPlayState] = useState<boolean>(false);
+  const [videoId, setVideoId] = useState<string>('');
 
   const getCurrentPlayList = async () => {
     setCurrentPlaylist(await fetchCurrentPlaylist());
@@ -64,7 +63,7 @@ export default function MainRootLayout({ children }: React.PropsWithChildren) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch(BASE_URL2 + '/user/me', {
+      const result = await fetch(process.env.NEXT_PUBLIC_BASE_URL2 + '/user/me', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -81,6 +80,42 @@ export default function MainRootLayout({ children }: React.PropsWithChildren) {
   const openCurrentPlayTrackDetailBoolen = current_play_list && openCurrentPlayTrackDetail;
 
   useEffect(() => {
+    if (!current_play_list[0]) {
+      console.log('Current playlist is not defined');
+      return;
+    }
+
+    (async () => {
+      try {
+        const response = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?q=${encodeURIComponent(
+            `${current_play_list[0]?.artist} ${current_play_list[0]?.title} Lyrics`,
+          )}&part=snippet&maxResults=1&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY3}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        );
+
+        const data = await response.json();
+
+        if (data.items && data.items.length > 0) {
+          const videoId = data.items[0].id.videoId;
+          setVideoId(videoId);
+        } else {
+          console.log('No results found');
+        }
+      } catch (error) {
+        console.error('Failed to fetch video ID:', error);
+      }
+    })();
+  }, [current_play_list[0]?.title, current_play_list[0]?.artist]);
+
+  useEffect(() => {
+    if (!videoId) return;
+
     //youtube API 불러오는 부분
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
@@ -92,16 +127,17 @@ export default function MainRootLayout({ children }: React.PropsWithChildren) {
 
     //플레이어 변수 설정
     window.onYouTubeIframeAPIReady = () => {
+      if (!videoId) {
+        console.log('Video ID has not been set yet');
+        return;
+      }
+
       setPlayer(
         new YT.Player('player', {
           height: '0', //변경가능-영상 높이
           width: '0', //변경가능-영상 너비
-          videoId: 'dNDJcSU8Sa4',
+          videoId: videoId,
           playerVars: {
-            rel: 0, //연관동영상 표시여부(0:표시안함)
-            controls: 1, //플레이어 컨트롤러 표시여부(0:표시안함)
-            autoplay: 0, //자동재생 여부(1:자동재생 함, mute와 함께 설정)
-            mute: 0, //음소거여부(1:음소거 함)
             loop: 1, //반복재생여부(1:반복재생 함)
           },
           events: {
@@ -122,7 +158,7 @@ export default function MainRootLayout({ children }: React.PropsWithChildren) {
         router.push('/');
       }
     };
-  }, [router]);
+  }, [router, videoId]);
 
   return (
     <div className="w-full h-screen bg-[#ebebeb] text-[#282828] font-inter font-[400] leading-normal overflow-hidden">
@@ -135,6 +171,8 @@ export default function MainRootLayout({ children }: React.PropsWithChildren) {
             <div id="player">
               <iframe
                 id="player"
+                width={0}
+                height={0}
                 src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
               ></iframe>
             </div>
@@ -148,8 +186,6 @@ export default function MainRootLayout({ children }: React.PropsWithChildren) {
           setOpenCurrentPlayTrackDetail={setOpenCurrentPlayTrackDetail}
           openCurrentPlayTrackDetail={openCurrentPlayTrackDetail}
           player={player}
-          musicPlayState={musicPlayState}
-          setMusicPlayState={setMusicPlayState}
         />
       </div>
     </div>

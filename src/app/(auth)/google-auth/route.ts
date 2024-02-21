@@ -1,4 +1,3 @@
-import { BASE_URL2 } from '@/app/api/common';
 import { NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -28,7 +27,7 @@ export async function GET(request: NextRequest) {
     .then((result) => result.id_token);
 
   // 회원가입이 되어 있지 않은 경우에만 회원가입 진행
-  const signUpInfo = await fetch(BASE_URL2 + '/auth/signup-by-sso', {
+  const signUpInfo = await fetch(process.env.NEXT_PUBLIC_BASE_URL2 + '/auth/signup-by-sso', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -57,7 +56,7 @@ export async function GET(request: NextRequest) {
     });
 
   // 로그인
-  const accessToken = await fetch(BASE_URL2 + '/auth/transfer-sso-token', {
+  const accessToken = await fetch(process.env.NEXT_PUBLIC_BASE_URL2 + '/auth/transfer-sso-token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
