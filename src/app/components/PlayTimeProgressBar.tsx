@@ -27,7 +27,7 @@ export function PlayTimeProgressBar({
   };
 
   return (
-    <div onClick={handleClick} className="w-[50rem] h-[6px] border-[1px] border-solid border-white rounded-2xl">
+    <div onClick={handleClick} className="w-[86%] h-[6px] border-[1px] border-solid border-white rounded-2xl">
       <div className="bg-white h-full rounded-2xl relative" style={{ width: `${playTimePercent}%` }}>
         <div className="w-3 h-3 bg-white rounded-full absolute right-[-6px] top-[-4px] shadow-[-6px_0_6px_2px_rgba(0,0,0,0.2)]" />
       </div>

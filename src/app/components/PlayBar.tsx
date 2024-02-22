@@ -2,13 +2,23 @@
 
 import Image from 'next/image';
 
-import { GoChevronUp, GoChevronDown } from 'react-icons/go';
-
-import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { convertSecondsToTime, currentPlayTimePercent } from '../layout-constants';
 import { useEffect, useState } from 'react';
 import { PlayTimeProgressBar } from './PlayTimeProgressBar';
 import { getPlayerMethodValue } from '../api/youtube_music_api';
+import VolumeControl from './VolumeControl';
+
+import { GoChevronUp, GoChevronDown } from 'react-icons/go';
+import { BsFillPlayFill, BsFillPauseFill, BsFillSkipStartFill, BsFillSkipEndFill } from 'react-icons/bs';
+import {
+  PiHeart,
+  PiHeartFill,
+  PiShuffleLight,
+  PiRepeatThin,
+  PiArrowsOutThin,
+  PiArrowsInThin,
+  PiPlaylistThin,
+} from 'react-icons/pi';
 
 interface PlayBarProps {
   currentPlayList?: {
@@ -38,19 +48,19 @@ export default function PlayBar({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(getPlayerMethodValue(player, 'getCurrentTime', 0.0));
+      setCurrentTime(getPlayerMethodValue(player, 'getCurrentTime', 0.0) as number);
     }, 100);
 
     return () => clearInterval(interval);
     // 컴포넌트 unmount 시에 interval 해제
   }, [player]);
 
-  const totalTime = getPlayerMethodValue(player, 'getDuration', 0.0);
+  const totalTime = getPlayerMethodValue(player, 'getDuration', 0.0) as number;
   const playTimePercent: number = currentPlayTimePercent(currentTime, totalTime);
-  const musicPlayState = getPlayerMethodValue(player, 'getPlayerState', -1);
+  const musicPlayState = getPlayerMethodValue(player, 'getPlayerState', -1) as number;
 
   return (
-    <div className="w-full px-4 py-1 box-border bg-[#232426] shadow-[0_-10px_10px_10px_rgba(0,0,0,0.3)] text-white flex flex-col justify-center">
+    <div className="w-full px-4 box-border bg-[#232426] shadow-[0_-10px_10px_10px_rgba(0,0,0,0.3)] text-white flex flex-col justify-center">
       <div className="flex items-center gap-x-8">
         <div className="flex items-center gap-x-2">
           <div className="group relative">
@@ -80,27 +90,63 @@ export default function PlayBar({
           </div>
         </div>
 
-        <div className="w-full flex flex-col items-center">
-          <div className="w-full flex justify-center items-center gap-x-6 text-[0.75rem] font-light">
+        <div className="w-[50%] mx-auto text-[1.2rem]">
+          <div className="w-full flex justify-between items-center font-light text-[0.6875rem]">
             <p>{convertSecondsToTime(currentTime)}</p>
             <PlayTimeProgressBar playTimePercent={playTimePercent} player={player} />
             <p>{convertSecondsToTime(totalTime)}</p>
           </div>
 
-          <div className="w-full my-2 flex items-center justify-center">
-            <button
-              onClick={() => {
-                if (musicPlayState !== 1 && player) {
-                  player.playVideo();
-                } else if (musicPlayState === 1 && player) {
-                  player.pauseVideo();
-                }
-              }}
-              className="p-2 border-[1px] border-solid border-white rounded-full text-white text-[1.2rem]"
-            >
-              {musicPlayState !== 1 ? <BsFillPlayFill /> : <BsFillPauseFill />}
-            </button>
+          <div className="w-[86%] my-[5px] mx-auto flex items-center justify-between text-[#a1a1a1]">
+            <div className="flex items-center gap-x-7">
+              <button>
+                <PiHeart />
+              </button>
+
+              <button>
+                <PiShuffleLight />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-x-8">
+              <button className="p-[6px] border-[1px] border-solid border-white rounded-full text-[1rem]">
+                <BsFillSkipStartFill />
+              </button>
+
+              <button
+                onClick={() => {
+                  if (musicPlayState !== 1 && player) {
+                    player.playVideo();
+                  } else if (musicPlayState === 1 && player) {
+                    player.pauseVideo();
+                  }
+                }}
+                className="p-2 border-[1px] border-solid border-white rounded-full text-white"
+              >
+                {musicPlayState !== 1 ? <BsFillPlayFill /> : <BsFillPauseFill />}
+              </button>
+
+              <button className="p-[6px] border-[1px] border-solid border-white rounded-full text-[1rem]">
+                <BsFillSkipEndFill />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-x-7">
+              <button>
+                <PiRepeatThin />
+              </button>
+
+              <button>
+                <PiPlaylistThin />
+              </button>
+
+              <button>
+                <PiArrowsOutThin />
+              </button>
+            </div>
           </div>
+
+          <VolumeControl player={player} />
         </div>
       </div>
     </div>
