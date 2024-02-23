@@ -1,5 +1,5 @@
-// 플레이리스트 가져오기
-export const fetchPlaylist = async (id: string) => {
+// 플레이리스트 상세정보 가져오기
+export const fetchPlaylistDetail = async (id: string) => {
   const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/playlist', { cache: 'no-store' });
   const result = await res.json();
   return await result[id];

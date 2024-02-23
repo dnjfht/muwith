@@ -6,9 +6,11 @@ import { useCookies } from 'next-client-cookies';
 import PlayBar from '../components/PlayBar';
 import CurrentPlayDetail from '../components/CurrentPlayDetail';
 import { fetchCurrentPlaylist } from '../api/playlist_api';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Header from '../components/Header';
 import { useRouter } from 'next/navigation';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { PageResponsiveNumState, PageWidthState } from '../recoil/atoms/atom';
 
 interface CurrentUserData {
   id: number;
@@ -160,12 +162,55 @@ export default function MainRootLayout({ children }: React.PropsWithChildren) {
     };
   }, [router, videoId]);
 
+  const [pageWidth, setPageWidth] = useRecoilState(PageWidthState);
+  const setPageResponsiveNum = useSetRecoilState(PageResponsiveNumState);
+
+  const pageWidthRef = useRef<HTMLDivElement | null>(null);
+
+  // ref 객체는 불변성을 유지하지 않습니다. 즉, ref.current의 값이 변경되더라도 React는 이를 감지하지 못하고 리렌더링을 트리거하지 않습니다.
+  // => 이 문제를 해결하기 위해 ResizeObserver API를 사용. ResizeObserver는 요소의 크기 변화를 감시하고, 크기가 변경될 때마다 콜백 함수를 호출하는 API입니다.
+  useEffect(() => {
+    // ResizeObserver의 콜백에서 entry.contentRect.width를 사용하여 요소의 너비를 가져와 pageWidth 상태를 업데이트 합니다.
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setPageWidth(entry.contentRect.width);
+      }
+    });
+
+    if (pageWidthRef.current) {
+      resizeObserver.observe(pageWidthRef.current);
+    }
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
+  const responsiveNum =
+    pageWidth < 1830 && pageWidth >= 1630
+      ? 8
+      : pageWidth < 1630 && pageWidth >= 1430
+        ? 7
+        : pageWidth < 1430 && pageWidth >= 1330
+          ? 6
+          : pageWidth < 1330 && pageWidth >= 1230
+            ? 5
+            : pageWidth < 1230 && pageWidth >= 730
+              ? 4
+              : pageWidth < 730 && pageWidth >= 530
+                ? 3
+                : 2;
+
+  useEffect(() => {
+    setPageResponsiveNum(responsiveNum);
+  });
+
   return (
     <div className="w-full h-screen bg-[#ebebeb] text-[#282828] font-inter font-[400] leading-normal overflow-hidden">
       <div className="w-full h-full grid grid-rows-[10fr_1fr] gap-y-2 p-2 bg-[rgb(35,36,38)]">
         <div className="w-full flex">
           <Sidebar />
-          <div className="w-full py-4 box-border bg-[#ebebeb] rounded-lg shadow-lg overflow-hidden">
+          <div ref={pageWidthRef} className="w-full box-border bg-[#ebebeb] rounded-lg shadow-lg overflow-hidden">
             <Header currentUserData={currentUserData} />
 
             <div id="player">

@@ -344,6 +344,47 @@
           "isLikeSong": false
         }
       ]
+    },
+    "listen_again_recommened": {
+      "id": "aae01b42-5beb-4f8d-a59a-b00422f3e561",
+      "title": "listen_again_recommened",
+      "data": [
+        {
+          "id": "ffc8afe2-63d8-4a4b-8d09-8fdf311fd5f9",
+          "type": "playlist",
+          "thumbnail": "/image/listen_again/playlist1_thumbnail.png",
+          "title": "식케이 믹스",
+          "description": "Crush, DPR LIVE 및 Hash Swan 등"
+        },
+        {
+          "id": "fc6fea70-5045-46c4-bf39-25c391f2d33b",
+          "type": "artist",
+          "thumbnail": "/image/my_library/playlist2_thumbnail.png",
+          "title": "RIIZE",
+          "description": "아티스트"
+        },
+        {
+          "id": "272a8c26-96f7-489b-86b4-537189bfc654",
+          "type": "album",
+          "thumbnail": "/image/listen_again/playlist3_thumbnail.png",
+          "title": "Kiss Me More (feat. SZA)",
+          "description": "Doja Cat, SZA"
+        },
+        {
+          "id": "43fd67f8-793e-4704-8c14-0bd3738e23d4",
+          "type": "playlist",
+          "thumbnail": "/image/listen_again/playlist4_thumbnail.png",
+          "title": "몽환적인 팝송",
+          "description": "만든 사람 : 희재"
+        },
+        {
+          "id": "d35b718b-2777-4704-a88e-6dd77640416d",
+          "type": "album",
+          "thumbnail": "/image/listen_again/playlist5_thumbnail.png",
+          "title": "흑백영화",
+          "description": "Leellamarz"
+        }
+      ]
     }
   },
   "playlist": {
@@ -791,6 +832,57 @@
           "isLikeSong": false
         }
       ]
+    },
+    "ffc8afe2-63d8-4a4b-8d09-8fdf311fd5f9": {
+      "id": "ffc8afe2-63d8-4a4b-8d09-8fdf311fd5f9",
+      "type": "playlist",
+      "thumbnail": "/image/listen_again/playlist1_thumbnail.png",
+      "title": "식케이 믹스",
+      "description": "Crush, DPR LIVE 및 Hash Swan 등",
+      "author": "Spotify",
+      "authorProfileImg": "/image/listen_again/author_profile_img1.png",
+      "songs": [
+        {
+          "image": "/image/listen_again/playlist1_song1.png",
+          "title": "My Man",
+          "artist": "식케이",
+          "album": "My Man",
+          "date": "2024-02-21",
+          "duration": "2:44",
+          "isLikeSong": true
+        },
+        {
+          "image": "/image/listen_again/playlist1_song2.png",
+          "title": "Counting Stars (Feat. Beenzino)",
+          "artist": "BE'O, 빈지노",
+          "album": "Counting Stars",
+          "date": "2024-02-21",
+          "duration": "2:31",
+          "isLikeSong": true
+        },
+        {
+          "image": "/image/often_listen/playlist1_song3.png",
+          "title": "생각해 (feat. 박재범)",
+          "artist": "레디, 박재범",
+          "album": "생각해",
+          "date": "2024-01-12",
+          "duration": "3:51",
+          "isLikeSong": true
+        }
+      ]
+    }
+  },
+  "album": {},
+  "artist": {
+    "fc6fea70-5045-46c4-bf39-25c391f2d33b": {
+      "id": "fc6fea70-5045-46c4-bf39-25c391f2d33b",
+      "type": "artist",
+      "artist_profile": "/image/listen_again/artist_profile_img2.png",
+      "thumbnail": "/image/listen_again/artist_bg_img2.png",
+      "title": "RIIZE",
+      "listener": 3496260,
+      "follower": 523222,
+      "description": "RIIZE – made up of SHOTARO, EUNSEOK, SUNGCHAN, WONBIN, SEUNGHAN, SOHEE, and ANTON – is already taking the industry by storm, just over a month since they were announced. They broke the record for fastest K-Pop group to hit 1 million followers on Instagram, just four days after their account was launched. Focusing on authenticity and relatability, RIIZE forges a deep connection with their ever-growing fanbase by sharing their down-to-earth personalities and humble moments at the start of their new journey. The group name RIIZE combines two words – “rise,” symbolizing growth, and “realize” representing achievements – which together encapsulate the idea of a team that grows as one while achieving their dreams. The seven exceptional members all possess both talent and visual appeal. With each member bringing their own unique characteristics and strengths, they embark on a real-time odyssey as one team."
     }
   }
 }

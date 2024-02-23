@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { fetchOftenListenData } from '../api/home_api';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRecoilValue } from 'recoil';
+import { PageWidthState } from '../recoil/atoms/atom';
 
 interface OftenListenData {
   id: string;
@@ -24,8 +26,11 @@ export default function OftenListenMusic() {
     loadOftenListenData();
   }, []);
 
+  const pageWidth = useRecoilValue(PageWidthState);
+  const responsiveNum = pageWidth >= 980 ? 3 : pageWidth < 980 && pageWidth >= 600 ? 2 : 1;
+
   return (
-    <div className="w-full mt-4 grid grid-cols-3 gap-4">
+    <div className={`w-full mt-4 mb-6 grid grid-cols-${responsiveNum} gap-4`}>
       {datas?.map((data) => {
         return (
           <Link
@@ -43,7 +48,7 @@ export default function OftenListenMusic() {
               src={data.thumbnail}
               alt="playlist_thumbnail"
             />
-            <p>{data.title}</p>
+            <p className="line-clamp-2">{data.title}</p>
           </Link>
         );
       })}

@@ -1,5 +1,5 @@
 import CommonDetailPage from '@/app/components/CommonDetailPage';
 
-export default function Playlist() {
+export default function Album() {
   return <CommonDetailPage />;
 }

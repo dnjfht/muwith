@@ -53,7 +53,7 @@ export default function Header({ currentUserData }: HeaderProps) {
   const buttonDisableNext = currentHistoryCursor === pageHistory.length;
 
   return (
-    <div className="w-full px-6 pb-4 box-border bg-[#ebebeb] flex justify-between items-center">
+    <div className="w-full px-6 pt-4 pb-4 box-border bg-[#ebebeb] flex justify-between items-center">
       <div className="w-full flex gap-x-2">
         <button
           onClick={() => {
