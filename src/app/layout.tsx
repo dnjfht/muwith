@@ -1,6 +1,5 @@
-import { Suspense } from 'react';
 import './globals.css';
-import Loading from './loading';
+
 import RecoilRootProvider from './recoil/RecoilRootProvider';
 import { CookiesProvider } from 'next-client-cookies/server';
 
@@ -14,9 +13,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
     <html>
       <body className="overflow-x-hidden">
         <RecoilRootProvider>
-          <CookiesProvider>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-          </CookiesProvider>
+          <CookiesProvider>{children}</CookiesProvider>
         </RecoilRootProvider>
       </body>
     </html>

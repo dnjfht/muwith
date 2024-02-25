@@ -25,3 +25,7 @@ export function currentPlayTimePercent(currentTime: number, totalTime: number) {
     return (currentTime / totalTime) * 100;
   }
 }
+
+export function numberWithCommas(x: number): string {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}

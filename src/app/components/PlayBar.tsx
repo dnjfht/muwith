@@ -19,29 +19,16 @@ import {
   PiArrowsInThin,
   PiPlaylistThin,
 } from 'react-icons/pi';
+import { useRecoilState } from 'recoil';
+import { OpenCurrentPlayTrackDetailState, PlayerDataState } from '../recoil/atoms/atom';
+import { CurrentPlayList } from '../types';
 
 interface PlayBarProps {
-  currentPlayList?: {
-    id: string;
-    type: string;
-    thumbnail: string;
-    title: string;
-    artist: string;
-    album: string;
-    duration: string;
-    isLikeSong: boolean;
-  }[];
-  setOpenCurrentPlayTrackDetail: React.Dispatch<React.SetStateAction<boolean>>;
-  openCurrentPlayTrackDetail: boolean;
   player: YT.Player | null;
+  currentPlayList?: CurrentPlayList[];
 }
 
-export default function PlayBar({
-  currentPlayList,
-  setOpenCurrentPlayTrackDetail,
-  openCurrentPlayTrackDetail,
-  player,
-}: PlayBarProps) {
+export default function PlayBar({ player, currentPlayList }: PlayBarProps) {
   const { thumbnail, title, artist } = currentPlayList?.[0] ?? {};
 
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -58,6 +45,8 @@ export default function PlayBar({
   const totalTime = getPlayerMethodValue(player, 'getDuration', 0.0) as number;
   const playTimePercent: number = currentPlayTimePercent(currentTime, totalTime);
   const musicPlayState = getPlayerMethodValue(player, 'getPlayerState', -1) as number;
+
+  const [openCurrentPlayTrackDetail, setOpenCurrentPlayTrackDetail] = useRecoilState(OpenCurrentPlayTrackDetailState);
 
   return (
     <div className="w-full px-4 box-border bg-[#232426] shadow-[0_-10px_10px_10px_rgba(0,0,0,0.3)] text-white flex flex-col justify-center">
@@ -115,9 +104,9 @@ export default function PlayBar({
 
               <button
                 onClick={() => {
-                  if (musicPlayState !== 1 && player) {
+                  if (player?.playVideo && musicPlayState !== 1) {
                     player.playVideo();
-                  } else if (musicPlayState === 1 && player) {
+                  } else if (player?.pauseVideo && musicPlayState === 1) {
                     player.pauseVideo();
                   }
                 }}

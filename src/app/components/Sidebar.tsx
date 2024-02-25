@@ -1,13 +1,16 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { MIN_MENU_TITLE_WIDTH } from '../layout-constants';
 import MyLibrary from './MyLibrary';
 import SidebarMenu from './SidebarMenu';
 import { AppPage } from '../types';
 import useMouseResize from '../customHook/useMouseResize';
+import { usePathname } from 'next/navigation';
 
-export default function Sidebar() {
+export default function SidebarClient() {
+  const pathname = usePathname();
+
   const [isClient, setIsClient] = useState<boolean>(false);
   const { width, setWidth, isResized } = useMouseResize('sidebarWidth');
 
@@ -27,8 +30,18 @@ export default function Sidebar() {
                 isHiddenMenuTitle ? 'items-center' : 'items-start'
               } p-5 box-border bg-[#ebebeb] rounded-lg shadow-lg flex flex-col justify-center gap-y-4 text-[1.5rem] font-bold`}
             >
-              <SidebarMenu LinkHref={AppPage.HOME} menuTitle="홈" isHiddenMenuTitle={isHiddenMenuTitle} />
-              <SidebarMenu LinkHref={AppPage.SEARCH} menuTitle="검색하기" isHiddenMenuTitle={isHiddenMenuTitle} />
+              <SidebarMenu
+                LinkHref={AppPage.HOME}
+                menuTitle="홈"
+                isHiddenMenuTitle={isHiddenMenuTitle}
+                pathname={pathname}
+              />
+              <SidebarMenu
+                LinkHref={AppPage.SEARCH}
+                menuTitle="검색하기"
+                isHiddenMenuTitle={isHiddenMenuTitle}
+                pathname={pathname}
+              />
             </div>
 
             <MyLibrary width={width} setWidth={setWidth} isHiddenMenuTitle={isHiddenMenuTitle} />

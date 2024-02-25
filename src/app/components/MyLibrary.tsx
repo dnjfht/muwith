@@ -2,8 +2,10 @@
 
 import { BsFileMusic, BsFileMusicFill } from 'react-icons/bs';
 import { CiCirclePlus } from 'react-icons/ci';
-
 import MyLibraryData from './MyLibraryData';
+import { useEffect, useState } from 'react';
+import { fetchLibrarayData } from '../api/library';
+import { LibraryData } from '../types';
 
 interface MyLibraryProps {
   width: number;
@@ -37,6 +39,16 @@ export default function MyLibrary({ width, setWidth, isHiddenMenuTitle }: MyLibr
   }
 
   const menuColumns = getMenuColumns(width);
+
+  const [datas, setDatas] = useState<LibraryData[]>([]);
+
+  const loadLibrarayData = async () => {
+    setDatas(await fetchLibrarayData());
+  };
+
+  useEffect(() => {
+    loadLibrarayData();
+  }, []);
 
   return (
     <div className="mt-2 p-[6px] box-border bg-[#ebebeb] rounded-lg shadow-lg text-[1.5rem]">
@@ -77,7 +89,9 @@ export default function MyLibrary({ width, setWidth, isHiddenMenuTitle }: MyLibr
       )}
 
       <div className={`grid ${menuColumns} gap-x-[3px] w-full py-[6px]`}>
-        <MyLibraryData width={width} />
+        {datas?.map((data) => {
+          return <MyLibraryData key={data.id} width={width} data={data} />;
+        })}
       </div>
     </div>
   );

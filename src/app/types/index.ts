@@ -37,3 +37,22 @@ export interface Playlist {
   title: string;
   description: string;
 }
+
+export interface LibraryData {
+  id: string;
+  thumbnail: string;
+  title: string;
+  description: string;
+  type: string;
+}
+
+export interface CurrentPlayList {
+  id: string;
+  type: string;
+  thumbnail: string;
+  title: string;
+  artist: string;
+  album: string;
+  duration: string;
+  isLikeSong: boolean;
+}

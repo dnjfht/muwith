@@ -1,12 +1,13 @@
 'use client';
 
 import { fetchPlaylistDetail } from '@/app/api/playlist_api';
-import { AppPage, MusicData } from '@/app/types';
+import { MusicData } from '@/app/types';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ReactTyped } from 'react-typed';
 import { fetchArtistDetail } from '../api/artist';
+import { numberWithCommas } from '../layout-constants';
 
 interface Data {
   id: string;
@@ -18,6 +19,8 @@ interface Data {
   authorProfileImg?: string;
   artist_profile?: string;
   likes?: number;
+  listener?: number;
+  follower?: number;
   isLikeTracks?: boolean;
   songs?: MusicData[];
 }
@@ -48,20 +51,19 @@ export default function CommonDetailPage() {
     }
   }, [id, type]);
 
-  const bgColor = type === 'playlist' ? 'bg-[#232426]' : type === 'album' ? 'bg-[#ff4e71]' : 'bg-[#ffa72d]';
   const textBgColor =
     type === 'playlist'
       ? 'bg-gradient-to-r from-cyan-500 to-blue-500'
       : type === 'album'
         ? 'bg-gradient-to-r from-cyan-500 to-[#6cb16b]'
-        : 'bg-gradient-to-r from-[#b3db71] to-[#a3d4b3]';
+        : 'bg-gradient-to-r from-[#ffa72d] to-[#a3d4b3]';
 
   console.log(data);
 
   return (
     <div className="py-8">
       {data && (
-        <div className={`w-full px-6 py-8 box-border ${bgColor} flex items-end gap-x-8`}>
+        <div className="w-full px-6 py-8 box-border bg-[#232426] flex items-end gap-x-8">
           <Image
             className="w-[232px] aspect-square rounded-md shadow-[15px_15px_20px_-15px_rgba(0,0,0,0.7)]"
             width={400}
@@ -91,7 +93,7 @@ export default function CommonDetailPage() {
                 {data.authorProfileImg && (
                   <>
                     <Image
-                      className="w-6 aspect-square rounded-full"
+                      className="w-6 aspect-square rounded-full shadow-[6px_6px_6px_2px_rgba(0,0,0,0.3)]"
                       width={200}
                       height={200}
                       src={data.authorProfileImg}
@@ -103,8 +105,12 @@ export default function CommonDetailPage() {
                   </>
                 )}
                 {type === 'artist' && (
-                  <div className="flex items-center gap-x-4">
-                    <button>팔로우하기</button>
+                  <div className="mt-4 flex items-center gap-x-4">
+                    <button className="px-5 py-2 box-border border-[2px] border-solid border-white rounded-3xl shadow-[6px_6px_6px_2px_rgba(0,0,0,0.3)]">
+                      팔로우하기
+                    </button>
+
+                    <p>월간 리스너 {numberWithCommas(data.listener as number)}명</p>
                   </div>
                 )}
               </div>

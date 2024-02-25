@@ -8,9 +8,9 @@ import { RecommenedPlaylistProps } from '../types';
 
 export default function RecommenedPlaylist({ title, datas }: RecommenedPlaylistProps) {
   const responsiveNum = useRecoilValue(PageResponsiveNumState);
-
+  const gridCustom = responsiveNum ? `grid-cols-${responsiveNum}` : 'grid-cols-8';
   const playlistDatas = datas.data;
-  const slicedDatas = playlistDatas.slice(0, responsiveNum);
+  const slicedDatas = playlistDatas.slice(0, responsiveNum ? responsiveNum : 8);
 
   return (
     <div className="w-full py-6">
@@ -27,7 +27,7 @@ export default function RecommenedPlaylist({ title, datas }: RecommenedPlaylistP
         </Link>
       </div>
 
-      <div className={`w-full grid grid-cols-${responsiveNum} gap-x-6`}>
+      <div className={`${gridCustom} w-full grid gap-x-6`}>
         {slicedDatas?.map((data) => {
           return <TrackGroup key={data.id} data={data} />;
         })}

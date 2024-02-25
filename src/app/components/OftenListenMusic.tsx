@@ -1,11 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { fetchOftenListenData } from '../api/home_api';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { PageWidthState } from '../recoil/atoms/atom';
+
+interface OftenListenMusicProps {
+  datas: OftenListenData[];
+}
 
 interface OftenListenData {
   id: string;
@@ -15,22 +17,13 @@ interface OftenListenData {
   type: string;
 }
 
-export default function OftenListenMusic() {
-  const [datas, setDatas] = useState<OftenListenData[]>([]);
-
-  const loadOftenListenData = async () => {
-    setDatas(await fetchOftenListenData());
-  };
-
-  useEffect(() => {
-    loadOftenListenData();
-  }, []);
-
+export default function OftenListenMusic({ datas }: OftenListenMusicProps) {
   const pageWidth = useRecoilValue(PageWidthState);
   const responsiveNum = pageWidth >= 980 ? 3 : pageWidth < 980 && pageWidth >= 600 ? 2 : 1;
+  const gridCustom = responsiveNum ? `grid-cols-${responsiveNum}` : 'grid-cols-3';
 
   return (
-    <div className={`w-full mt-4 mb-6 grid grid-cols-${responsiveNum} gap-4`}>
+    <div className={`${gridCustom} w-full mt-4 mb-6 grid gap-4`}>
       {datas?.map((data) => {
         return (
           <Link
