@@ -16,6 +16,7 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-170deg': 'linear-gradient(170deg, black, transparent)',
       },
 
       fontFamily: {
@@ -32,5 +33,6 @@ const config: Config = {
     lineClamp: true,
   },
   plugins: [require('tailwind-scrollbar-hide')],
+  mode: 'jit',
 };
 export default config;

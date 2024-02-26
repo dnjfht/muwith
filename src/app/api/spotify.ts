@@ -16,3 +16,24 @@ export const fetchSpotifyAccessToken = async () => {
     console.error('Error:', error);
   }
 };
+
+// Spotify 검색 기능
+
+export const fetchSpotifySearchData = async (spotifyAccessToken: string, searchString: string) => {
+  try {
+    const res = await fetch(
+      `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchString)}&type=album,track,playlist&limit=50`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${spotifyAccessToken}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    const result = await res.json();
+    return result;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};

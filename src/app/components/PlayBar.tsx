@@ -49,7 +49,7 @@ export default function PlayBar({ player, currentPlayList }: PlayBarProps) {
   const [openCurrentPlayTrackDetail, setOpenCurrentPlayTrackDetail] = useRecoilState(OpenCurrentPlayTrackDetailState);
 
   return (
-    <div className="w-full px-4 box-border bg-[#232426] shadow-[0_-10px_10px_10px_rgba(0,0,0,0.3)] text-white flex flex-col justify-center">
+    <div className="w-full px-4 mt-2 box-border bg-[#232426] shadow-[0_-10px_10px_10px_rgba(0,0,0,0.3)] text-white flex flex-col justify-center">
       <div className="flex items-center gap-x-8">
         <div className="flex items-center gap-x-2">
           <div className="group relative">

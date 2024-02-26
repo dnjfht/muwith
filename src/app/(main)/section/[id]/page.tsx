@@ -27,11 +27,12 @@ export default function Section() {
   const playlistDatas = datas?.data;
 
   const responsiveNum = useRecoilValue(PageResponsiveNumState);
+  const gridCustom = responsiveNum ? `grid-cols-${responsiveNum}` : 'grid-cols-8';
 
   return (
     <div className="w-full px-6 py-4 box-border">
       <h1 className="text-[1.5rem] font-semibold">{title === 'listen_again_recommened' && '다시 들어보세요'}</h1>
-      <div className={`w-full mt-2 grid grid-cols-${responsiveNum} gap-x-6`}>
+      <div className={`w-full mt-2 grid ${gridCustom} gap-x-6`}>
         {playlistDatas?.map((data) => {
           return <TrackGroup key={data.id} data={data} />;
         })}

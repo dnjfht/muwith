@@ -25,7 +25,7 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
           <div className="w-full flex">
             <Sidebar />
             <MainContentWrap>
-              <div className="w-full box-border bg-[#ebebeb] rounded-lg shadow-lg overflow-hidden">
+              <div className="w-full h-full box-border bg-[#ebebeb] rounded-lg shadow-lg overflow-hidden">
                 <Header currentUserData={currentUserData} />
                 <div id="player">
                   <iframe

@@ -70,7 +70,7 @@ export default function CurrentPlayDetail({ currentPlayList }: CurrentPlayDetail
               </button>
             </div>
 
-            <div>
+            <div className="relative">
               <div className="animate-spin relative">
                 <Image
                   className="w-[450px] aspect-square"
@@ -99,7 +99,21 @@ export default function CurrentPlayDetail({ currentPlayList }: CurrentPlayDetail
                 </div>
               </div>
 
-              <div className="w-[440px] h-[440px]"></div>
+              <div className="w-[104%] aspect-square p-4 box-border bg-gradient-170deg rounded-lg shadow-[5px_5px_8px_4px_rgba(0,0,0,0.4)] absolute top-[50%] left-[50%] ml-[-52%] text-white">
+                <div className="w-full flex items-center gap-x-4">
+                  <Image
+                    className="w-[46%] aspect-square rounded-lg shadow-[2px_2px_10px_6px_rgba(0,0,0,0.3)]"
+                    width={500}
+                    height={500}
+                    src={thumbnail}
+                    alt="track_img"
+                  />
+                  <div>
+                    <p className="text-[#a1a1a1]">{artist}</p>
+                    <h1 className="mt-2 text-[1.75rem] font-semibold">{title}</h1>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

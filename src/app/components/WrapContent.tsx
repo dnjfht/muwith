@@ -108,7 +108,7 @@ export default function WrapContent({ currentPlaylist, children }: React.PropsWi
     // 타입 검사를 통해 React 요소인지 확인합니다.
     if (React.isValidElement(child)) {
       // child에 props를 추가합니다.
-      return React.cloneElement(child, { player: player });
+      return React.cloneElement(child, { player });
     }
     return child;
   });
