@@ -23,7 +23,7 @@ export default function OftenListenMusic({ datas }: OftenListenMusicProps) {
   const gridCustom = responsiveNum ? `grid-cols-${responsiveNum}` : 'grid-cols-3';
 
   return (
-    <div className={`${gridCustom} w-full mt-4 mb-6 grid gap-4`}>
+    <div className={`${gridCustom}  mb-6 grid gap-4`}>
       {datas?.map((data) => {
         return (
           <Link

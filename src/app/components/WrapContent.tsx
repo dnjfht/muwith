@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { CurrentPlayList } from '../types';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 interface MainContentWrapProps {
   currentPlaylist: CurrentPlayList[];
@@ -19,6 +19,7 @@ declare global {
 
 export default function WrapContent({ currentPlaylist, children }: React.PropsWithChildren<MainContentWrapProps>) {
   const router = useRouter();
+  const params = useParams().searchText;
 
   const [videoId, setVideoId] = useState<string>('');
   const [player, setPlayer] = useState<YT.Player | null>(null);
@@ -112,6 +113,12 @@ export default function WrapContent({ currentPlaylist, children }: React.PropsWi
     }
     return child;
   });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !params) {
+      sessionStorage.setItem('tabState', '0');
+    }
+  }, [params]);
 
   return <div className="w-full h-full grid grid-rows-[8fr_1fr]">{childrenWithProps}</div>;
 }

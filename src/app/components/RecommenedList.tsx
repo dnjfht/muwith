@@ -6,19 +6,45 @@ import { PageResponsiveNumState } from '../recoil/atoms/atom';
 import Link from 'next/link';
 import { AppPage, ListData } from '../types';
 import { useParams, usePathname } from 'next/navigation';
+import Image from 'next/image';
+
+interface PlaylistSetType {
+  id: string;
+  name: string;
+  thumbnailUrl: string;
+}
 
 export interface RecommenedListProps {
   title?: string;
-  datas: ListData[];
+  type?: string;
+  datas?: ListData[];
+  datas2?: PlaylistSetType[];
 }
 
-export default function RecommenedList({ title, datas }: RecommenedListProps) {
+export default function RecommenedList({ title, datas, type, datas2 }: RecommenedListProps) {
   const pathname = usePathname();
+  const searchText = useParams()?.searchText;
   const searchType = useParams()?.searchType;
+  const playlistCategory = pathname.includes(AppPage.SEARCH) && !searchText && !searchType;
 
   const responsiveNum = useRecoilValue(PageResponsiveNumState);
   const gridCustom = responsiveNum ? `grid-cols-${responsiveNum}` : 'grid-cols-8';
-  const slicedDatas = !searchType ? datas.slice(0, responsiveNum ? responsiveNum : 8) : datas;
+  const slicedDatas = !searchType ? datas?.slice(0, responsiveNum ? responsiveNum : 8) : datas;
+
+  const bgColors = [
+    'bg-[#ff007c]',
+    'bg-[#5e817e]',
+    'bg-[#8862ad]',
+    'bg-[#ff0000]',
+    'bg-[#758cc6]',
+    'bg-[#ffae22]',
+    'bg-[#232426]',
+    'bg-[#ff5500]',
+    'bg-[#947260]',
+    'bg-[#5141cf]',
+    'bg-[#cb743b]',
+    'bg-[#6d1547]',
+  ];
 
   return (
     <div className="w-full py-6">
@@ -39,22 +65,44 @@ export default function RecommenedList({ title, datas }: RecommenedListProps) {
         )}
       </div>
 
-      <div className={`${gridCustom} w-full grid gap-x-6`}>
-        {slicedDatas?.map((data) => {
-          return (
-            <TrackGroup
-              key={data.id}
-              id={data.id}
-              image={data.images[0]?.url}
-              title={data.name}
-              type={data.type}
-              artists={data.artists}
-              release={data.release_date}
-              owner={data.owner}
-            />
-          );
-        })}
-      </div>
+      {!playlistCategory ? (
+        <div className={`${gridCustom} w-full grid gap-x-6`}>
+          {slicedDatas?.map((data) => {
+            return (
+              <TrackGroup
+                key={data.id}
+                id={data.id}
+                image={data.thumbnailUrl}
+                title={data.name}
+                type={type as string}
+                tracksNum={data.totalTracks}
+                release={data.releaseDate}
+                des={data.description}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div className={`${gridCustom} w-full grid gap-x-6 gap-y-6`}>
+          {datas2?.map((set: PlaylistSetType, index: number) => {
+            return (
+              <div
+                key={set.id}
+                className={`${bgColors[index % bgColors.length]} w-full p-4 box-border aspect-square rounded-lg shadow-[0_8px_6px_2px_rgba(0,0,0,0.2)] overflow-hidden`}
+              >
+                <h1 className="text-[1.5rem] font-semibold text-white">{set.name}</h1>
+                <Image
+                  className="w-40 h-40 object-cover rounded-sm rotate-45 translate-x-20 translate-y-6 shadow-[-2px_8px_6px_2px_rgba(0,0,0,0.2)]"
+                  width={1000}
+                  height={1000}
+                  src={set.thumbnailUrl}
+                  alt="PlaylistSetImage"
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

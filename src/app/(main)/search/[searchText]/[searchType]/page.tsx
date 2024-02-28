@@ -1,4 +1,4 @@
-import { fetchSpotifyAccessToken, fetchSpotifySearchData } from '@/app/api/spotify';
+import { fetchSpotifySearchData } from '@/app/api/spotify';
 import RecommenedList from '@/app/components/RecommenedList';
 import TableListTop from '@/app/components/TableListTops';
 import TrackGroup2 from '@/app/components/TrackGroup2';
@@ -8,8 +8,7 @@ export default async function SearchType({ params }: { params: { searchText: str
   const searchResultParam = decodeURIComponent(params.searchText);
   const searchType = params.searchType;
 
-  const spotifyAccessToken = await fetchSpotifyAccessToken();
-  const searchResult = await fetchSpotifySearchData(spotifyAccessToken, searchResultParam);
+  const searchResult = await fetchSpotifySearchData(searchResultParam);
   const datas =
     searchType === 'albums'
       ? searchResult.albums
@@ -19,16 +18,25 @@ export default async function SearchType({ params }: { params: { searchText: str
           ? searchResult.tracks
           : searchResult.artists;
 
+  const type =
+    searchType === 'albums'
+      ? 'album'
+      : searchType === 'playlists'
+        ? 'playlist'
+        : searchType === 'tracks'
+          ? 'track'
+          : 'artist';
+
   return (
     <>
       {searchType === 'tracks' ? (
-        <div className="w-full mt-8 pl-6 pr-3 box-border">
+        <div className="w-full mt-20 pl-6 pr-3 box-border">
           <TableListTop />
           {datas.items?.map((data: TrackType, index: number) => <TrackGroup2 key={data.id} idx={index} data={data} />)}
         </div>
       ) : (
-        <div className="w-full py-4 pl-6 pr-3 box-border bg-yellow-300">
-          <RecommenedList datas={datas.items} />
+        <div className="w-full py-4 pl-6 pr-3 box-border">
+          <RecommenedList datas={datas.items} type={type} />
         </div>
       )}
     </>

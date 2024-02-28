@@ -13,6 +13,19 @@ import { PageWidthState } from '../recoil/atoms/atom';
 export default function TabContainer() {
   const router = useRouter();
   const params = useParams().searchText;
+  const searchType = useParams().searchType;
+  const tabState =
+    params && !searchType
+      ? 0
+      : params && searchType === 'albums'
+        ? 1
+        : params && searchType === 'playlists'
+          ? 2
+          : params && searchType === 'tracks'
+            ? 3
+            : params && searchType === 'artists'
+              ? 4
+              : 0;
 
   const pageWidth = useRecoilValue(PageWidthState);
 
@@ -54,6 +67,13 @@ export default function TabContainer() {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && params) {
+      sessionStorage.setItem('tabState', String(tabState));
+      setValue(tabState);
+    }
+  }, [params, tabState]);
 
   return (
     <>

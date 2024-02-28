@@ -10,13 +10,14 @@ import { useParams } from 'next/navigation';
 
 interface TrackType {
   data: {
+    id: string;
     name: string;
     artists: ArtistType[];
     album: {
       name: string;
-      images: ListImageType[];
+      thumbnailUrl: string;
     };
-    duration_ms: number;
+    duration: number;
   };
   idx?: number;
 }
@@ -37,7 +38,7 @@ export default function TrackGroup2({ data, idx }: TrackType) {
       <div className={`${searchParams === 'tracks' ? 'w-[50%]' : 'w-full'} flex items-center gap-x-4`}>
         <Image
           className="w-10 h-10 object-cover rounded-xl"
-          src={data.album.images[0].url}
+          src={data.album.thumbnailUrl}
           width={1000}
           height={1000}
           alt="trackImg"
@@ -60,7 +61,7 @@ export default function TrackGroup2({ data, idx }: TrackType) {
           <PiHeart />
         </button>
 
-        <p className="text-[#a1a1a1] text-[0.875rem]">{timeString(data.duration_ms)}</p>
+        <p className="text-[#a1a1a1] text-[0.875rem]">{timeString(data.duration)}</p>
 
         <button className="opacity-0 group-hover:opacity-100 group-focus:opacity-100 text-white">
           <RiMoreLine />
