@@ -29,3 +29,12 @@ export function currentPlayTimePercent(currentTime: number, totalTime: number) {
 export function numberWithCommas(x: number): string {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
+
+export const timeString = (durationTime: number) => {
+  const totalSeconds = Math.floor(durationTime / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const formattedDuration = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+  return formattedDuration;
+};

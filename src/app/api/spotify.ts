@@ -22,13 +22,14 @@ export const fetchSpotifyAccessToken = async () => {
 export const fetchSpotifySearchData = async (spotifyAccessToken: string, searchString: string) => {
   try {
     const res = await fetch(
-      `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchString)}&type=album,track,playlist&limit=50`,
+      `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchString)}&type=artist,album,track,playlist&limit=50`,
       {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${spotifyAccessToken}`,
           'Content-Type': 'application/json',
         },
+        cache: 'no-store',
       },
     );
     const result = await res.json();

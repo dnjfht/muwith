@@ -4,14 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { SidebarWidthState } from '../recoil/atoms/atom';
 import { useSetRecoilState } from 'recoil';
 
-// interface useMouseResizeProps {
-//   title: string;
-//   MIN_WIDTH: number;
-//   DEFAULT_WIDTH: number;
-//   MAX_WIDTH: number;
-//   isResized: React.MutableRefObject<boolean>;
-// }
-
 export default function useMouseResize(title: string) {
   const setSidebarWidth = useSetRecoilState(SidebarWidthState);
 

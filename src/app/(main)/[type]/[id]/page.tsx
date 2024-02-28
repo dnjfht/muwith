@@ -1,5 +1,5 @@
 import CommonDetailPage from '@/app/components/CommonDetailPage';
 
-export default function Artist() {
-  return <CommonDetailPage />;
+export default function DetailPage() {
+  return <div></div>;
 }

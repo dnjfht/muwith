@@ -11,6 +11,7 @@ const config: Config = {
       spacing: {
         calc_1: 'calc(100% - 740px)',
         calc_2: 'calc(100% - 80px)',
+        calc_3: 'calc(100% - 200px)',
       },
 
       backgroundImage: {

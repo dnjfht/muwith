@@ -6,21 +6,20 @@ import { cookies } from 'next/headers';
 import { fetchUserData } from '../api/user';
 import Header from '../components/Header';
 import MainContentWrap from '../components/MainContentWrap';
-import { fetchSpotifyAccessToken } from '../api/spotify';
 import PlayBar from '../components/PlayBar';
 import WrapContent from '../components/WrapContent';
 
 export default async function MainRootLayout({ children }: React.PropsWithChildren) {
+  const accessToken = cookies().get('accessToken')?.value;
+  const currentUserData = accessToken && (await fetchUserData(accessToken));
+  console.log('currentUserData', currentUserData, 'accessToken', accessToken);
+
   const currentPlaylist = await fetchCurrentPlaylist();
   const { current_play_list } = currentPlaylist ?? { current_play_list: [] };
 
-  const accessToken = cookies().get('accessToken')?.value;
-  const currentUserData = await fetchUserData(accessToken as string);
-  const spotifyAccessToken = await fetchSpotifyAccessToken();
-
   return (
-    <div className="w-full h-screen bg-[#ebebeb] text-[#282828] font-inter font-[400] leading-normal overflow-hidden">
-      <div className="w-full h-full grid grid-rows-[10fr_1fr] gap-y-2 p-2 bg-[rgb(35,36,38)]">
+    <div className="w-full h-screen text-[#282828] font-inter font-[400] leading-normal overflow-hidden">
+      <div className="w-full h-full gap-y-2 p-2 bg-[rgb(35,36,38)]">
         <WrapContent currentPlaylist={current_play_list}>
           <div className="w-full flex">
             <Sidebar />
@@ -35,7 +34,7 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
                     src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
                   ></iframe>{' '}
                 </div>
-                {children}
+                <div className="w-full h-[620px] overflow-y-scroll">{children}</div>
               </div>
             </MainContentWrap>
             <CurrentPlayDetail currentPlayList={currentPlaylist} />

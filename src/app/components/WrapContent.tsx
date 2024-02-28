@@ -113,5 +113,5 @@ export default function WrapContent({ currentPlaylist, children }: React.PropsWi
     return child;
   });
 
-  return <div>{childrenWithProps}</div>;
+  return <div className="w-full h-full grid grid-rows-[8fr_1fr]">{childrenWithProps}</div>;
 }
