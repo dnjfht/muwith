@@ -34,3 +34,19 @@ export const fetchSpotifyPlalylistSetsData = async () => {
     console.error('Error:', error);
   }
 };
+
+export const fetchSpotifyAlbumDetailData = async (type: string, id: string) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL2 + `/${type}/` + id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
+    const result = await res.json();
+    return result;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};

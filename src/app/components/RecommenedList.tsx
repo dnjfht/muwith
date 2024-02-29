@@ -46,6 +46,21 @@ export default function RecommenedList({ title, datas, type, datas2 }: Recommene
     'bg-[#6d1547]',
   ];
 
+  const hoverBgColors = [
+    'hover:bg-[#b70c5f]',
+    'hover:bg-[#324543]',
+    'hover:bg-[#4e306c]',
+    'hover:bg-[#b30e0e]',
+    'hover:bg-[#435789]',
+    'hover:bg-[#d08608]',
+    'hover:bg-[#0a0a0a]',
+    'hover:bg-[#cb4b0c]',
+    'hover:bg-[#5f493c]',
+    'hover:bg-[#372d7e]',
+    'hover:bg-[#7e4f2f]',
+    'hover:bg-[#3d0927]',
+  ];
+
   return (
     <div className="w-full py-6">
       <div className="w-full flex items-end justify-between">
@@ -88,7 +103,7 @@ export default function RecommenedList({ title, datas, type, datas2 }: Recommene
             return (
               <div
                 key={set.id}
-                className={`${bgColors[index % bgColors.length]} w-full p-4 box-border aspect-square rounded-lg shadow-[0_8px_6px_2px_rgba(0,0,0,0.2)] overflow-hidden`}
+                className={`${bgColors[index % bgColors.length]} w-full p-4 box-border aspect-square rounded-lg shadow-[0_8px_6px_2px_rgba(0,0,0,0.2)] overflow-hidden ${hoverBgColors[index % hoverBgColors.length]} transition-all duration-700`}
               >
                 <h1 className="text-[1.5rem] font-semibold text-white">{set.name}</h1>
                 <Image

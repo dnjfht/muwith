@@ -3,7 +3,6 @@ import RecommenedList from '@/app/components/RecommenedList';
 
 export default async function Search() {
   const playlistSets = await fetchSpotifyPlalylistSetsData();
-  console.log('playlistSets', playlistSets);
 
   return (
     <div className="w-full p-6 box-border">

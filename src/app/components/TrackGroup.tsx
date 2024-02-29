@@ -17,7 +17,14 @@ export default function TrackGroup({ id, image, title, type, tracksNum, release,
   const router = useRouter();
 
   const releaseDate = release?.slice(0, 4);
-  const desc = type === 'artist' ? '아티스트' : type === 'album' ? `${tracksNum}곡` + ' · ' + releaseDate : des;
+  const desc =
+    type === 'artist'
+      ? '아티스트'
+      : type === 'album'
+        ? `${tracksNum}곡` + ' · ' + releaseDate
+        : type === 'playlist' && des
+          ? des
+          : '플레이리스트';
 
   return (
     <div

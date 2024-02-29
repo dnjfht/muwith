@@ -31,9 +31,6 @@ export default function Header({ currentUserData }: HeaderProps) {
   const searchPageBoolean = pathname.includes(AppPage.SEARCH);
   const params = useParams();
   const searchTxt = params.searchText && decodeURIComponent(params?.searchText as string);
-  const searchType = useParams()?.searchType;
-
-  console.log(searchTxt);
 
   useEffect(() => {
     if (navigationTrigger) {

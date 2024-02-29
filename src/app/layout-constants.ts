@@ -32,9 +32,22 @@ export function numberWithCommas(x: number): string {
 
 export const timeString = (durationTime: number) => {
   const totalSeconds = Math.floor(durationTime / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
-  const formattedDuration = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+  const formattedDuration = `${hours > 0 ? `${hours}:` : ''}${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+  return formattedDuration;
+};
+
+export const timeString2 = (durationTime: number) => {
+  const totalSeconds = Math.floor(durationTime / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const formattedDuration = `${hours > 0 ? `${hours}시간 ` : ''}${minutes}분 ${seconds < 10 ? '0' : ''}${seconds}초`;
 
   return formattedDuration;
 };
