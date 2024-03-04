@@ -7,6 +7,7 @@ export enum AppPage {
   PLAYLIST = '/playlist',
   ALBUM = '/album',
   ARTIST = '/artist',
+  TRACK = '/track',
 }
 
 export interface MusicData {
@@ -46,27 +47,16 @@ export interface CurrentPlayList {
 
 export interface ListData {
   id: string;
-  type: string;
-  artists: ArtistType[];
-  images: ListImageType[];
   name: string;
-  release_date?: string;
-  owner?: OwnerData;
+  thumbnailUrl: string;
+  totalTracks?: number;
+  releaseDate?: string;
+  description?: string;
 }
 
 export interface ArtistType {
-  external_urls: {
-    spotify: string;
-  };
-  followers?: { href: string; total: number };
-  genres?: string[];
-  href: string;
   id: string;
-  images?: ListImageType[];
   name: string;
-  popularity?: number;
-  type: string;
-  uri: string;
 }
 
 export interface OwnerData {
@@ -79,7 +69,8 @@ export interface TrackType {
   artists: ArtistType[];
   album: {
     name: string;
-    images: ListImageType[];
+    thumbnailUrl: string;
   };
-  duration_ms: number;
+  duration: number;
+  youtubeUrl: string;
 }

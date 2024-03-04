@@ -4,9 +4,11 @@ import Image from 'next/image';
 
 import { PiHeart } from 'react-icons/pi';
 import { RiMoreLine } from 'react-icons/ri';
-import { timeString } from '../layout-constants';
+import { formatDate, timeString } from '../layout-constants';
 import { AppPage, ArtistType } from '../types';
 import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useRecoilState } from 'recoil';
+import { CurrentPlayListDataState, CurrentTrackIndexState } from '../recoil/atoms/atom';
 
 interface TrackType {
   data: {
@@ -18,14 +20,21 @@ interface TrackType {
       thumbnailUrl: string;
     };
     duration: number;
-    collectedAt?: string;
+    addedAt?: string;
   };
   idx?: number;
   type?: string;
-  artistsName?: string;
+  datas?: DataType[];
 }
 
-export default function TrackGroup2({ data, idx, type, artistsName }: TrackType) {
+interface DataType {
+  id: string;
+}
+
+export default function TrackGroup2({ data, idx, type, datas }: TrackType) {
+  const [currentPlaylist, setCurrentPlaylist] = useRecoilState(CurrentPlayListDataState);
+  const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
+
   const router = useRouter();
   const pathName = usePathname();
   const searchParams = useParams()?.searchType;
@@ -33,17 +42,26 @@ export default function TrackGroup2({ data, idx, type, artistsName }: TrackType)
   const artistArr = data.artists?.map((artist) => artist.name);
   const artistList = artistArr?.join(', ');
   const albumTitle = data?.album?.name;
+  const trackIdArr = datas?.map((data) => data.id);
 
   const playlistDetailType = !pathName.includes(AppPage.SEARCH) && type === 'playlist';
   const albumDetailType = !pathName.includes(AppPage.SEARCH) && type === 'album';
+  const artistDetailType = !pathName.includes(AppPage.SEARCH) && type === 'artist';
 
   return (
     <div
       tabIndex={0}
-      className={`${(playlistDetailType || albumDetailType) && 'text-white py-4'} w-full px-3 py-2 box-border rounded-lg flex justify-between group hover:bg-[#1d1e22] hover:text-white transition-all duration-700 font-normal focus:bg-[#1d1e22] focus:text-white`}
+      className={`${(playlistDetailType || albumDetailType || artistDetailType) && 'text-white py-4'} w-full px-3 py-2 box-border rounded-lg flex justify-between group hover:bg-[#1d1e22] hover:text-white transition-all duration-700 font-normal focus:bg-[#1d1e22] focus:text-white`}
     >
       <div
-        className={`${searchParams === 'tracks' || albumDetailType || playlistDetailType ? 'block w-[4%]' : 'hidden'} flex items-center`}
+        className={`${searchParams === 'tracks' || albumDetailType || playlistDetailType || artistDetailType ? 'block w-[4%]' : 'hidden'} flex items-center`}
+        onClick={() => {
+          if (idx || idx === 0) {
+            setCurrentPlaylist(trackIdArr as string[]);
+            setCurrentTrackIndex(idx);
+            console.log(`hello, I'm ${idx} index!`);
+          }
+        }}
       >
         {idx}
       </div>
@@ -55,7 +73,7 @@ export default function TrackGroup2({ data, idx, type, artistsName }: TrackType)
       >
         <Image
           className={`${albumDetailType && 'hidden'} w-10 h-10 object-cover rounded-xl`}
-          src={data?.album?.thumbnailUrl as string}
+          src={data?.album?.thumbnailUrl ? data?.album?.thumbnailUrl : ('/image/default_profile_img.png' as string)}
           width={1000}
           height={1000}
           alt="trackImg"
@@ -64,7 +82,7 @@ export default function TrackGroup2({ data, idx, type, artistsName }: TrackType)
         <div className="flex flex-col">
           <p>{data.name}</p>
           <p className="mt-[-4px] text-[#a1a1a1] text-[0.875rem] group-hover:text-white group-focus:text-white">
-            {artistList ? artistList : artistsName}
+            {artistList}
           </p>
         </div>
       </div>
@@ -76,7 +94,7 @@ export default function TrackGroup2({ data, idx, type, artistsName }: TrackType)
       </div>
 
       <div className={`${playlistDetailType ? 'block' : 'hidden'} w-[30%] flex items-center`}>
-        <p>{data?.collectedAt}</p>
+        <p>{formatDate(data?.addedAt as string)}</p>
       </div>
 
       <div className={`${searchParams === 'tracks' && 'w-[6%]'} flex items-center gap-x-4`}>

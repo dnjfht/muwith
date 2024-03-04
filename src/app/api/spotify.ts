@@ -50,3 +50,38 @@ export const fetchSpotifyAlbumDetailData = async (type: string, id: string) => {
     console.error('Error:', error);
   }
 };
+
+export const fetchSpotifyArtistTopTracksData = async (id: string, num?: number) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL2 + `/artist/` + id + '/top-tracks'}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
+    const result = await res.json();
+    return result;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+export const fetchSpotifyRecommendedTracksData = async (id: string, num?: number) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL2}/track/recommendations-by-tracks?trackIds=${id}&limit=${num ? num : 10}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store',
+      },
+    );
+    const result = await res.json();
+    return result;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};

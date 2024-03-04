@@ -26,7 +26,7 @@ export default async function SearchResult({ params }: { params: { searchText: s
           )}
 
           {slicesTracks.length > 0 && (
-            <div className="w-calc_3">
+            <div className={`${artist ? 'w-calc_3' : 'w-full'}`}>
               <h1 className="mb-2 text-[1.5rem] font-semibold">곡</h1>
 
               <div>{slicesTracks?.map((track: TrackType) => <TrackGroup2 key={track.id} data={track} />)}</div>

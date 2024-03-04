@@ -40,7 +40,7 @@ export default function MainContentWrap({ children }: React.PropsWithChildren) {
   const setPageResponsiveNum = useSetRecoilState(PageResponsiveNumState);
 
   const responsiveNum =
-    pageWidth < 1830 && pageWidth >= 1630
+    pageWidth >= 1630
       ? 8
       : pageWidth < 1630 && pageWidth >= 1430
         ? 7

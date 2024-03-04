@@ -1,12 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { CurrentPlayList } from '../types';
 import { useParams, useRouter } from 'next/navigation';
-
-interface MainContentWrapProps {
-  currentPlaylist: CurrentPlayList[];
-}
+import { CurrentPlayListDataState, CurrentTrackDataState, CurrentTrackIndexState } from '../recoil/atoms/atom';
+import { useRecoilState } from 'recoil';
+import { fetchSpotifyAlbumDetailData, fetchSpotifyRecommendedTracksData } from '../api/spotify';
 
 // window 객체에 직접 onYouTubeIframeAPIReady 메소드를 추가하는 부분은 TypeScript에서 에러를 발생시킬 수 있습니다.
 // TypeScript는 기본적으로 window 객체에 이와 같은 메소드가 없다고 가정하기 때문입니다.
@@ -17,46 +15,19 @@ declare global {
   }
 }
 
-export default function WrapContent({ currentPlaylist, children }: React.PropsWithChildren<MainContentWrapProps>) {
+export default function WrapContent({ children }: React.PropsWithChildren) {
   const router = useRouter();
   const params = useParams().searchText;
 
-  const [videoId, setVideoId] = useState<string>('');
+  const [currentPlaylist, setCurrentPlaylist] = useRecoilState(CurrentPlayListDataState);
+  const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
+  const [currentTrackData, setCurrentTrackData] = useRecoilState(CurrentTrackDataState);
   const [player, setPlayer] = useState<YT.Player | null>(null);
+  const [recommendedTracks, setRecommenedTracks] = useState([]);
 
-  useEffect(() => {
-    if (!currentPlaylist[0]) {
-      console.log('Current playlist is not defined');
-      return;
-    }
-
-    (async () => {
-      try {
-        const response = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?q=${encodeURIComponent(
-            `${currentPlaylist[0]?.artist} ${currentPlaylist[0]?.title} Lyrics`,
-          )}&part=snippet&maxResults=1&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        );
-
-        const data = await response.json();
-
-        if (data.items && data.items.length > 0) {
-          const videoId = data.items[0].id.videoId;
-          setVideoId(videoId);
-        } else {
-          console.log('No results found');
-        }
-      } catch (error) {
-        console.error('Failed to fetch video ID:', error);
-      }
-    })();
-  }, [currentPlaylist[0]?.title, currentPlaylist[0]?.artist]);
+  const selectVideoID = currentTrackData?.youtubeUrl?.split('v=')[1];
+  const videoId =
+    selectVideoID?.indexOf('&') !== -1 ? selectVideoID?.substring(0, selectVideoID?.indexOf('&')) : selectVideoID;
 
   useEffect(() => {
     if (!videoId) return;
@@ -105,6 +76,72 @@ export default function WrapContent({ currentPlaylist, children }: React.PropsWi
     };
   }, [router, videoId]);
 
+  useEffect(() => {
+    if (videoId && player && player.loadVideoById) {
+      player.loadVideoById(videoId);
+    }
+  }, [videoId, player]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !params) {
+      sessionStorage.setItem('tabState', '0');
+    }
+  }, [params]);
+
+  useEffect(() => {
+    if (typeof Window === 'undefined') return;
+
+    const localStorageCurrentPlaylist = localStorage.getItem('currentPlaylist');
+    if (localStorageCurrentPlaylist) {
+      setCurrentPlaylist(JSON.parse(localStorageCurrentPlaylist));
+    }
+  }, [setCurrentPlaylist]);
+
+  useEffect(() => {
+    if (typeof Window === 'undefined') return;
+
+    const localStorageCurrentTrackIndex = localStorage.getItem('currentTrackIndex');
+    if (localStorageCurrentTrackIndex) {
+      setCurrentTrackIndex(JSON.parse(localStorageCurrentTrackIndex));
+    }
+  }, [setCurrentTrackIndex]);
+
+  useEffect(() => {
+    if (typeof Window === 'undefined' || currentPlaylist.length === 0) return;
+    localStorage.setItem('currentPlaylist', JSON.stringify(currentPlaylist));
+  }, [currentPlaylist]);
+
+  useEffect(() => {
+    if (typeof Window === 'undefined' || currentTrackIndex === -1) return;
+    localStorage.setItem('currentTrackIndex', JSON.stringify(currentTrackIndex));
+  }, [currentTrackIndex]);
+
+  useEffect(() => {
+    if (currentTrackIndex !== -1 && currentPlaylist.length > 0) {
+      const fetchRecommenedTrackList = async () => {
+        setRecommenedTracks(await fetchSpotifyRecommendedTracksData(currentPlaylist[currentTrackIndex], 20));
+      };
+      fetchRecommenedTrackList();
+    }
+  }, [currentTrackIndex, currentPlaylist, setRecommenedTracks]);
+
+  const recommenedTracksIdArr = recommendedTracks && recommendedTracks?.map((track: { id: string }) => track.id);
+
+  useEffect(() => {
+    if (recommenedTracksIdArr?.length > 0 && currentPlaylist.length - 1 === currentTrackIndex) {
+      setCurrentPlaylist((prev) => [...prev, ...recommenedTracksIdArr]);
+    }
+  }, [recommenedTracksIdArr, currentPlaylist, currentTrackIndex]);
+
+  useEffect(() => {
+    const fetchCurrentListenTrackData = async () => {
+      const trackId = currentPlaylist[currentTrackIndex];
+      if (trackId == null) return;
+      setCurrentTrackData(await fetchSpotifyAlbumDetailData('track', trackId));
+    };
+    fetchCurrentListenTrackData();
+  }, [currentTrackIndex, currentPlaylist, setCurrentTrackData]);
+
   const childrenWithProps = React.Children.map(children, (child) => {
     // 타입 검사를 통해 React 요소인지 확인합니다.
     if (React.isValidElement(child)) {
@@ -113,12 +150,6 @@ export default function WrapContent({ currentPlaylist, children }: React.PropsWi
     }
     return child;
   });
-
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !params) {
-      sessionStorage.setItem('tabState', '0');
-    }
-  }, [params]);
 
   return <div className="w-full h-full grid grid-rows-[8fr_1fr]">{childrenWithProps}</div>;
 }

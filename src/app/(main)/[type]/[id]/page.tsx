@@ -24,30 +24,29 @@ export default async function DetailPage({ params }: { params: { id: string; typ
     type === 'playlist' || type === 'album' || type === 'artist' ? data?.thumbnailUrl : data?.album?.thumbnailUrl;
 
   const profileImg =
-    type === 'playlist' && !data?.author?.thumbnailUrl
-      ? '/image/default_profile_img.png'
-      : type === 'playlist' && data?.author?.thumbnailUrl
-        ? data?.author?.thumbnailUrl
-        : (type === 'album' || type === 'track') && data?.artists?.length > 1
-          ? '/image/default_profile_img.png'
-          : (type === 'album' || type === 'track') && data?.artists?.length <= 1 && data?.artists[0]?.thumbnailUrl
-            ? data?.artists[0]?.thumbnailUrl
-            : '/image/default_profile_img.png';
+    type === 'playlist' && data?.owner?.profileImage
+      ? data?.owner?.profileImage
+      : (type === 'album' || type === 'track') && data?.artists?.length > 1
+        ? '/image/default_profile_img.png'
+        : (type === 'album' || type === 'track') && data?.artists?.length <= 1 && data?.artists[0]?.thumbnailUrl
+          ? data?.artists[0]?.thumbnailUrl
+          : '/image/default_profile_img.png';
 
   const artistsArr =
     (type === 'album' || type === 'track') && data?.artists?.map((artist: { name: string }) => artist.name);
   const artistsName = artistsArr && artistsArr.join(', ');
+  const artistId = type === 'album' && data?.artists[0]?.id;
 
   const profileName =
-    type === 'playlist' && !data?.author?.name
-      ? '내가 만들었다.'
-      : type === 'playlist' && data?.author?.name
-        ? data?.author?.name
-        : (type === 'album' || type === 'track') && artistsName
-          ? artistsName
-          : '아티스트';
+    type === 'playlist' && data?.owner?.name
+      ? data?.owner?.name
+      : (type === 'album' || type === 'track') && artistsName
+        ? artistsName
+        : '아티스트';
+
   const totalTimeArr =
     (type === 'album' || type === 'playlist') && data.tracks?.map((track: { duration: number }) => track.duration);
+
   const totalTime =
     totalTimeArr && totalTimeArr.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
 
@@ -69,9 +68,7 @@ export default async function DetailPage({ params }: { params: { id: string; typ
 
               <TypeEffect type={type} data={data} />
 
-              <p className={`${data.type === 'playlist' ? 'block' : 'hidden'} mt-3 text-[#a1a1a1]`}>
-                {data.description}
-              </p>
+              <p className={`${type === 'playlist' ? 'block' : 'hidden'} mt-3 text-[#a1a1a1]`}>{data?.description}</p>
 
               <div className="w-full mt-3">
                 <div className="flex items-center gap-x-2">
@@ -87,7 +84,7 @@ export default async function DetailPage({ params }: { params: { id: string; typ
                       <p>{profileName}</p>
                       <p>·</p>
                       <p className={`${type === 'playlist' || type === 'track' ? 'block' : 'hidden'}`}>
-                        {type === 'playlist' ? '좋아요 ' + data?.likeNum + '개' : data?.album?.name}
+                        {type === 'playlist' ? '좋아요 ' + numberWithCommas(data?.followers) + '개' : data?.album?.name}
                       </p>
                       <p className={`${type === 'album' && 'hidden'}`}>·</p>
                       <p className={`${type === 'album' || type === 'track' ? 'block' : 'hidden'}`}>
@@ -122,7 +119,7 @@ export default async function DetailPage({ params }: { params: { id: string; typ
             </div>
           </div>
 
-          <DetailContent type={type} data={data} artistsName={artistsName} />
+          <DetailContent type={type} data={data} artistId={artistId} />
         </>
       ) : (
         <p>No Data...</p>

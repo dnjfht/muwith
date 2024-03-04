@@ -51,3 +51,16 @@ export const timeString2 = (durationTime: number) => {
 
   return formattedDuration;
 };
+
+export function formatDate(dateString: string) {
+  let date = new Date(dateString);
+
+  let year = date.getFullYear();
+  let month: number | string = date.getMonth() + 1;
+  let day: number | string = date.getDate();
+
+  month = month < 10 ? '0' + month : month;
+  day = day < 10 ? '0' + day : day;
+
+  return `${year}년 ${month}월 ${day}일`;
+}

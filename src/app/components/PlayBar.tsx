@@ -7,6 +7,13 @@ import { useEffect, useState } from 'react';
 import { PlayTimeProgressBar } from './PlayTimeProgressBar';
 import { getPlayerMethodValue } from '../api/youtube_music_api';
 import VolumeControl from './VolumeControl';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  CurrentTrackDataState,
+  CurrentTrackIndexState,
+  OpenCurrentPlayTrackDetailState,
+  PlayerDataState,
+} from '../recoil/atoms/atom';
 
 import { GoChevronUp, GoChevronDown } from 'react-icons/go';
 import { BsFillPlayFill, BsFillPauseFill, BsFillSkipStartFill, BsFillSkipEndFill } from 'react-icons/bs';
@@ -19,17 +26,19 @@ import {
   PiArrowsInThin,
   PiPlaylistThin,
 } from 'react-icons/pi';
-import { useRecoilState } from 'recoil';
-import { OpenCurrentPlayTrackDetailState, PlayerDataState } from '../recoil/atoms/atom';
-import { CurrentPlayList } from '../types';
 
 interface PlayBarProps {
   player: YT.Player | null;
-  currentPlayList?: CurrentPlayList[];
 }
 
-export default function PlayBar({ player, currentPlayList }: PlayBarProps) {
-  const { thumbnail, title, artist } = currentPlayList?.[0] ?? {};
+export default function PlayBar({ player }: PlayBarProps) {
+  const currentTrackData = useRecoilValue(CurrentTrackDataState);
+
+  const thumbnailUrl = currentTrackData?.album?.thumbnailUrl;
+  const name = currentTrackData?.name;
+  const artists = currentTrackData?.artists;
+  const artistsArr = artists?.map((artist) => artist.name);
+  const artistsName = artistsArr?.join(', ');
 
   const [currentTime, setCurrentTime] = useState<number>(0);
 
@@ -47,18 +56,19 @@ export default function PlayBar({ player, currentPlayList }: PlayBarProps) {
   const musicPlayState = getPlayerMethodValue(player, 'getPlayerState', -1) as number;
 
   const [openCurrentPlayTrackDetail, setOpenCurrentPlayTrackDetail] = useRecoilState(OpenCurrentPlayTrackDetailState);
+  const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
 
   return (
     <div className="w-full px-4 mt-2 box-border bg-[#232426] shadow-[0_-10px_10px_10px_rgba(0,0,0,0.3)] text-white flex flex-col justify-center">
       <div className="flex items-center gap-x-8">
         <div className="flex items-center gap-x-2">
           <div className="group relative">
-            {thumbnail && (
+            {thumbnailUrl && (
               <Image
                 width={1000}
                 height={1000}
                 className="w-[56px] h-[56px] aspect-square rounded-2xl shadow-[4px_4px_8px_4px_rgba(0,0,0,0.3)]"
-                src={thumbnail ?? ''}
+                src={thumbnailUrl ?? ''}
                 alt="track_thumbnail"
               />
             )}
@@ -74,8 +84,8 @@ export default function PlayBar({ player, currentPlayList }: PlayBarProps) {
           </div>
 
           <div>
-            <p>{title}</p>
-            <p className="text-[0.875rem] text-[#a1a1a1]">{artist}</p>
+            <p>{name}</p>
+            <p className="text-[0.875rem] text-[#a1a1a1]">{artistsName}</p>
           </div>
         </div>
 
@@ -98,7 +108,14 @@ export default function PlayBar({ player, currentPlayList }: PlayBarProps) {
             </div>
 
             <div className="flex items-center gap-x-8">
-              <button className="p-[6px] border-[1px] border-solid border-white rounded-full text-[1rem]">
+              <button
+                onClick={() => {
+                  if (currentTrackIndex > 0) {
+                    setCurrentTrackIndex((prev) => prev - 1);
+                  }
+                }}
+                className="p-[6px] border-[1px] border-solid border-white rounded-full text-[1rem]"
+              >
                 <BsFillSkipStartFill />
               </button>
 
@@ -115,7 +132,12 @@ export default function PlayBar({ player, currentPlayList }: PlayBarProps) {
                 {musicPlayState !== 1 ? <BsFillPlayFill /> : <BsFillPauseFill />}
               </button>
 
-              <button className="p-[6px] border-[1px] border-solid border-white rounded-full text-[1rem]">
+              <button
+                onClick={() => {
+                  setCurrentTrackIndex((prev) => prev + 1);
+                }}
+                className="p-[6px] border-[1px] border-solid border-white rounded-full text-[1rem]"
+              >
                 <BsFillSkipEndFill />
               </button>
             </div>

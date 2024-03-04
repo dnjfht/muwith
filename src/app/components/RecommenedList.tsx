@@ -27,6 +27,14 @@ export default function RecommenedList({ title, datas, type, datas2 }: Recommene
   const searchType = useParams()?.searchType;
   const playlistCategory = pathname.includes(AppPage.SEARCH) && !searchText && !searchType;
 
+  const detailType =
+    pathname.includes(AppPage.ALBUM) ||
+    pathname.includes(AppPage.TRACK) ||
+    pathname.includes(AppPage.TRACK) ||
+    pathname.includes(AppPage.PLAYLIST);
+
+  const trackDataOnlyOne = pathname.includes(AppPage.TRACK) && datas && datas.length === 1;
+
   const responsiveNum = useRecoilValue(PageResponsiveNumState);
   const gridCustom = responsiveNum ? `grid-cols-${responsiveNum}` : 'grid-cols-8';
   const slicedDatas = !searchType ? datas?.slice(0, responsiveNum ? responsiveNum : 8) : datas;
@@ -62,18 +70,18 @@ export default function RecommenedList({ title, datas, type, datas2 }: Recommene
   ];
 
   return (
-    <div className="w-full py-6">
-      <div className="w-full flex items-end justify-between">
-        {title && <h1 className="mb-2 text-[1.5rem] font-semibold">{title}</h1>}
+    <div className={`${trackDataOnlyOne ? 'w-auto' : 'w-full'} py-6`}>
+      <div className="w-full flex items-center justify-between">
+        {title && <h1 className={`${detailType && 'text-white'} mb-2 text-[1.5rem] font-semibold`}>{title}</h1>}
 
-        {!pathname.includes(AppPage.SEARCH) && (
+        {(pathname === AppPage.HOME || (pathname.includes(AppPage.TRACK) && datas && datas.length > responsiveNum)) && (
           <Link
             href={
               {
                 // pathname: `/section/${datas.id}`,
               }
             }
-            className="text-[0.875rem] font-semibold text-[#a1a1a1] cursor-pointer"
+            className={`${detailType ? 'text-[#c7c7c7]' : 'text-[#a1a1a1]'} text-[0.875rem] font-semibold cursor-pointer`}
           >
             모두 표시
           </Link>
@@ -81,7 +89,7 @@ export default function RecommenedList({ title, datas, type, datas2 }: Recommene
       </div>
 
       {!playlistCategory ? (
-        <div className={`${gridCustom} w-full grid gap-x-6`}>
+        <div className={`${trackDataOnlyOne ? 'w-[200px]' : `w-full grid gap-x-6 ${gridCustom}`}`}>
           {slicedDatas?.map((data) => {
             return (
               <TrackGroup
