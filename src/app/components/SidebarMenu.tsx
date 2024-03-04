@@ -1,21 +1,17 @@
-'use client';
-
 import Link from 'next/link';
 
 import { HiOutlineHome, HiHome } from 'react-icons/hi2';
 import { GoSearch } from 'react-icons/go';
-import { usePathname } from 'next/navigation';
 import { AppPage } from '../types';
 
 interface SidebarMenuProps {
   LinkHref: string;
   menuTitle: string;
   isHiddenMenuTitle: boolean;
+  pathname: string;
 }
 
-const SidebarMenu = ({ LinkHref, menuTitle, isHiddenMenuTitle }: SidebarMenuProps) => {
-  const pathname = usePathname();
-
+const SidebarMenu = ({ LinkHref, menuTitle, isHiddenMenuTitle, pathname }: SidebarMenuProps) => {
   const isPointLink =
     (menuTitle === '홈' && pathname === AppPage.HOME) || (menuTitle === '검색하기' && pathname === AppPage.SEARCH);
   const linkTextColor = isPointLink ? '' : 'text-[#2828284c]';

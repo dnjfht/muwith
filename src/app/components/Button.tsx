@@ -3,15 +3,16 @@
 interface Props {
   type: string;
   btnText: string;
+  isBtnStyle: boolean;
   disabled: boolean;
   onClick?: () => void;
 }
 
-const Button = ({ type, btnText, disabled, onClick }: Props) => {
+const Button = ({ type, btnText, isBtnStyle, disabled, onClick }: Props) => {
   return (
     <input
       className={`${
-        btnText === 'Google 로그인' || btnText === 'Kakao 로그인' ? 'bg-[#1d1e22] text-white' : ''
+        isBtnStyle && 'bg-[#1d1e22] text-white'
       } w-full h-[76px] rounded-2xl border-[3px] border-solid border-[#1d1e22] text-[1.3125rem] font-[900] cursor-pointer`}
       type={type}
       value={btnText}

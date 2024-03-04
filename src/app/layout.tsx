@@ -1,7 +1,7 @@
-import { Suspense } from 'react';
 import './globals.css';
-import Loading from './loading';
+
 import RecoilRootProvider from './recoil/RecoilRootProvider';
+import { CookiesProvider } from 'next-client-cookies/server';
 
 export const metadata = {
   title: 'MUWITH',
@@ -11,9 +11,9 @@ export const metadata = {
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html>
-      <body>
+      <body className="overflow-x-hidden">
         <RecoilRootProvider>
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+          <CookiesProvider>{children}</CookiesProvider>
         </RecoilRootProvider>
       </body>
     </html>
