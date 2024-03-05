@@ -8,18 +8,13 @@ import { ListData } from '../types';
 import { useParams, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { AppPage } from '../types/app';
-
-interface PlaylistSetType {
-  id: string;
-  name: string;
-  thumbnailUrl: string;
-}
+import { GetPlaylistSetResponseItem } from '../types/api-responses/playlist-set';
 
 export interface RecommenedListProps {
   title?: string;
   type?: string;
   datas?: ListData[];
-  datas2?: PlaylistSetType[];
+  datas2?: GetPlaylistSetResponseItem[];
 }
 
 export default function RecommenedList({ title, datas, type, datas2 }: RecommenedListProps) {
@@ -108,7 +103,7 @@ export default function RecommenedList({ title, datas, type, datas2 }: Recommene
         </div>
       ) : (
         <div className={`${gridCustom} w-full grid gap-x-6 gap-y-6`}>
-          {datas2?.map((set: PlaylistSetType, index: number) => {
+          {datas2?.map((set: GetPlaylistSetResponseItem, index: number) => {
             return (
               <div
                 key={set.id}

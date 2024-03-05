@@ -1,5 +1,7 @@
 // Spotify 검색 기능
 
+import { GetPlaylistSetResponseItem } from '../types/api-responses/playlist-set';
+
 export const fetchSpotifySearchData = async (searchString: string) => {
   try {
     const res = await fetch(
@@ -28,10 +30,11 @@ export const fetchSpotifyPlalylistSetsData = async () => {
       },
       cache: 'no-store',
     });
-    const result = await res.json();
+    const result: GetPlaylistSetResponseItem[] = await res.json();
     return result;
   } catch (error) {
     console.error('Error:', error);
+    return [];
   }
 };
 
@@ -51,7 +54,7 @@ export const fetchSpotifyAlbumDetailData = async (type: string, id: string) => {
   }
 };
 
-export const fetchSpotifyArtistTopTracksData = async (id: string, num?: number) => {
+export const fetchSpotifyArtistTopTracksData = async (id: string) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL2 + `/artist/` + id + '/top-tracks'}`, {
       method: 'GET',
