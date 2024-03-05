@@ -20,10 +20,6 @@ export interface ArtistType {
   name: string;
 }
 
-export interface OwnerData {
-  display_name: string;
-}
-
 export interface TrackType {
   id: string;
   name: string;
