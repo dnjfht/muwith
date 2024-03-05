@@ -6,10 +6,10 @@ import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 import { useRouter, usePathname, useSearchParams, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { AppPage } from '../types';
 
 import { GoChevronLeft, GoChevronRight, GoX } from 'react-icons/go';
 import { CiSearch } from 'react-icons/ci';
+import { AppPage } from '../types/app';
 
 interface HeaderProps {
   currentUserData: {

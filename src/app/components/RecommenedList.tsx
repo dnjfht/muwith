@@ -4,9 +4,10 @@ import { useRecoilValue } from 'recoil';
 import TrackGroup from './TrackGroup';
 import { PageResponsiveNumState } from '../recoil/atoms/atom';
 import Link from 'next/link';
-import { AppPage, ListData } from '../types';
+import { ListData } from '../types';
 import { useParams, usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { AppPage } from '../types/app';
 
 interface PlaylistSetType {
   id: string;

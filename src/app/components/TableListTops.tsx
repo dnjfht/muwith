@@ -4,7 +4,7 @@ import { IoTimeOutline } from 'react-icons/io5';
 import { useRecoilValue } from 'recoil';
 import { PageWidthState } from '../recoil/atoms/atom';
 import { usePathname } from 'next/navigation';
-import { AppPage } from '../types';
+import { AppPage } from '../types/app';
 
 export default function TableListTop({ type }: { type?: string }) {
   const pageWidth = useRecoilValue(PageWidthState);

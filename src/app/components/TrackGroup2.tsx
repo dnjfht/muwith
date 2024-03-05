@@ -5,10 +5,11 @@ import Image from 'next/image';
 import { PiHeart } from 'react-icons/pi';
 import { RiMoreLine } from 'react-icons/ri';
 import { formatDate, timeString } from '../layout-constants';
-import { AppPage, ArtistType } from '../types';
+import { ArtistType } from '../types';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useRecoilState } from 'recoil';
 import { CurrentPlayListDataState, CurrentTrackIndexState } from '../recoil/atoms/atom';
+import { AppPage } from '../types/app';
 
 interface TrackType {
   data: {
