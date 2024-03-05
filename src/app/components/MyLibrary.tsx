@@ -5,7 +5,7 @@ import { CiCirclePlus } from 'react-icons/ci';
 import MyLibraryData from './MyLibraryData';
 import { useEffect, useState } from 'react';
 import { fetchLibrarayData } from '../api/library';
-import { LibraryResponseMyLibraryItem } from '../types/api-responses/library';
+import { LibraryMyLibraryItem } from '../types/api-responses/library';
 
 interface MyLibraryProps {
   width: number;
@@ -40,7 +40,7 @@ export default function MyLibrary({ width, setWidth, isHiddenMenuTitle }: MyLibr
 
   const menuColumns = getMenuColumns(width);
 
-  const [datas, setDatas] = useState<LibraryResponseMyLibraryItem[]>([]);
+  const [datas, setDatas] = useState<LibraryMyLibraryItem[]>([]);
 
   const loadLibrarayData = async () => {
     setDatas(await fetchLibrarayData());

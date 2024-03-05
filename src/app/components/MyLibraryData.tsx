@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { LibraryResponseMyLibraryItem } from '../types/api-responses/library';
+import { LibraryMyLibraryItem } from '../types/api-responses/library';
 
 interface MyLibraryDataProps {
   width: number;
-  data: LibraryResponseMyLibraryItem;
+  data: LibraryMyLibraryItem;
 }
 
 export default function MyLibraryData({ width, data }: MyLibraryDataProps) {

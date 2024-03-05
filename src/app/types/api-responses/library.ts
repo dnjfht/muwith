@@ -1,4 +1,4 @@
-export interface LibraryResponseMyLibraryItem {
+export interface LibraryMyLibraryItem {
   id: string;
   type: string;
   thumbnail: string;
@@ -16,14 +16,14 @@ export interface LibraryResponseMyLibraryItem {
   }[];
 }
 
-export interface LibraryResponseOftenListenItem {
+export interface LibraryOftenListenItem {
   id: string;
   type: string;
   thumbnail: string;
   title: string;
 }
 
-export interface LibraryResponseCurrentPlaylistItem {
+export interface LibraryCurrentPlaylistItem {
   id: string;
   type: string;
   thumbnail: string;
@@ -34,7 +34,7 @@ export interface LibraryResponseCurrentPlaylistItem {
   isLikeSong: boolean;
 }
 
-export interface LibraryResponseListenAgainRecommenedItem {
+export interface LibraryListenAgainRecommenedItem {
   id: string;
   type: string;
   thumbnail: string;
@@ -42,17 +42,17 @@ export interface LibraryResponseListenAgainRecommenedItem {
   description: string;
 }
 
-export interface LibraryResponse {
-  my_library: LibraryResponseMyLibraryItem[];
-  often_listen: LibraryResponseOftenListenItem[];
+export interface GetLibraryResponse {
+  my_library: LibraryMyLibraryItem[];
+  often_listen: LibraryOftenListenItem[];
   _comment: string;
   current_playlist: {
     current_playlist_title: string;
-    current_play_list: LibraryResponseCurrentPlaylistItem[];
+    current_play_list: LibraryCurrentPlaylistItem[];
   };
   listen_again_recommened: {
     id: string;
     title: string;
-    data: LibraryResponseListenAgainRecommenedItem[];
+    data: LibraryListenAgainRecommenedItem[];
   };
 }
