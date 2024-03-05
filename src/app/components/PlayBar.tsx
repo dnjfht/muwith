@@ -8,24 +8,11 @@ import { PlayTimeProgressBar } from './PlayTimeProgressBar';
 import { getPlayerMethodValue } from '../api/youtube_music_api';
 import VolumeControl from './VolumeControl';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  CurrentTrackDataState,
-  CurrentTrackIndexState,
-  OpenCurrentPlayTrackDetailState,
-  PlayerDataState,
-} from '../recoil/atoms/atom';
+import { CurrentTrackDataState, CurrentTrackIndexState, OpenCurrentPlayTrackDetailState } from '../recoil/atoms/atom';
 
 import { GoChevronUp, GoChevronDown } from 'react-icons/go';
 import { BsFillPlayFill, BsFillPauseFill, BsFillSkipStartFill, BsFillSkipEndFill } from 'react-icons/bs';
-import {
-  PiHeart,
-  PiHeartFill,
-  PiShuffleLight,
-  PiRepeatThin,
-  PiArrowsOutThin,
-  PiArrowsInThin,
-  PiPlaylistThin,
-} from 'react-icons/pi';
+import { PiHeart, PiShuffleLight, PiRepeatThin, PiArrowsOutThin, PiPlaylistThin } from 'react-icons/pi';
 
 interface PlayBarProps {
   player: YT.Player | null;

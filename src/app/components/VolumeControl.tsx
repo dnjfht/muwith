@@ -1,7 +1,6 @@
 import * as React from 'react';
-import Slider, { SliderValueLabelProps } from '@mui/material/Slider';
+import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
-import Tooltip from '@mui/material/Tooltip';
 import Box from '@mui/material/Box';
 
 import { CiVolume, CiVolumeHigh, CiVolumeMute } from 'react-icons/ci';
@@ -9,16 +8,6 @@ import { getPlayerMethodValue } from '../api/youtube_music_api';
 
 interface VolumeControlProps {
   player: YT.Player | null;
-}
-
-function ValueLabelComponent(props: SliderValueLabelProps) {
-  const { children, value } = props;
-
-  return (
-    <Tooltip enterTouchDelay={0} placement="top" title={value}>
-      {children}
-    </Tooltip>
-  );
 }
 
 const PrettoSlider = styled(Slider)({
@@ -67,7 +56,7 @@ export default function VolumeControl({ player }: VolumeControlProps) {
   const soundMutedState = getPlayerMethodValue(player, 'isMuted', false) as boolean;
 
   // 두 번째 매개변수로 현재 슬라이더의 값을 받습니다. 이 값은 사용자가 설정한 볼륨 값입니다.
-  const handleVolumeChange = (event: any, newValue: number | number[]) => {
+  const handleVolumeChange = (event: unknown, newValue: number | number[]) => {
     const volume = newValue as number;
     if (player) {
       player.setVolume(volume);

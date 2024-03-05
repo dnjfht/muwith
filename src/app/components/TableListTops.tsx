@@ -4,14 +4,15 @@ import { IoTimeOutline } from 'react-icons/io5';
 import { useRecoilValue } from 'recoil';
 import { PageWidthState } from '../recoil/atoms/atom';
 import { usePathname } from 'next/navigation';
-import { AppPage } from '../types';
+import { AppPage } from '../types/app';
+import { MuwithObjectType } from '../types/api-responses/global';
 
 export default function TableListTop({ type }: { type?: string }) {
   const pageWidth = useRecoilValue(PageWidthState);
   const pathName = usePathname();
 
-  const playlistDetailType = !pathName.includes(AppPage.SEARCH) && type === 'playlist';
-  const albumDetailType = !pathName.includes(AppPage.SEARCH) && type === 'album';
+  const playlistDetailType = !pathName.includes(AppPage.SEARCH) && type === MuwithObjectType.PLAYLIST;
+  const albumDetailType = !pathName.includes(AppPage.SEARCH) && type === MuwithObjectType.ALBUM;
 
   return (
     <div

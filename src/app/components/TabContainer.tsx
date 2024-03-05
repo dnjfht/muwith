@@ -146,7 +146,7 @@ const Tab = styled(BaseTab)`
 `;
 
 const TabsList = styled(BaseTabsList)(
-  ({ theme }) => `
+  () => `
   min-width: 400px;
   width:50%;
   border-radius: 8px 8px 0 0;

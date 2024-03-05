@@ -5,23 +5,17 @@ import Image from 'next/image';
 import { PiHeart } from 'react-icons/pi';
 import { RiMoreLine } from 'react-icons/ri';
 import { formatDate, timeString } from '../layout-constants';
-import { AppPage, ArtistType } from '../types';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { CurrentPlayListDataState, CurrentTrackIndexState } from '../recoil/atoms/atom';
+import { AppPage } from '../types/app';
+import { TrackInSearch } from '../types/api-responses/search';
+import { TrackInPlaylist } from '../types/api-responses/playlist';
+import { DEFAULT_PICTURE } from '../constants';
+import { MuwithObjectType } from '../types/api-responses/global';
 
 interface TrackType {
-  data: {
-    id: string;
-    name: string;
-    artists?: ArtistType[];
-    album?: {
-      name: string;
-      thumbnailUrl: string;
-    };
-    duration: number;
-    addedAt?: string;
-  };
+  data: TrackInSearch | TrackInPlaylist;
   idx?: number;
   type?: string;
   datas?: DataType[];
@@ -32,8 +26,8 @@ interface DataType {
 }
 
 export default function TrackGroup2({ data, idx, type, datas }: TrackType) {
-  const [currentPlaylist, setCurrentPlaylist] = useRecoilState(CurrentPlayListDataState);
-  const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
+  const setCurrentPlaylist = useSetRecoilState(CurrentPlayListDataState);
+  const setCurrentTrackIndex = useSetRecoilState(CurrentTrackIndexState);
 
   const router = useRouter();
   const pathName = usePathname();
@@ -44,9 +38,9 @@ export default function TrackGroup2({ data, idx, type, datas }: TrackType) {
   const albumTitle = data?.album?.name;
   const trackIdArr = datas?.map((data) => data.id);
 
-  const playlistDetailType = !pathName.includes(AppPage.SEARCH) && type === 'playlist';
-  const albumDetailType = !pathName.includes(AppPage.SEARCH) && type === 'album';
-  const artistDetailType = !pathName.includes(AppPage.SEARCH) && type === 'artist';
+  const playlistDetailType = !pathName.includes(AppPage.SEARCH) && type === MuwithObjectType.PLAYLIST;
+  const albumDetailType = !pathName.includes(AppPage.SEARCH) && type === MuwithObjectType.ALBUM;
+  const artistDetailType = !pathName.includes(AppPage.SEARCH) && type === MuwithObjectType.ARTIST;
 
   return (
     <div
@@ -73,7 +67,7 @@ export default function TrackGroup2({ data, idx, type, datas }: TrackType) {
       >
         <Image
           className={`${albumDetailType && 'hidden'} w-10 h-10 object-cover rounded-xl`}
-          src={data?.album?.thumbnailUrl ? data?.album?.thumbnailUrl : ('/image/default_profile_img.png' as string)}
+          src={data?.album?.thumbnailUrl ? data?.album?.thumbnailUrl : DEFAULT_PICTURE}
           width={1000}
           height={1000}
           alt="trackImg"
@@ -94,7 +88,7 @@ export default function TrackGroup2({ data, idx, type, datas }: TrackType) {
       </div>
 
       <div className={`${playlistDetailType ? 'block' : 'hidden'} w-[30%] flex items-center`}>
-        <p>{formatDate(data?.addedAt as string)}</p>
+        <p>{formatDate(data.addedAt)}</p>
       </div>
 
       <div className={`${searchParams === 'tracks' && 'w-[6%]'} flex items-center gap-x-4`}>

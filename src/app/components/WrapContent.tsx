@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { CurrentPlayListDataState, CurrentTrackDataState, CurrentTrackIndexState } from '../recoil/atoms/atom';
 import { useRecoilState } from 'recoil';
-import { fetchSpotifyAlbumDetailData, fetchSpotifyRecommendedTracksData } from '../api/spotify';
+import { fetchSpotifyRecommendedTracksData, fetchSpotifyTrackDetailData } from '../api/spotify';
+import { Track } from '../types/api-responses/track';
 
 // window 객체에 직접 onYouTubeIframeAPIReady 메소드를 추가하는 부분은 TypeScript에서 에러를 발생시킬 수 있습니다.
 // TypeScript는 기본적으로 window 객체에 이와 같은 메소드가 없다고 가정하기 때문입니다.
@@ -23,7 +24,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
   const [currentTrackData, setCurrentTrackData] = useRecoilState(CurrentTrackDataState);
   const [player, setPlayer] = useState<YT.Player | null>(null);
-  const [recommendedTracks, setRecommenedTracks] = useState([]);
+  const [recommendedTracks, setRecommenedTracks] = useState<Omit<Track, 'youtubeUrl'>[]>([]);
 
   const selectVideoID = currentTrackData?.youtubeUrl?.split('v=')[1];
   const videoId =
@@ -125,7 +126,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
     }
   }, [currentTrackIndex, currentPlaylist, setRecommenedTracks]);
 
-  const recommenedTracksIdArr = recommendedTracks && recommendedTracks?.map((track: { id: string }) => track.id);
+  const recommenedTracksIdArr = recommendedTracks.map((track: { id: string }) => track.id);
 
   useEffect(() => {
     if (recommenedTracksIdArr?.length > 0 && currentPlaylist.length - 1 === currentTrackIndex) {
@@ -137,7 +138,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
     const fetchCurrentListenTrackData = async () => {
       const trackId = currentPlaylist[currentTrackIndex];
       if (trackId == null) return;
-      setCurrentTrackData(await fetchSpotifyAlbumDetailData('track', trackId));
+      setCurrentTrackData(await fetchSpotifyTrackDetailData(trackId));
     };
     fetchCurrentListenTrackData();
   }, [currentTrackIndex, currentPlaylist, setCurrentTrackData]);
@@ -145,7 +146,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   const childrenWithProps = React.Children.map(children, (child) => {
     // 타입 검사를 통해 React 요소인지 확인합니다.
     if (React.isValidElement(child)) {
-      // child에 props를 추가합니다.
+      // @ts-expect-error Force inject player prop
       return React.cloneElement(child, { player });
     }
     return child;

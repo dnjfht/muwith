@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     .then((result) => result.id_token);
 
   // 회원가입이 되어 있지 않은 경우에만 회원가입 진행
-  const signUpInfo = await fetch(process.env.NEXT_PUBLIC_BASE_URL2 + '/auth/signup-by-sso', {
+  await fetch(process.env.NEXT_PUBLIC_BASE_URL2 + '/auth/signup-by-sso', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

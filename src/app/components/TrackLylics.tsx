@@ -18,7 +18,7 @@ export default function TrackLylics() {
         <br />
         Bonnie and Clyde
         <br />
-        it's you and me (and me)
+        it&apos;s you and me (and me)
         <br />
         우린 가깝지만 좀 멀어
         <br />
@@ -68,7 +68,7 @@ export default function TrackLylics() {
         <br />
         Bonnie and Clyde
         <br />
-        it's you and me (and me)
+        it&apos;s you and me (and me)
         <br />
         가고 싶은 곳으로 데려갈게
         <br />
@@ -132,7 +132,7 @@ export default function TrackLylics() {
         <br />
         Bonnie and Clyde
         <br />
-        it's you and me (and me)
+        it&apos;s you and me (and me)
         <br />
         You and me, you and me
         <br />

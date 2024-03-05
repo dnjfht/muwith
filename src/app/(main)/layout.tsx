@@ -15,7 +15,6 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
   console.log('currentUserData', currentUserData, 'accessToken', accessToken);
 
   const currentPlaylist = await fetchCurrentPlaylist();
-  const { current_play_list } = currentPlaylist ?? { current_play_list: [] };
 
   return (
     <div className="w-full h-screen text-[#282828] font-inter font-[400] leading-normal overflow-hidden">
@@ -40,7 +39,7 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
             <CurrentPlayDetail currentPlayList={currentPlaylist} />
           </div>
 
-          <PlayBar />
+          <PlayBar player={null} />
         </WrapContent>
       </div>
     </div>
