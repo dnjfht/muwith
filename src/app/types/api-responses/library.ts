@@ -42,7 +42,7 @@ export interface LibraryListenAgainRecommenedItem {
   description: string;
 }
 
-export interface GetLibraryResponse {
+export interface Library {
   my_library: LibraryMyLibraryItem[];
   often_listen: LibraryOftenListenItem[];
   _comment: string;
