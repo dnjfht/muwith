@@ -1,11 +1,3 @@
-export interface LibraryData {
-  id: string;
-  thumbnail: string;
-  title: string;
-  description: string;
-  type: string;
-}
-
 export interface ListData {
   id: string;
   name: string;
