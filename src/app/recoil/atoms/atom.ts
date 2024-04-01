@@ -1,4 +1,4 @@
-import { TrackType } from '@/app/types';
+import { Track } from '@/app/types/api-responses/track';
 import { atom } from 'recoil';
 
 export const SidebarWidthState = atom({
@@ -36,7 +36,7 @@ export const CurrentTrackIndexState = atom({
   default: -1,
 });
 
-export const CurrentTrackDataState = atom<TrackType | null>({
+export const CurrentTrackDataState = atom<Track | null>({
   key: 'CurrentTrackDataState',
   default: null,
 });

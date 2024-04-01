@@ -1,21 +1,17 @@
 'use client';
 
-import { useEffect } from 'react';
-import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
-import { PiHeart, PiHeartFill } from 'react-icons/pi';
+import { BsFillPlayFill } from 'react-icons/bs';
+import { PiHeart } from 'react-icons/pi';
 import { RiMoreLine } from 'react-icons/ri';
-import { useRecoilState } from 'recoil';
-import { CurrentPlayListDataState, CurrentTrackDataState, CurrentTrackIndexState } from '../recoil/atoms/atom';
-import { fetchSpotifyAlbumDetailData } from '../api/spotify';
+import { useSetRecoilState } from 'recoil';
+import { CurrentPlayListDataState, CurrentTrackIndexState } from '../recoil/atoms/atom';
+import { MuwithObject, MuwithObjectType } from '../types/api-responses/global';
+import { Album } from '../types/api-responses/album';
 
 interface DetailContentTopType {
   type: string;
-  data: { id: string; tracks: TracksType[] };
+  data: MuwithObject;
   artistTopTracksData?: ArtistTopTracksDataType[];
-}
-
-interface TracksType {
-  id: string;
 }
 
 interface ArtistTopTracksDataType {
@@ -23,16 +19,15 @@ interface ArtistTopTracksDataType {
 }
 
 export default function DetailContentTop({ type, data, artistTopTracksData }: DetailContentTopType) {
-  const [currentPlaylist, setCurrentPlaylist] = useRecoilState(CurrentPlayListDataState);
-  const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
-  const [currentTrackData, setCurrentTrackData] = useRecoilState(CurrentTrackDataState);
+  const setCurrentPlaylist = useSetRecoilState(CurrentPlayListDataState);
+  const setCurrentTrackIndex = useSetRecoilState(CurrentTrackIndexState);
 
   const trackIdArr =
-    type === 'album' || type === 'playlist'
-      ? data?.tracks?.map((track: { id: string }) => track.id)
+    type === MuwithObjectType.ALBUM || type === MuwithObjectType.PLAYLIST
+      ? (data as Album).tracks.map((track: { id: string }) => track.id)
       : artistTopTracksData?.map((data) => data.id);
 
-  let pushTrackIdArr: string[] = [];
+  const pushTrackIdArr: string[] = [];
   pushTrackIdArr.push(data.id);
 
   return (
@@ -41,9 +36,9 @@ export default function DetailContentTop({ type, data, artistTopTracksData }: De
         className="w-14 h-14 bg-[#1d1e22] border-[1px] border-solid border-white rounded-full flex items-center justify-center text-white"
         onClick={() => {
           if (typeof Window !== 'undefined') {
-            if (type !== 'track') {
-              setCurrentPlaylist(trackIdArr as string[]);
-            } else if (type === 'track') {
+            if (type !== MuwithObjectType.TRACK) {
+              setCurrentPlaylist(trackIdArr ?? []);
+            } else if (type === MuwithObjectType.TRACK) {
               setCurrentPlaylist(pushTrackIdArr);
             }
             setCurrentTrackIndex(0);
@@ -52,7 +47,7 @@ export default function DetailContentTop({ type, data, artistTopTracksData }: De
       >
         <BsFillPlayFill />
       </button>
-      {type !== 'artist' && (
+      {type !== MuwithObjectType.ARTIST && (
         <>
           <button>
             <PiHeart />

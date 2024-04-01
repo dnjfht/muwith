@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { PageResponsiveNumState, PageWidthState, PlayerDataState } from '../recoil/atoms/atom';
+import { PageResponsiveNumState, PageWidthState } from '../recoil/atoms/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 // window 객체에 직접 onYouTubeIframeAPIReady 메소드를 추가하는 부분은 TypeScript에서 에러를 발생시킬 수 있습니다.
@@ -23,7 +23,7 @@ export default function MainContentWrap({ children }: React.PropsWithChildren) {
   useEffect(() => {
     // ResizeObserver의 콜백에서 entry.contentRect.width를 사용하여 요소의 너비를 가져와 pageWidth 상태를 업데이트 합니다.
     const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
+      for (const entry of entries) {
         setPageWidth(entry.contentRect.width);
       }
     });

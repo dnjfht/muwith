@@ -6,10 +6,11 @@ import { styled } from '@mui/material/styles';
 import Image from 'next/image';
 import { useRouter, usePathname, useSearchParams, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { AppPage } from '../types';
 
 import { GoChevronLeft, GoChevronRight, GoX } from 'react-icons/go';
 import { CiSearch } from 'react-icons/ci';
+import { AppPage } from '../types/app';
+import { DEFAULT_PICTURE } from '../constants';
 
 interface HeaderProps {
   currentUserData: {
@@ -141,7 +142,7 @@ export default function Header({ currentUserData }: HeaderProps) {
                 width={24}
                 height={24}
                 className="w-[1.875rem] aspect-square rounded-full shadow-lg"
-                src="/image/default_profile_img.jpg"
+                src={DEFAULT_PICTURE}
                 alt="profile_img"
               />
             )}

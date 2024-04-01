@@ -52,10 +52,12 @@ export const timeString2 = (durationTime: number) => {
   return formattedDuration;
 };
 
-export function formatDate(dateString: string) {
-  let date = new Date(dateString);
+export function formatDate(dateString?: string) {
+  if (dateString == null) return '-';
 
-  let year = date.getFullYear();
+  const date = new Date(dateString);
+
+  const year = date.getFullYear();
   let month: number | string = date.getMonth() + 1;
   let day: number | string = date.getDate();
 

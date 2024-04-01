@@ -1,5 +1,5 @@
-import { fetchListenAgainRecommened, fetchOftenListenData } from '../api/home_api';
-import OftenListenMusic from '../components/OftenListenMusic';
+// import { fetchListenAgainRecommened, fetchOftenListenData } from '../api/home_api';
+// import OftenListenMusic from '../components/OftenListenMusic';
 
 export default async function Home() {
   const date = new Date();
@@ -7,8 +7,8 @@ export default async function Home() {
 
   const time = hour > 6 && hour < 12 ? 'morning' : hour > 12 && hour < 18 ? 'afternoon' : 'evening';
 
-  const listenAgainData = await fetchListenAgainRecommened();
-  const oftenListenData = await fetchOftenListenData();
+  // const listenAgainData = await fetchListenAgainRecommened();
+  // const oftenListenData = await fetchOftenListenData();
 
   return (
     <div className="w-full px-6 pt-6 pb-24 box-border overflow-scroll">

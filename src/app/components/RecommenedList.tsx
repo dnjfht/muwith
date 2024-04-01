@@ -4,27 +4,24 @@ import { useRecoilValue } from 'recoil';
 import TrackGroup from './TrackGroup';
 import { PageResponsiveNumState } from '../recoil/atoms/atom';
 import Link from 'next/link';
-import { AppPage, ListData } from '../types';
 import { useParams, usePathname } from 'next/navigation';
 import Image from 'next/image';
-
-interface PlaylistSetType {
-  id: string;
-  name: string;
-  thumbnailUrl: string;
-}
+import { AppPage } from '../types/app';
+import { PlaylistSet } from '../types/api-responses/playlist-set';
+import { DEFAULT_PICTURE } from '../constants';
+import { MuwithObject, MuwithObjectType } from '../types/api-responses/global';
+import { getDescription } from '@/utilities';
 
 export interface RecommenedListProps {
   title?: string;
-  type?: string;
-  datas?: ListData[];
-  datas2?: PlaylistSetType[];
+  type: MuwithObjectType;
+  datas: MuwithObject[];
 }
 
-export default function RecommenedList({ title, datas, type, datas2 }: RecommenedListProps) {
+export default function RecommenedList({ title, datas, type }: RecommenedListProps) {
   const pathname = usePathname();
-  const searchText = useParams()?.searchText;
-  const searchType = useParams()?.searchType;
+  const searchText = useParams().searchText;
+  const searchType = useParams().searchType;
   const playlistCategory = pathname.includes(AppPage.SEARCH) && !searchText && !searchType;
 
   const detailType =
@@ -37,7 +34,7 @@ export default function RecommenedList({ title, datas, type, datas2 }: Recommene
 
   const responsiveNum = useRecoilValue(PageResponsiveNumState);
   const gridCustom = responsiveNum ? `grid-cols-${responsiveNum}` : 'grid-cols-8';
-  const slicedDatas = !searchType ? datas?.slice(0, responsiveNum ? responsiveNum : 8) : datas;
+  const slicedDatas = !searchType ? datas.slice(0, responsiveNum ? responsiveNum : 8) : datas;
 
   const bgColors = [
     'bg-[#ff007c]',
@@ -90,24 +87,22 @@ export default function RecommenedList({ title, datas, type, datas2 }: Recommene
 
       {!playlistCategory ? (
         <div className={`${trackDataOnlyOne ? 'w-[200px]' : `w-full grid gap-x-6 ${gridCustom}`}`}>
-          {slicedDatas?.map((data) => {
+          {slicedDatas.map((data) => {
             return (
               <TrackGroup
                 key={data.id}
                 id={data.id}
                 image={data.thumbnailUrl}
                 title={data.name}
-                type={type as string}
-                tracksNum={data.totalTracks}
-                release={data.releaseDate}
-                des={data.description}
+                type={type}
+                description={getDescription(type, data)}
               />
             );
           })}
         </div>
       ) : (
         <div className={`${gridCustom} w-full grid gap-x-6 gap-y-6`}>
-          {datas2?.map((set: PlaylistSetType, index: number) => {
+          {datas.map((set: PlaylistSet, index: number) => {
             return (
               <div
                 key={set.id}
@@ -118,7 +113,7 @@ export default function RecommenedList({ title, datas, type, datas2 }: Recommene
                   className="w-40 h-40 object-cover rounded-sm rotate-45 translate-x-20 translate-y-6 shadow-[-2px_8px_6px_2px_rgba(0,0,0,0.2)]"
                   width={1000}
                   height={1000}
-                  src={set.thumbnailUrl}
+                  src={set.thumbnailUrl ?? DEFAULT_PICTURE}
                   alt="PlaylistSetImage"
                 />
               </div>
