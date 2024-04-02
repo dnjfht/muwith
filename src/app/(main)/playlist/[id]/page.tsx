@@ -1,25 +1,25 @@
-import { fetchSpotifyTrackDetailData } from '@/app/api/spotify';
+import { fetchSpotifyPlaylistDetailData } from '@/app/api/spotify';
 import DetailContent from '@/app/components/DetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
-import { timeString } from '@/app/layout-constants';
+import { numberWithCommas, timeString2 } from '@/app/layout-constants';
 import { MuwithObjectType } from '@/app/types/api-responses/global';
 import Image from 'next/image';
 
-export default async function TrackDetailPage({ params }: { params: { id: string } }) {
+export default async function DetailPage({ params }: { params: { id: string } }) {
   const id = params.id;
-  const track = await fetchSpotifyTrackDetailData(id);
+  const playlist = await fetchSpotifyPlaylistDetailData(id);
 
-  if (!track) {
+  if (!playlist) {
     return <p>No Data...</p>;
   }
 
-  const thumbnailImg = track.album.thumbnailUrl ?? DEFAULT_PICTURE;
-  const artistNames = track.artists.map((artist: { name: string }) => artist.name);
-  const artistsName = artistNames.join(', ');
-  const artistProfileName = artistsName ?? '아티스트';
-  // TODO: 서버에서 프로필 이미지를 주면 넣어주기.
-  const artistProfileImg = DEFAULT_PICTURE;
+  const thumbnailImg = playlist.thumbnailUrl ?? DEFAULT_PICTURE;
+  const profileImg = playlist.owner.profileImage;
+  const profileName = playlist.owner.name;
+
+  const totalTimes = playlist.tracks.map((track: { duration: number }) => track.duration);
+  const totalTime = totalTimes.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
 
   return (
     <div>
@@ -33,31 +33,33 @@ export default async function TrackDetailPage({ params }: { params: { id: string
         />
 
         <div className="w-full text-[0.875rem] text-white">
-          <p>곡</p>
+          <p>플레이리스트</p>
 
-          <TypeEffect type="track" data={track} />
+          <TypeEffect type="playlist" data={playlist} />
+
+          <p className="mt-3 text-[#a1a1a1]">{playlist.description}</p>
 
           <div className="w-full mt-3 flex items-center gap-x-2">
             <Image
               className="w-6 aspect-square rounded-full shadow-[6px_6px_6px_2px_rgba(0,0,0,0.3)]"
               width={200}
               height={200}
-              src={artistProfileImg}
+              src={profileImg}
               alt="profile_img"
             />
-            <p>{artistProfileName}</p>
+            <p>{profileName}</p>
 
             <p>·</p>
-            <p>{track.album.name}</p>
+            <p>{'좋아요 ' + numberWithCommas(playlist.followers) + '개'}</p>
             <p>·</p>
-            <p>{track.album.releaseDate.slice(0, 4)}</p>
+            <p>{playlist.tracks.length}곡</p>
             <p>·</p>
-            <p>{timeString(track.duration)}</p>
+            <p>{timeString2(totalTime)}</p>
           </div>
         </div>
       </div>
 
-      <DetailContent type={MuwithObjectType.TRACK} data={track} />
+      <DetailContent type={MuwithObjectType.PLAYLIST} data={playlist} />
     </div>
   );
 }

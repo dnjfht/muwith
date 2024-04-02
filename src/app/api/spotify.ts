@@ -46,21 +46,6 @@ export const fetchSpotifyPlaylistDetailData = async (id: string) => {
   return await getRequest<Playlist>(`/playlist/${id}`);
 };
 
-export const fetchSpotifyAnyObjectDetailData = async (type: MuwithObjectType, id: string) => {
-  switch (type) {
-    case MuwithObjectType.ARTIST:
-      return await fetchSpotifyArtistDetailData(id);
-    case MuwithObjectType.ALBUM:
-      return await fetchSpotifyAlbumDetailData(id);
-    case MuwithObjectType.TRACK:
-      return await fetchSpotifyTrackDetailData(id);
-    case MuwithObjectType.PLAYLIST:
-      return await fetchSpotifyPlaylistDetailData(id);
-    default:
-      throw new Error('Not support type');
-  }
-};
-
 export const fetchSpotifyArtistTopTracksData = async (id: string) => {
   return await getRequest<Omit<Track, 'youtubeUrl'>[]>(`/artist/${id}/top-tracks`);
 };
