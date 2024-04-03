@@ -2,7 +2,6 @@
 
 import { Album } from '../types/api-responses/album';
 import { Artist } from '../types/api-responses/artist';
-import { MuwithObjectType } from '../types/api-responses/global';
 import { Playlist } from '../types/api-responses/playlist';
 import { PlaylistSet } from '../types/api-responses/playlist-set';
 import { SearchResponse } from '../types/api-responses/search';
