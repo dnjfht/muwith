@@ -57,7 +57,11 @@ export default async function TrackDetailPage({ params }: { params: { id: string
         </div>
       </div>
 
-      <DetailContent type={MuwithObjectType.TRACK} data={track} />
+      <DetailContent
+        type={MuwithObjectType.TRACK}
+        data={track}
+        bgColor="bg-gradient-to-b from-[#2c2d2e] to-[#ffc9dc]"
+      />
     </div>
   );
 }

@@ -59,7 +59,11 @@ export default async function DetailPage({ params }: { params: { id: string } })
         </div>
       </div>
 
-      <DetailContent type={MuwithObjectType.PLAYLIST} data={playlist} />
+      <DetailContent
+        type={MuwithObjectType.PLAYLIST}
+        data={playlist}
+        bgColor="bg-gradient-to-b from-[#2c2d2e] to-[#a1d2de]"
+      />
     </div>
   );
 }

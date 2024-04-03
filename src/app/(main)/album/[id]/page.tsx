@@ -65,7 +65,12 @@ export default async function AlbumDetailPage({ params }: { params: { id: string
         </div>
       </div>
 
-      <DetailContent type={MuwithObjectType.ALBUM} data={album} artistId={artistId} />
+      <DetailContent
+        type={MuwithObjectType.ALBUM}
+        data={album}
+        artistId={artistId}
+        bgColor="bg-gradient-to-b from-[#2c2d2e] to-[#a1d4a0]"
+      />
     </div>
   );
 }

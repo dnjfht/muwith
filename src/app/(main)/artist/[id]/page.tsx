@@ -44,7 +44,11 @@ export default async function DetailPage({ params }: { params: { id: string } })
         </div>
       </div>
 
-      <DetailContent type={MuwithObjectType.ARTIST} data={artist} />
+      <DetailContent
+        type={MuwithObjectType.ARTIST}
+        data={artist}
+        bgColor="bg-gradient-to-b from-[#2c2d2e] to-[#ffb685]"
+      />
     </div>
   );
 }

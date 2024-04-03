@@ -16,18 +16,10 @@ interface DetailContentType {
   type: MuwithObjectType;
   artistId?: string; // If artistId exist, type is ALBUM.
   data: MuwithObject;
+  bgColor: string;
 }
 
-export default async function DetailContent({ type, data, artistId }: DetailContentType) {
-  const bgColor = {
-    [MuwithObjectType.TRACK]: 'bg-gradient-to-b from-[#2c2d2e] to-[#ffc9dc]',
-    [MuwithObjectType.ALBUM]: 'bg-gradient-to-b from-[#2c2d2e] to-[#a1d4a0]',
-    [MuwithObjectType.PLAYLIST]: 'bg-gradient-to-b from-[#2c2d2e] to-[#a1d2de]',
-    [MuwithObjectType.ARTIST]: 'bg-gradient-to-b from-[#2c2d2e] to-[#ffb685]',
-    [MuwithObjectType.PLAYLIST_SET]: 'bg-gradient-to-b from-[#2c2d2e] to-[#ffb685]',
-    [MuwithObjectType.ETC]: 'bg-gradient-to-b from-[#2c2d2e] to-[#ffb685]',
-  }[type];
-
+export default async function DetailContent({ type, data, artistId, bgColor }: DetailContentType) {
   const tracks: TrackInPlaylist[] | undefined = (data as Playlist).tracks;
   const albumArtist = artistId ? await fetchSpotifyArtistDetailData(artistId) : undefined;
   const artistTopTracksData =
