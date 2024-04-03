@@ -1,5 +1,5 @@
-import { fetchSpotifyAlbumDetailData } from '@/app/api/spotify';
-import DetailContent from '@/app/components/DetailContent';
+import { fetchSpotifyAlbumDetailData, fetchSpotifyArtistDetailData } from '@/app/api/spotify';
+import AlbumDetailContent from '@/app/components/album/AlbumDetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { timeString2 } from '@/app/layout-constants';
@@ -26,6 +26,8 @@ export default async function AlbumDetailPage({ params }: { params: { id: string
 
   const totalTimes = album.tracks.map((track: { duration: number }) => track.duration);
   const totalTime = totalTimes.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
+
+  const albumArtist = await fetchSpotifyArtistDetailData(artistId);
 
   return (
     <div>
@@ -65,12 +67,7 @@ export default async function AlbumDetailPage({ params }: { params: { id: string
         </div>
       </div>
 
-      <DetailContent
-        type={MuwithObjectType.ALBUM}
-        data={album}
-        artistId={artistId}
-        bgColor="bg-gradient-to-b from-[#2c2d2e] to-[#a1d4a0]"
-      />
+      <AlbumDetailContent type={MuwithObjectType.ALBUM} data={album} albumArtist={albumArtist} />
     </div>
   );
 }

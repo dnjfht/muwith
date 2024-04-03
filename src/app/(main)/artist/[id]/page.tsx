@@ -1,5 +1,5 @@
 import { fetchSpotifyArtistDetailData } from '@/app/api/spotify';
-import DetailContent from '@/app/components/DetailContent';
+import ArtistDetailContent from '@/app/components/artist/ArtistDetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { numberWithCommas } from '@/app/layout-constants';
@@ -44,11 +44,7 @@ export default async function DetailPage({ params }: { params: { id: string } })
         </div>
       </div>
 
-      <DetailContent
-        type={MuwithObjectType.ARTIST}
-        data={artist}
-        bgColor="bg-gradient-to-b from-[#2c2d2e] to-[#ffb685]"
-      />
+      <ArtistDetailContent type={MuwithObjectType.ARTIST} artist={artist} />
     </div>
   );
 }

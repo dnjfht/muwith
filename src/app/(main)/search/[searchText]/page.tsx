@@ -37,7 +37,13 @@ export default async function SearchResult({ params }: { params: { searchText: s
 
               <div>
                 {slicesTracks.map((track) => (
-                  <TrackGroup2 key={track.id} data={track} />
+                  <TrackGroup2
+                    key={track.id}
+                    data={track}
+                    thumbnail={track.album.thumbnailUrl}
+                    isHiddenFormatDate={true}
+                    albumTitle={track.album.name}
+                  />
                 ))}
               </div>
             </div>

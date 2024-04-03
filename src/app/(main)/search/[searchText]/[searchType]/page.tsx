@@ -9,6 +9,7 @@ import { TrackInSearch } from '@/app/types/api-responses/search';
 export default async function SearchType({ params }: { params: { searchText: string; searchType: string } }) {
   const searchResultParam = decodeURIComponent(params.searchText);
   const searchType = params.searchType;
+  const isSearchParamsTrack = searchType === 'tracks';
 
   const searchResult = await fetchSpotifySearchData(searchResultParam);
   const datas =
@@ -34,7 +35,15 @@ export default async function SearchType({ params }: { params: { searchText: str
         <div className="w-full mt-20 pl-6 pr-3 box-border">
           <TableListTop />
           {(datas.items as TrackInSearch[]).map((data, index) => (
-            <TrackGroup2 key={data.id} idx={index} data={data} />
+            <TrackGroup2
+              key={data.id}
+              idx={index}
+              data={data}
+              thumbnail={data.album.thumbnailUrl}
+              isHiddenFormatDate={true}
+              albumTitle={data.album.name}
+              isSearchParamsTrack={isSearchParamsTrack}
+            />
           ))}
         </div>
       ) : (
