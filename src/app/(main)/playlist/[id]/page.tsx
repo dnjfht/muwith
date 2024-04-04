@@ -3,7 +3,6 @@ import PlaylistDetailContent from '@/app/components/playlist/PlaylistDetailConte
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { numberWithCommas, timeString2 } from '@/app/layout-constants';
-import { MuwithObjectType } from '@/app/types/api-responses/global';
 import Image from 'next/image';
 
 export default async function DetailPage({ params }: { params: { id: string } }) {
@@ -35,7 +34,7 @@ export default async function DetailPage({ params }: { params: { id: string } })
         <div className="w-full text-[0.875rem] text-white">
           <p>플레이리스트</p>
 
-          <TypeEffect type="playlist" data={playlist} />
+          <TypeEffect backgroundStyle="bg-gradient-to-r from-cyan-500 to-blue-500" data={playlist} />
 
           <p className="mt-3 text-[#a1a1a1]">{playlist.description}</p>
 
@@ -59,7 +58,7 @@ export default async function DetailPage({ params }: { params: { id: string } })
         </div>
       </div>
 
-      <PlaylistDetailContent type={MuwithObjectType.PLAYLIST} data={playlist} />
+      <PlaylistDetailContent data={playlist} />
     </div>
   );
 }
