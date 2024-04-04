@@ -1,6 +1,6 @@
 import '../../(main)/layout.css';
 import TableListTop from '../TableListTops';
-import TrackGroup2 from '../TrackGroup2';
+import TrackGroup2 from '../trackGroup/TrackGroup2';
 import RecommenedList from '../RecommenedList';
 import DetailContentTop from '../DetailContentTop';
 import { MuwithObjectType } from '../../types/api-responses/global';
@@ -28,12 +28,18 @@ export default async function AlbumDetailContent({ type, data, albumArtist }: De
           return (
             <TrackGroup2
               key={track.id}
-              data={track}
               idx={idx}
-              type={type}
+              id={track.id}
+              name={track.name}
+              duration={track.duration}
+              wrapStyle="text-white py-4"
+              idxWidthStyle="block w-[4%]"
+              imgWidthStyle="w-[90%]"
+              albumTitleWidthStyle="hidden"
               trackIdArr={trackIdArr}
+              artistList={track.artists.map((t) => t.name).join(', ')}
               isHiddenThumbnail="hidden"
-              isHiddenFormatDate={true}
+              formatDateStyle="hidden"
             />
           );
         })}

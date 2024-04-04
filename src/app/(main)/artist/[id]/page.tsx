@@ -44,7 +44,7 @@ export default async function DetailPage({ params }: { params: { id: string } })
         </div>
       </div>
 
-      <ArtistDetailContent type={MuwithObjectType.ARTIST} artist={artist} />
+      <ArtistDetailContent artist={artist} />
     </div>
   );
 }

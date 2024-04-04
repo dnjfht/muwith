@@ -1,4 +1,4 @@
-import TrackGroup2 from '../TrackGroup2';
+import TrackGroup2 from '../trackGroup/TrackGroup2';
 import { fetchSpotifyArtistTopTracksData } from '../../api/spotify';
 import { numberWithCommas } from '../../layout-constants';
 import DetailContentTop from '../DetailContentTop';
@@ -6,11 +6,10 @@ import { MuwithObjectType } from '../../types/api-responses/global';
 import { Artist } from '../../types/api-responses/artist';
 
 interface ArtistDetailContentProps {
-  type: MuwithObjectType;
   artist: Artist;
 }
 
-export default async function ArtistDetailContent({ type, artist }: ArtistDetailContentProps) {
+export default async function ArtistDetailContent({ artist }: ArtistDetailContentProps) {
   const artistTopTracksData = await fetchSpotifyArtistTopTracksData(artist.id);
   const trackIdArr = artistTopTracksData.map((data) => data.id);
 
@@ -42,12 +41,17 @@ export default async function ArtistDetailContent({ type, artist }: ArtistDetail
           return (
             <TrackGroup2
               key={topTrack.id}
-              data={topTrack}
               idx={idx}
-              type={type}
+              id={topTrack.id}
+              name={topTrack.name}
+              duration={topTrack.duration}
               thumbnail={topTrack.album.thumbnailUrl}
+              wrapStyle="text-white py-4"
+              imgWidthStyle="w-full"
+              albumTitleWidthStyle="hidden"
+              formatDateStyle="hidden"
               trackIdArr={trackIdArr}
-              isHiddenFormatDate={true}
+              artistList={topTrack.artists.map((artist) => artist.name).join(', ')}
             />
           );
         })}

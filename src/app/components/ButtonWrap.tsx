@@ -1,6 +1,6 @@
 'use client';
 
-import Button from './Button';
+import SnsButton from './button/SnsButton';
 
 export default function ButtonWrap() {
   function doGoogleLogin() {
@@ -12,9 +12,8 @@ export default function ButtonWrap() {
 
   return (
     <>
-      <Button onClick={doGoogleLogin} type="button" btnText="Google 로그인" isBtnStyle={true} disabled={false} />
-      <Button type="button" btnText="Kakao 로그인" isBtnStyle={true} disabled={true} />
-      <Button type="button" btnText="아직 계정이 없다면? : MUWOTH 회원가입 하기" isBtnStyle={false} disabled={false} />
+      <SnsButton onClick={doGoogleLogin} type="button" btnText="Google 로그인" disabled={false} />
+      <SnsButton type="button" btnText="Kakao 로그인" disabled={true} />
     </>
   );
 }

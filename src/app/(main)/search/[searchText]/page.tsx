@@ -1,7 +1,7 @@
 import { fetchSpotifySearchData } from '@/app/api/spotify';
 import RecommenedList from '@/app/components/RecommenedList';
-import TrackGroup from '@/app/components/TrackGroup';
-import TrackGroup2 from '@/app/components/TrackGroup2';
+import TrackGroup from '@/app/components/trackGroup/TrackGroup';
+import TrackGroup2 from '@/app/components/trackGroup/TrackGroup2';
 import { Artist } from '@/app/types/api-responses/artist';
 import { MuwithObjectType } from '@/app/types/api-responses/global';
 import { getDescription } from '@/utilities';
@@ -39,9 +39,15 @@ export default async function SearchResult({ params }: { params: { searchText: s
                 {slicesTracks.map((track) => (
                   <TrackGroup2
                     key={track.id}
-                    data={track}
+                    id={track.id}
+                    name={track.name}
+                    duration={track.duration}
                     thumbnail={track.album.thumbnailUrl}
-                    isHiddenFormatDate={true}
+                    idxWidthStyle="hidden"
+                    imgWidthStyle="w-full"
+                    albumTitleWidthStyle="hidden"
+                    formatDateStyle="hidden"
+                    artistList={track.artists.map((t) => t.name).join(', ')}
                     albumTitle={track.album.name}
                   />
                 ))}
