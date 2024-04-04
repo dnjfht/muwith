@@ -1,5 +1,5 @@
-import { fetchSpotifyTrackDetailData } from '@/app/api/spotify';
-import TrackDetailContent from '@/app/components/track/TrackDetailContent';
+import { fetchSpotifyArtistDetailData, fetchSpotifyTrackDetailData } from '@/app/api/spotify';
+import DetailContent from '@/app/components/DetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { timeString } from '@/app/layout-constants';
@@ -9,6 +9,8 @@ import Image from 'next/image';
 export default async function TrackDetailPage({ params }: { params: { id: string } }) {
   const id = params.id;
   const track = await fetchSpotifyTrackDetailData(id);
+  const representativeArtist =
+    track.artists.length > 0 ? await fetchSpotifyArtistDetailData(track.artists[0].id) : null;
 
   if (!track) {
     return <p>No Data...</p>;
@@ -18,8 +20,7 @@ export default async function TrackDetailPage({ params }: { params: { id: string
   const artistNames = track.artists.map((artist: { name: string }) => artist.name);
   const artistsName = artistNames.join(', ');
   const artistProfileName = artistsName ?? '아티스트';
-  // TODO: 서버에서 프로필 이미지를 주면 넣어주기.
-  const artistProfileImg = DEFAULT_PICTURE;
+  const artistProfileImg = representativeArtist?.thumbnailUrl ?? DEFAULT_PICTURE;
 
   return (
     <div>
