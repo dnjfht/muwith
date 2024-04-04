@@ -1,5 +1,5 @@
 import { fetchSpotifyTrackDetailData } from '@/app/api/spotify';
-import DetailContent from '@/app/components/DetailContent';
+import TrackDetailContent from '@/app/components/track/TrackDetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { timeString } from '@/app/layout-constants';
@@ -57,7 +57,7 @@ export default async function TrackDetailPage({ params }: { params: { id: string
         </div>
       </div>
 
-      <DetailContent type={MuwithObjectType.TRACK} data={track} />
+      <TrackDetailContent type={MuwithObjectType.TRACK} data={track} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { fetchSpotifyPlaylistDetailData } from '@/app/api/spotify';
-import DetailContent from '@/app/components/DetailContent';
+import PlaylistDetailContent from '@/app/components/playlist/PlaylistDetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { numberWithCommas, timeString2 } from '@/app/layout-constants';
@@ -59,7 +59,7 @@ export default async function DetailPage({ params }: { params: { id: string } })
         </div>
       </div>
 
-      <DetailContent type={MuwithObjectType.PLAYLIST} data={playlist} />
+      <PlaylistDetailContent type={MuwithObjectType.PLAYLIST} data={playlist} />
     </div>
   );
 }

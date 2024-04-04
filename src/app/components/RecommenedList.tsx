@@ -1,7 +1,7 @@
 'use client';
 
 import { useRecoilValue } from 'recoil';
-import TrackGroup from './TrackGroup';
+import TrackGroup from './trackGroup/TrackGroup';
 import { PageResponsiveNumState } from '../recoil/atoms/atom';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';

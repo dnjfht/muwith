@@ -1,7 +1,7 @@
 import { fetchSpotifySearchData } from '@/app/api/spotify';
 import RecommenedList from '@/app/components/RecommenedList';
 import TableListTop from '@/app/components/TableListTops';
-import TrackGroup2 from '@/app/components/TrackGroup2';
+import TrackGroup2 from '@/app/components/trackGroup/TrackGroup2';
 import { Album } from '@/app/types/api-responses/album';
 import { MuwithObjectType } from '@/app/types/api-responses/global';
 import { TrackInSearch } from '@/app/types/api-responses/search';
@@ -9,6 +9,7 @@ import { TrackInSearch } from '@/app/types/api-responses/search';
 export default async function SearchType({ params }: { params: { searchText: string; searchType: string } }) {
   const searchResultParam = decodeURIComponent(params.searchText);
   const searchType = params.searchType;
+  const isSearchParamsTrack = searchType === 'tracks';
 
   const searchResult = await fetchSpotifySearchData(searchResultParam);
   const datas =
@@ -30,18 +31,30 @@ export default async function SearchType({ params }: { params: { searchText: str
 
   return (
     <>
-      {searchType === 'tracks' ? (
-        <div className="w-full mt-20 pl-6 pr-3 box-border">
-          <TableListTop />
-          {(datas.items as TrackInSearch[]).map((data, index) => (
-            <TrackGroup2 key={data.id} idx={index} data={data} />
-          ))}
-        </div>
-      ) : (
-        <div className="w-full py-4 pl-6 pr-3 box-border">
-          <RecommenedList datas={datas.items as Album[]} type={type} />
-        </div>
-      )}
+      <div className={`${searchType === 'tracks' ? 'block' : 'hidden'} w-full mt-20 pl-6 pr-3 box-border`}>
+        <TableListTop />
+        {(datas.items as TrackInSearch[]).map((data, index) => (
+          <TrackGroup2
+            key={data.id}
+            idx={index}
+            id={data.id}
+            name={data.name}
+            duration={data.duration}
+            thumbnail={data.album?.thumbnailUrl}
+            idxWidthStyle={isSearchParamsTrack ? 'block w-[4%]' : 'hidden'}
+            imgWidthStyle={isSearchParamsTrack ? 'w-[50%]' : 'w-full'}
+            albumTitleWidthStyle={isSearchParamsTrack ? 'w-[40%] block' : 'hidden'}
+            formatDateStyle="hidden"
+            buttonWrapStyle={isSearchParamsTrack ? 'w-[6%]' : ''}
+            artistList={data.artists?.map((d) => d.name).join(', ')}
+            albumTitle={data.album?.name}
+          />
+        ))}
+      </div>
+
+      <div className={`${searchType === 'type' ? 'hidden' : 'block'} w-full py-4 pl-6 pr-3 box-border`}>
+        <RecommenedList datas={datas.items as Album[]} type={type} />
+      </div>
     </>
   );
 }

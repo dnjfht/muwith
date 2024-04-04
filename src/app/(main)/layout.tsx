@@ -33,7 +33,7 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
                     src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
                   ></iframe>{' '}
                 </div>
-                <div className="w-full h-[70vh] overflow-y-scroll">{children}</div>
+                <div className="w-full h-[70vh] overflow-x-hidden overflow-y-scroll">{children}</div>
               </div>
             </MainContentWrap>
             <CurrentPlayDetail currentPlayList={currentPlaylist} />
