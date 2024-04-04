@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { DEFAULT_PICTURE } from '../constants';
-import { MuwithObjectType } from '../types/api-responses/global';
+import { DEFAULT_PICTURE } from '../../constants';
+import { MuwithObjectType } from '../../types/api-responses/global';
 
 interface TrackGroupProps {
   id: string;

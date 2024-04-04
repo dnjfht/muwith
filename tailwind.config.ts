@@ -7,6 +7,15 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    screens: {
+      '3sm': '320px',
+      '2sm': '450px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
     extend: {
       spacing: {
         calc_1: 'calc(100% - 740px)',
@@ -25,7 +34,7 @@ const config: Config = {
       },
 
       animation: {
-        spin: 'spin 3s linear infinite',
+        spin: 'spin 2.6s linear infinite',
       },
     },
   },

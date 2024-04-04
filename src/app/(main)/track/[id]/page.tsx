@@ -58,7 +58,7 @@ export default async function TrackDetailPage({ params }: { params: { id: string
         </div>
       </div>
 
-      <DetailContent type={MuwithObjectType.TRACK} data={track} />
+      <TrackDetailContent type={MuwithObjectType.TRACK} data={track} />
     </div>
   );
 }
