@@ -3,7 +3,6 @@ import ArtistDetailContent from '@/app/components/artist/ArtistDetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { numberWithCommas } from '@/app/layout-constants';
-import { MuwithObjectType } from '@/app/types/api-responses/global';
 import Image from 'next/image';
 
 export default async function DetailPage({ params }: { params: { id: string } }) {
