@@ -1,9 +1,10 @@
 import { fetchSpotifyArtistDetailData, fetchSpotifyTrackDetailData } from '@/app/api/spotify';
+
+import TrackDetailContent from '@/app/components/track/TrackDetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { timeString } from '@/app/layout-constants';
 import Image from 'next/image';
-import TrackDetailContent from '../../../components/track/TrackDetailContent';
 
 export default async function TrackDetailPage({ params }: { params: { id: string } }) {
   const id = params.id;

@@ -29,15 +29,13 @@ export default async function AlbumDetailContent({ data, albumArtist }: DetailCo
             <TrackGroup2
               key={track.id}
               idx={idx}
-              id={track.id}
-              name={track.name}
-              duration={track.duration}
+              data={track}
+              isGroupTrack={true}
               wrapStyle="text-white py-4"
               idxWidthStyle="block w-[4%]"
               imgWidthStyle="w-[90%]"
               albumTitleWidthStyle="hidden"
               trackIdArr={trackIdArr}
-              artistList={track.artists.map((t) => t.name).join(', ')}
               isHiddenThumbnail="hidden"
               formatDateStyle="hidden"
             />

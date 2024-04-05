@@ -27,18 +27,13 @@ export default async function PlaylistDetailContent({ data }: DetailContentType)
             <TrackGroup2
               key={track.id}
               idx={idx}
-              id={track.id}
-              name={track.name}
-              duration={track.duration}
-              thumbnail={track.album.thumbnailUrl}
+              data={track}
+              isGroupTrack={true}
               wrapStyle="text-white py-4"
               idxWidthStyle="block w-[4%]"
               imgWidthStyle="w-[30%]"
               albumTitleWidthStyle="w-[30%] block"
               trackIdArr={trackIdArr}
-              artistList={track.artists.map((t) => t.name).join(', ')}
-              formatDate={formatDate(track.addedAt)}
-              albumTitle={track.album.name}
             />
           );
         })}

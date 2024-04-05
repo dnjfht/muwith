@@ -37,17 +37,13 @@ export default async function SearchType({ params }: { params: { searchText: str
           <TrackGroup2
             key={data.id}
             idx={index}
-            id={data.id}
-            name={data.name}
-            duration={data.duration}
-            thumbnail={data.album?.thumbnailUrl}
+            data={data}
             idxWidthStyle={isSearchParamsTrack ? 'block w-[4%]' : 'hidden'}
             imgWidthStyle={isSearchParamsTrack ? 'w-[50%]' : 'w-full'}
             albumTitleWidthStyle={isSearchParamsTrack ? 'w-[40%] block' : 'hidden'}
             formatDateStyle="hidden"
             buttonWrapStyle={isSearchParamsTrack ? 'w-[6%]' : ''}
-            artistList={data.artists?.map((d) => d.name).join(', ')}
-            albumTitle={data.album?.name}
+            trackIdArr={[data.id]}
           />
         ))}
       </div>

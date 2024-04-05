@@ -3,40 +3,35 @@
 import Image from 'next/image';
 import { PiHeart } from 'react-icons/pi';
 import { RiMoreLine } from 'react-icons/ri';
-import { timeString } from '../../layout-constants';
+import { formatDate, timeString } from '../../layout-constants';
 import { useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
 import { CurrentPlayListDataState, CurrentTrackIndexState } from '../../recoil/atoms/atom';
 import { DEFAULT_PICTURE } from '../../constants';
 import Button from './button/Button';
+import { TrackInAlbum } from '@/app/types/api-responses/album';
+import { TrackInPlaylist } from '@/app/types/api-responses/playlist';
+import { TrackInSearch } from '@/app/types/api-responses/search';
+import { ArtistTopTrack } from '@/app/types/api-responses/artist';
 
 interface TrackType {
   idx?: number;
-  id: string;
-  name: string;
-  duration: number;
-  thumbnail?: string;
+  data: TrackInSearch | TrackInPlaylist | TrackInAlbum | ArtistTopTrack;
+  isGroupTrack?: boolean;
   wrapStyle?: string;
   idxWidthStyle?: string;
   imgWidthStyle?: string;
   albumTitleWidthStyle?: string;
   formatDateStyle?: string;
   buttonWrapStyle?: string;
-  trackIdArr?: string[];
-  artistList?: string;
-  formatDate?: string;
+  trackIdArr: string[];
   isHiddenThumbnail?: string;
-  playlistDetailType?: boolean;
-  albumDetailType?: boolean;
-  albumTitle?: string;
 }
 
 export default function TrackGroup2({
   idx,
-  id,
-  name,
-  duration,
-  thumbnail,
+  data,
+  isGroupTrack,
   wrapStyle,
   idxWidthStyle,
   imgWidthStyle,
@@ -44,17 +39,18 @@ export default function TrackGroup2({
   formatDateStyle,
   buttonWrapStyle,
   trackIdArr,
-  artistList,
-  formatDate,
   isHiddenThumbnail,
-  albumTitle,
 }: TrackType) {
   const router = useRouter();
 
   const setCurrentPlaylist = useSetRecoilState(CurrentPlayListDataState);
   const setCurrentTrackIndex = useSetRecoilState(CurrentTrackIndexState);
 
-  const thumbnailImg = thumbnail ?? DEFAULT_PICTURE;
+  const thumbnail = (data as TrackInPlaylist | TrackInSearch | ArtistTopTrack).album?.thumbnailUrl ?? DEFAULT_PICTURE;
+
+  const artistArr = data.artists?.map((artist) => artist.name);
+  const artistList = artistArr?.join(', ');
+  const albumTitle = (data as TrackInPlaylist | TrackInSearch).album?.name;
 
   return (
     <div
@@ -64,10 +60,10 @@ export default function TrackGroup2({
       <div
         className={`${idxWidthStyle} flex items-center`}
         onClick={() => {
-          if ((idx || idx === 0) && trackIdArr) {
-            setCurrentPlaylist(trackIdArr);
-            setCurrentTrackIndex(idx);
-          } else if ((idx || idx === 0) && !trackIdArr) {
+          setCurrentPlaylist(trackIdArr);
+          if (!isGroupTrack) {
+            setCurrentTrackIndex(0);
+          } else if (isGroupTrack && (idx || idx === 0)) {
             setCurrentTrackIndex(idx);
           }
         }}
@@ -76,20 +72,20 @@ export default function TrackGroup2({
       </div>
       <div
         onClick={() => {
-          router.push(`/track/${id}`);
+          router.push(`/track/${data.id}`);
         }}
         className={`${imgWidthStyle} flex items-center gap-x-4 cursor-pointer`}
       >
         <Image
           className={`${isHiddenThumbnail} w-10 h-10 object-cover rounded-xl`}
-          src={thumbnailImg}
+          src={thumbnail}
           width={1000}
           height={1000}
           alt="trackImg"
         />
 
         <div className="flex flex-col">
-          <p>{name}</p>
+          <p>{data.name}</p>
           <p className="mt-[-4px] text-[#a1a1a1] text-[0.875rem] group-hover:text-white group-focus:text-white">
             {artistList}
           </p>
@@ -101,12 +97,12 @@ export default function TrackGroup2({
       </div>
 
       <div className={`${formatDateStyle} w-[30%] flex items-center`}>
-        <p>{formatDate}</p>
+        <p>{formatDate((data as TrackInPlaylist).addedAt)}</p>
       </div>
 
       <div className={`${buttonWrapStyle} flex items-center gap-x-4`}>
         <Button icon={<PiHeart />} basicStyle="text-[1.2em]" />
-        <p className="text-[#a1a1a1] text-[0.875rem]">{timeString(duration)}</p>
+        <p className="text-[#a1a1a1] text-[0.875rem]">{timeString(data.duration)}</p>
         <Button icon={<RiMoreLine />} basicStyle="text-white" />
       </div>
     </div>

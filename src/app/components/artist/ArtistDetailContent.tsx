@@ -41,16 +41,13 @@ export default async function ArtistDetailContent({ artist }: ArtistDetailConten
             <TrackGroup2
               key={topTrack.id}
               idx={idx}
-              id={topTrack.id}
-              name={topTrack.name}
-              duration={topTrack.duration}
-              thumbnail={topTrack.album.thumbnailUrl}
+              data={topTrack}
+              isGroupTrack={true}
               wrapStyle="text-white py-4"
               imgWidthStyle="w-full"
               albumTitleWidthStyle="hidden"
               formatDateStyle="hidden"
               trackIdArr={trackIdArr}
-              artistList={topTrack.artists.map((artist) => artist.name).join(', ')}
             />
           );
         })}
