@@ -1,9 +1,9 @@
 import { fetchSpotifyArtistDetailData, fetchSpotifyTrackDetailData } from '@/app/api/spotify';
+
 import TrackDetailContent from '@/app/components/track/TrackDetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { timeString } from '@/app/layout-constants';
-import { MuwithObjectType } from '@/app/types/api-responses/global';
 import Image from 'next/image';
 
 export default async function TrackDetailPage({ params }: { params: { id: string } }) {
@@ -36,7 +36,7 @@ export default async function TrackDetailPage({ params }: { params: { id: string
         <div className="w-full text-[0.875rem] text-white">
           <p>곡</p>
 
-          <TypeEffect type="track" data={track} />
+          <TypeEffect backgroundStyle="bg-gradient-to-r from-[#ff077b] to-[#f6abd2]" data={track} />
 
           <div className="w-full mt-3 flex items-center gap-x-2">
             <Image
@@ -58,7 +58,7 @@ export default async function TrackDetailPage({ params }: { params: { id: string
         </div>
       </div>
 
-      <TrackDetailContent type={MuwithObjectType.TRACK} data={track} />
+      <TrackDetailContent data={track} />
     </div>
   );
 }

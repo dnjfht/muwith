@@ -29,7 +29,7 @@ export default async function DetailPage({ params }: { params: { id: string } })
         <div className="w-full text-[0.875rem] text-white">
           <p>아티스트</p>
 
-          <TypeEffect type="artist" data={artist} />
+          <TypeEffect backgroundStyle="bg-gradient-to-r from-[#ffa72d] to-[#a3d4b3]" data={artist} />
 
           <div className="w-full mt-3 flex items-center gap-x-2">
             <div className="mt-4 flex items-center gap-x-4">

@@ -2,7 +2,6 @@ import { fetchSpotifySearchData } from '@/app/api/spotify';
 import RecommenedList from '@/app/components/RecommenedList';
 import TrackGroup from '@/app/components/trackGroup/TrackGroup';
 import TrackGroup2 from '@/app/components/trackGroup/TrackGroup2';
-import { Artist } from '@/app/types/api-responses/artist';
 import { MuwithObjectType } from '@/app/types/api-responses/global';
 import { getDescription } from '@/utilities';
 
@@ -26,7 +25,7 @@ export default async function SearchResult({ params }: { params: { searchText: s
                 image={artist.thumbnailUrl}
                 title={artist.name}
                 type={MuwithObjectType.ARTIST}
-                description={getDescription(MuwithObjectType.ARTIST, artist as Artist)}
+                description={getDescription(MuwithObjectType.ARTIST, artist)}
               />
             </div>
           )}
