@@ -1,4 +1,3 @@
-import '../../(main)/layout.css';
 import TableListTop from '../TableListTops';
 import TrackGroup2 from '../trackGroup/TrackGroup2';
 import RecommenedList from '../RecommenedList';
@@ -8,18 +7,19 @@ import { Artist } from '../../types/api-responses/artist';
 import { Album } from '@/app/types/api-responses/album';
 
 interface DetailContentType {
-  type: MuwithObjectType;
   data: Album;
-  albumArtist: Artist;
+  albumArtist: Artist | null;
 }
 
-export default async function AlbumDetailContent({ type, data, albumArtist }: DetailContentType) {
+export default async function AlbumDetailContent({ data, albumArtist }: DetailContentType) {
+  const type = MuwithObjectType.ALBUM;
+
   const tracks = data.tracks;
   const trackIdArr = tracks.map((data) => data.id);
 
   return (
     <div className="w-full min-h-[44vh] p-6 box-border bg-gradient-to-b from-[#2c2d2e] to-[#a1d4a0]">
-      <DetailContentTop type={type} data={data} />
+      <DetailContentTop trackIds={trackIdArr} />
 
       <div className="w-full mb-6">
         <TableListTop type={type} />
@@ -45,7 +45,7 @@ export default async function AlbumDetailContent({ type, data, albumArtist }: De
         })}
       </div>
 
-      <RecommenedList title="아티스트의 곡 더보기" datas={albumArtist!.albums} type={type} />
+      {albumArtist && <RecommenedList title="아티스트의 곡 더보기" datas={albumArtist.albums} type={type} />}
     </div>
   );
 }

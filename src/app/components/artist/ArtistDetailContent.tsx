@@ -2,7 +2,6 @@ import TrackGroup2 from '../trackGroup/TrackGroup2';
 import { fetchSpotifyArtistTopTracksData } from '../../api/spotify';
 import { numberWithCommas } from '../../layout-constants';
 import DetailContentTop from '../DetailContentTop';
-import { MuwithObjectType } from '../../types/api-responses/global';
 import { Artist } from '../../types/api-responses/artist';
 
 interface ArtistDetailContentProps {
@@ -15,7 +14,7 @@ export default async function ArtistDetailContent({ artist }: ArtistDetailConten
 
   return (
     <div className="w-full min-h-[44vh] p-6 box-border bg-gradient-to-b from-[#2c2d2e] to-[#ffb685]">
-      <DetailContentTop type={MuwithObjectType.ARTIST} data={artist} artistTopTracksData={artistTopTracksData} />
+      <DetailContentTop trackIds={artistTopTracksData.map((track) => track.id)} hideLikeAndMoreButton={true} />
 
       <div
         className="w-full h-[32.5rem] p-10 box-border rounded-xl relative overflow-hidden shadow-[0_8px_6px_3px_rgba(0,0,0,0.3)] hover-bg-size group"

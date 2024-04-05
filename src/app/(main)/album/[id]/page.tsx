@@ -3,7 +3,6 @@ import AlbumDetailContent from '@/app/components/album/AlbumDetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { timeString2 } from '@/app/layout-constants';
-import { MuwithObjectType } from '@/app/types/api-responses/global';
 import Image from 'next/image';
 
 export default async function AlbumDetailPage({ params }: { params: { id: string } }) {
@@ -21,13 +20,12 @@ export default async function AlbumDetailPage({ params }: { params: { id: string
   const profileImg = DEFAULT_PICTURE;
   const artistNames = album.artists.map((artist: { name: string }) => artist.name);
   const artistsName = artistNames.join(', ');
-  const artistId = album.artists[0].id;
   const profileName = artistsName ?? '아티스트';
 
   const totalTimes = album.tracks.map((track: { duration: number }) => track.duration);
   const totalTime = totalTimes.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
 
-  const albumArtist = await fetchSpotifyArtistDetailData(artistId);
+  const albumArtist = album.artists.length ? await fetchSpotifyArtistDetailData(album.artists[0].id) : null;
 
   return (
     <div>
@@ -43,7 +41,7 @@ export default async function AlbumDetailPage({ params }: { params: { id: string
         <div className="w-full text-[0.875rem] text-white">
           <p>{typeTxt}</p>
 
-          <TypeEffect type="album" data={album} />
+          <TypeEffect backgroundStyle="bg-gradient-to-r from-cyan-500 to-[#6cb16b]" data={album} />
 
           <div className="w-full mt-3">
             <div className="flex items-center gap-x-2">
@@ -67,7 +65,7 @@ export default async function AlbumDetailPage({ params }: { params: { id: string
         </div>
       </div>
 
-      <AlbumDetailContent type={MuwithObjectType.ALBUM} data={album} albumArtist={albumArtist} />
+      <AlbumDetailContent data={album} albumArtist={albumArtist} />
     </div>
   );
 }
