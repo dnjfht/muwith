@@ -1,5 +1,4 @@
 import { fetchSpotifyArtistDetailData, fetchSpotifyTrackDetailData } from '@/app/api/spotify';
-
 import TrackDetailContent from '@/app/components/track/TrackDetailContent';
 import TypeEffect from '@/app/components/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';

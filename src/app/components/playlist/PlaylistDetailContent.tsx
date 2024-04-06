@@ -1,9 +1,8 @@
 import TableListTop from '../TableListTops';
 import TrackGroup2 from '../trackGroup/TrackGroup2';
-import DetailContentTop from '../DetailContentTop';
+import DetailContentTop from '../detail/DetailContentTop';
 import { MuwithObjectType } from '../../types/api-responses/global';
 import { Playlist } from '../../types/api-responses/playlist';
-import { formatDate } from '@/app/layout-constants';
 
 interface DetailContentType {
   data: Playlist;

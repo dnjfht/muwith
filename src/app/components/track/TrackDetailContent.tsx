@@ -1,7 +1,7 @@
 import '../../(main)//layout.css';
 import RecommenedList from '../RecommenedList';
 import TrackLylics from '../TrackLylics';
-import DetailContentTop from '../DetailContentTop';
+import DetailContentTop from '../detail/DetailContentTop';
 import { MuwithObjectType } from '../../types/api-responses/global';
 import { Track } from '../../types/api-responses/track';
 
