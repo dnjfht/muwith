@@ -1,7 +1,7 @@
 import TableListTop from '../TableListTops';
 import TrackGroup2 from '../trackGroup/TrackGroup2';
 import RecommenedList from '../RecommenedList';
-import DetailContentTop from '../DetailContentTop';
+import DetailContentTop from '../detail/DetailContentTop';
 import { MuwithObjectType } from '../../types/api-responses/global';
 import { Artist } from '../../types/api-responses/artist';
 import { Album } from '@/app/types/api-responses/album';

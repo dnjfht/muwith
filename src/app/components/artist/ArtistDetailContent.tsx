@@ -1,7 +1,7 @@
 import TrackGroup2 from '../trackGroup/TrackGroup2';
 import { fetchSpotifyArtistTopTracksData } from '../../api/spotify';
 import { numberWithCommas } from '../../layout-constants';
-import DetailContentTop from '../DetailContentTop';
+import DetailContentTop from '../detail/DetailContentTop';
 import { Artist } from '../../types/api-responses/artist';
 
 interface ArtistDetailContentProps {
