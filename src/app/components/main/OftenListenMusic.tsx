@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
-import { PageWidthState } from '../recoil/atoms/atom';
+import { PageWidthState } from '../../recoil/atoms/atom';
 
 interface OftenListenMusicProps {
   datas: OftenListenData[];

@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { LibraryMyLibraryItem } from '../types/api-responses/library';
-import { MuwithObjectType } from '../types/api-responses/global';
+import { LibraryMyLibraryItem } from '../../types/api-responses/library';
+import { MuwithObjectType } from '../../types/api-responses/global';
 
 interface MyLibraryDataProps {
   width: number;

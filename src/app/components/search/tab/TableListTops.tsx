@@ -2,10 +2,10 @@
 
 import { IoTimeOutline } from 'react-icons/io5';
 import { useRecoilValue } from 'recoil';
-import { PageWidthState } from '../recoil/atoms/atom';
+import { PageWidthState } from '../../../recoil/atoms/atom';
 import { usePathname } from 'next/navigation';
-import { AppPage } from '../types/app';
-import { MuwithObjectType } from '../types/api-responses/global';
+import { AppPage } from '../../../types/app';
+import { MuwithObjectType } from '../../../types/api-responses/global';
 
 export default function TableListTop({ type }: { type?: string }) {
   const pageWidth = useRecoilValue(PageWidthState);

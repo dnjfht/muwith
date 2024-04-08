@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { MIN_MENU_TITLE_WIDTH } from '../layout-constants';
-import MyLibrary from './MyLibrary';
+import { MIN_MENU_TITLE_WIDTH } from '../../layout-constants';
+import MyLibrary from '../myLibrary/MyLibrary';
 import SidebarMenu from './SidebarMenu';
-import { AppPage } from '../types/app';
-import useMouseResize from '../customHook/useMouseResize';
+import { AppPage } from '../../types/app';
+import useMouseResize from '../../customHook/useMouseResize';
 import { usePathname } from 'next/navigation';
 
 export default function SidebarClient() {

@@ -1,4 +1,4 @@
-import TableListTop from '../TableListTops';
+import TableListTop from '../search/tab/TableListTops';
 import TrackGroup2 from '../trackGroup/TrackGroup2';
 import DetailContentTop from '../detail/DetailContentTop';
 import { MuwithObjectType } from '../../types/api-responses/global';

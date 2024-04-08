@@ -1,4 +1,4 @@
-import TabContainer from '@/app/components/TabContainer';
+import TabContainer from '@/app/components/search/tab/TabContainer';
 
 export default function SearchTextLayout({ children }: React.PropsWithChildren) {
   return (

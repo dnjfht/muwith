@@ -9,8 +9,8 @@ import { useEffect, useState } from 'react';
 
 import { GoChevronLeft, GoChevronRight, GoX } from 'react-icons/go';
 import { CiSearch } from 'react-icons/ci';
-import { AppPage } from '../types/app';
-import { DEFAULT_PICTURE } from '../constants';
+import { AppPage } from '../../types/app';
+import { DEFAULT_PICTURE } from '../../constants';
 
 interface HeaderProps {
   currentUserData: {

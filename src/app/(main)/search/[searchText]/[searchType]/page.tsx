@@ -1,6 +1,6 @@
 import { fetchSpotifySearchData } from '@/app/api/spotify';
-import RecommenedList from '@/app/components/RecommenedList';
-import TableListTop from '@/app/components/TableListTops';
+import RecommenedList from '@/app/components/recommendedList/RecommenedList';
+import TableListTop from '@/app/components/search/tab/TableListTops';
 import TrackGroup2 from '@/app/components/trackGroup/TrackGroup2';
 import { Album } from '@/app/types/api-responses/album';
 import { MuwithObjectType } from '@/app/types/api-responses/global';
@@ -48,7 +48,7 @@ export default async function SearchType({ params }: { params: { searchText: str
         ))}
       </div>
 
-      <div className={`${searchType === 'type' ? 'hidden' : 'block'} w-full py-4 pl-6 pr-3 box-border`}>
+      <div className={`${searchType === 'tracks' ? 'hidden' : 'block'} w-full py-4 pl-6 pr-3 box-border`}>
         <RecommenedList datas={datas.items as Album[]} type={type} />
       </div>
     </>

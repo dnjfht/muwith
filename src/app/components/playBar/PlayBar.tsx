@@ -2,13 +2,17 @@
 
 import Image from 'next/image';
 
-import { convertSecondsToTime, currentPlayTimePercent } from '../layout-constants';
+import { convertSecondsToTime, currentPlayTimePercent } from '../../layout-constants';
 import { useEffect, useState } from 'react';
-import { PlayTimeProgressBar } from './PlayTimeProgressBar';
-import { getPlayerMethodValue } from '../api/youtube_music_api';
-import VolumeControl from './VolumeControl';
+import { PlayTimeProgressBar } from '../playTimeProgressBar/PlayTimeProgressBar';
+import { getPlayerMethodValue } from '../../api/youtube_music_api';
+import VolumeControl from '../volumeControl/VolumeControl';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { CurrentTrackDataState, CurrentTrackIndexState, OpenCurrentPlayTrackDetailState } from '../recoil/atoms/atom';
+import {
+  CurrentTrackDataState,
+  CurrentTrackIndexState,
+  OpenCurrentPlayTrackDetailState,
+} from '../../recoil/atoms/atom';
 
 import { GoChevronUp, GoChevronDown } from 'react-icons/go';
 import { BsFillPlayFill, BsFillPauseFill, BsFillSkipStartFill, BsFillSkipEndFill } from 'react-icons/bs';

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { HiOutlineHome, HiHome } from 'react-icons/hi2';
 import { GoSearch } from 'react-icons/go';
-import { AppPage } from '../types/app';
+import { AppPage } from '../../types/app';
 
 interface SidebarMenuProps {
   LinkHref: string;

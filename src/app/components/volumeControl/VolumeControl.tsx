@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 import { CiVolume, CiVolumeHigh, CiVolumeMute } from 'react-icons/ci';
-import { getPlayerMethodValue } from '../api/youtube_music_api';
+import { getPlayerMethodValue } from '../../api/youtube_music_api';
 
 interface VolumeControlProps {
   player: YT.Player | null;

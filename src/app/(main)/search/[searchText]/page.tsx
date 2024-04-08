@@ -1,5 +1,5 @@
 import { fetchSpotifySearchData } from '@/app/api/spotify';
-import RecommenedList from '@/app/components/RecommenedList';
+import RecommenedList from '@/app/components/recommendedList/RecommenedList';
 import TrackGroup from '@/app/components/trackGroup/TrackGroup';
 import TrackGroup2 from '@/app/components/trackGroup/TrackGroup2';
 import { MuwithObjectType } from '@/app/types/api-responses/global';
@@ -18,7 +18,7 @@ export default async function SearchResult({ params }: { params: { searchText: s
       <div className="w-full mt-6">
         <div className="w-full flex gap-x-10">
           {artist && (
-            <div className="w-[200px]">
+            <div className={`${artist ? 'block' : 'hidden'} w-[200px]`}>
               <h1 className="mb-2 text-[1.5rem] font-semibold line-clamp-1">{artist?.name}</h1>
               <TrackGroup
                 id={artist.id}
@@ -51,12 +51,19 @@ export default async function SearchResult({ params }: { params: { searchText: s
           )}
         </div>
 
-        {albums.items.length > 0 && <RecommenedList title="앨범" datas={albums.items} type={MuwithObjectType.ALBUM} />}
+        {albums.items.length > 0 && (
+          <RecommenedList type={MuwithObjectType.ALBUM} title="앨범" datas={albums.items} isSlicedData={true} />
+        )}
         {artists.items.length > 0 && (
-          <RecommenedList title="아티스트" datas={artists.items} type={MuwithObjectType.ARTIST} />
+          <RecommenedList type={MuwithObjectType.ARTIST} title="아티스트" datas={artists.items} isSlicedData={true} />
         )}
         {playlists.items.length > 0 && (
-          <RecommenedList title="플레이리스트" datas={playlists.items} type={MuwithObjectType.PLAYLIST} />
+          <RecommenedList
+            type={MuwithObjectType.PLAYLIST}
+            title="플레이리스트"
+            datas={playlists.items}
+            isSlicedData={true}
+          />
         )}
       </div>
     </div>

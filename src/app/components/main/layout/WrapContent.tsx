@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { CurrentPlayListDataState, CurrentTrackDataState, CurrentTrackIndexState } from '../recoil/atoms/atom';
+import { CurrentPlayListDataState, CurrentTrackDataState, CurrentTrackIndexState } from '../../../recoil/atoms/atom';
 import { useRecoilState } from 'recoil';
-import { fetchSpotifyRecommendedTracksData, fetchSpotifyTrackDetailData } from '../api/spotify';
-import { Track } from '../types/api-responses/track';
+import { fetchSpotifyRecommendedTracksData, fetchSpotifyTrackDetailData } from '../../../api/spotify';
+import { Track } from '../../../types/api-responses/track';
 
 // window 객체에 직접 onYouTubeIframeAPIReady 메소드를 추가하는 부분은 TypeScript에서 에러를 발생시킬 수 있습니다.
 // TypeScript는 기본적으로 window 객체에 이와 같은 메소드가 없다고 가정하기 때문입니다.
