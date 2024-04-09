@@ -43,20 +43,18 @@ export default async function TrackDetailContent({ data }: DetailContentType) {
             <SubText text="이 곡 기준" basicStyle="text-[0.875rem]" />
           </div>
 
-          {recommendationsByTracks.map((track) => {
-            return (
-              <TrackGroup2
-                key={track.id}
-                data={track}
-                wrapStyle="text-white"
-                idxWidthStyle="hidden"
-                imgWidthStyle="w-full"
-                albumTitleWidthStyle="hidden"
-                formatDateStyle="hidden"
-                trackIdArr={[track.id]}
-              />
-            );
-          })}
+          {recommendationsByTracks.map((track) => (
+            <TrackGroup2
+              key={track.id}
+              data={track}
+              wrapStyle="text-white"
+              idxWidthStyle="hidden"
+              imgWidthStyle="w-full"
+              albumTitleWidthStyle="hidden"
+              formatDateStyle="hidden"
+              trackIdArr={[track.id]}
+            />
+          ))}
         </div>
       </div>
     </div>

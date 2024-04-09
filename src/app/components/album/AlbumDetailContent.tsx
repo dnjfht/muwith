@@ -22,7 +22,7 @@ export default async function AlbumDetailContent({ data, albumArtist }: DetailCo
       <DetailContentTop trackIds={trackIdArr} />
 
       <div className="w-full mb-6">
-        <TableListTop type={type} />
+        <TableListTop isAlbum={true} />
 
         {tracks.map((track, idx: number) => {
           return (
@@ -43,7 +43,7 @@ export default async function AlbumDetailContent({ data, albumArtist }: DetailCo
         })}
       </div>
 
-      {albumArtist ? (
+      {albumArtist && (
         <RecommenedList
           type={type}
           title="아티스트의 곡 더보기"
@@ -52,7 +52,7 @@ export default async function AlbumDetailContent({ data, albumArtist }: DetailCo
           isSlicedData={true}
           datas={albumArtist.albums}
         />
-      ) : null}
+      )}
     </div>
   );
 }

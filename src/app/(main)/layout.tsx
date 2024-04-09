@@ -5,7 +5,7 @@ import { fetchCurrentPlaylist } from '../api/playlist_api';
 import { cookies } from 'next/headers';
 import { fetchUserData } from '../api/user';
 import Header from '../components/header/Header';
-import MainContentWrap from '../components/main/MainContentWrap';
+import MainContentWrap from '../components/main/layout/MainContentWrap';
 import PlayBar from '../components/playBar/PlayBar';
 import WrapContent from '../components/main/layout/WrapContent';
 

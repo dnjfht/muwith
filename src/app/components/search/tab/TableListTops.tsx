@@ -5,24 +5,25 @@ import { useRecoilValue } from 'recoil';
 import { PageWidthState } from '../../../recoil/atoms/atom';
 import { usePathname } from 'next/navigation';
 import { AppPage } from '../../../types/app';
-import { MuwithObjectType } from '../../../types/api-responses/global';
 
-export default function TableListTop({ type }: { type?: string }) {
+export default function TableListTop({ isPlaylist, isAlbum }: { isPlaylist?: boolean; isAlbum?: boolean }) {
   const pageWidth = useRecoilValue(PageWidthState);
   const pathName = usePathname();
+  const isSearchPageWidth = pageWidth && pathName.includes(AppPage.SEARCH);
 
-  const playlistDetailType = !pathName.includes(AppPage.SEARCH) && type === MuwithObjectType.PLAYLIST;
-  const albumDetailType = !pathName.includes(AppPage.SEARCH) && type === MuwithObjectType.ALBUM;
+  const titleWidthStyle = isPlaylist ? 'w-[30%]' : isAlbum ? 'w-[90%]' : 'w-[50%]';
+  const albumStyle = isPlaylist ? 'w-[30%]' : isAlbum ? 'hidden' : 'w-[40%]';
+  const addDateStyle = isPlaylist ? 'block w-[30%]' : 'hidden';
 
   return (
     <div
       className={`${pathName.includes(AppPage.SEARCH) && 'fixed top-[160px]'} px-4 py-3 box-border bg-gradient-to-r from-[#232426] to-[rgba(0,0,0,0.2)] rounded-t-lg flex items-center text-white text-[0.875rem]`}
-      style={{ width: `${pageWidth && pathName.includes(AppPage.SEARCH) ? `${pageWidth - 48}px` : 'w-[90%]'}` }}
+      style={{ width: `${isSearchPageWidth ? `${pageWidth - 48}px` : 'w-[90%]'}` }}
     >
       <div className="w-[4%] text-[1rem]">#</div>
-      <div className={`${playlistDetailType ? 'w-[30%]' : albumDetailType ? 'w-[90%]' : 'w-[50%]'}`}>제목</div>
-      <div className={`${playlistDetailType ? 'w-[30%]' : albumDetailType ? 'hidden' : 'w-[40%]'}`}>앨범</div>
-      <div className={`${playlistDetailType ? 'block w-[30%]' : 'hidden'}`}>추가한 날짜</div>
+      <div className={`${titleWidthStyle}`}>제목</div>
+      <div className={`${albumStyle}`}>앨범</div>
+      <div className={`${addDateStyle}`}>추가한 날짜</div>
       <div className="w-[6%] text-[1.4rem] flex justify-center">
         <IoTimeOutline />
       </div>

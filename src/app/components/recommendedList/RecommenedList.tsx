@@ -59,11 +59,11 @@ export default function RecommenedList({
         {allDatas.map((data) => (
           <TrackGroup
             key={data.id}
-            id={data.id}
             image={data.thumbnailUrl}
+            isThumbnailCircle={type === MuwithObjectType.ARTIST}
             title={data.name}
-            type={type}
             description={getDescription(type, data)}
+            clickLink={`/${type}/${data.id}`}
           />
         ))}
       </div>

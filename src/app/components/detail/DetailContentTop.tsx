@@ -30,7 +30,7 @@ export default function Det0ailContentTop({ trackIds, hideLikeAndMoreButton }: D
         basicStyle="w-14 h-14 bg-[#1d1e22] border-[1px] border-solid border-white rounded-full flex items-center justify-center text-white"
       />
       <Button icon={<PiHeart />} isHiddenButton={hideLikeAndMoreButton ?? false} basicStyle="text-[#a1a1a1]" />
-      <Button icon={<RiMoreLine />} isHiddenButton={hideLikeAndMoreButton ?? false} basicStyle="text-[#f1adad]" />
+      <Button icon={<RiMoreLine />} isHiddenButton={hideLikeAndMoreButton ?? false} basicStyle="text-[#a1a1a1]" />
     </div>
   );
 }

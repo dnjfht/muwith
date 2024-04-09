@@ -36,21 +36,19 @@ export default async function ArtistDetailContent({ artist }: ArtistDetailConten
       <div className="w-full">
         <h1 className="mb-2 text-[1.5rem] font-semibold text-white">인기</h1>
 
-        {artistTopTracksData.map((topTrack, idx: number) => {
-          return (
-            <TrackGroup2
-              key={topTrack.id}
-              idx={idx}
-              data={topTrack}
-              isGroupTrack={true}
-              wrapStyle="text-white py-4"
-              imgWidthStyle="w-full"
-              albumTitleWidthStyle="hidden"
-              formatDateStyle="hidden"
-              trackIdArr={trackIdArr}
-            />
-          );
-        })}
+        {artistTopTracksData.map((topTrack, idx: number) => (
+          <TrackGroup2
+            key={topTrack.id}
+            idx={idx}
+            data={topTrack}
+            isGroupTrack={true}
+            wrapStyle="text-white py-4"
+            imgWidthStyle="w-full"
+            albumTitleWidthStyle="hidden"
+            formatDateStyle="hidden"
+            trackIdArr={trackIdArr}
+          />
+        ))}
       </div>
     </div>
   );

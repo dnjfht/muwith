@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { PageResponsiveNumState, PageWidthState } from '../../recoil/atoms/atom';
+import { PageResponsiveNumState, PageWidthState } from '../../../recoil/atoms/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 // window 객체에 직접 onYouTubeIframeAPIReady 메소드를 추가하는 부분은 TypeScript에서 에러를 발생시킬 수 있습니다.

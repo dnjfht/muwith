@@ -18,37 +18,34 @@ export default async function SearchResult({ params }: { params: { searchText: s
       <div className="w-full mt-6">
         <div className="w-full flex gap-x-10">
           {artist && (
-            <div className={`${artist ? 'block' : 'hidden'} w-[200px]`}>
-              <h1 className="mb-2 text-[1.5rem] font-semibold line-clamp-1">{artist?.name}</h1>
+            <div className="w-[200px]">
+              <h1 className="mb-2 text-[1.5rem] font-semibold line-clamp-1">{artist.name}</h1>
               <TrackGroup
-                id={artist.id}
                 image={artist.thumbnailUrl}
+                isThumbnailCircle={true}
                 title={artist.name}
-                type={MuwithObjectType.ARTIST}
                 description={getDescription(MuwithObjectType.ARTIST, artist)}
+                clickLink={`/${MuwithObjectType.ARTIST}/${artist.id}`}
               />
             </div>
           )}
+          <div className={`${slicesTracks.length > 0 ? 'block' : 'hidden'} ${artist ? 'w-calc_3' : 'w-full'}`}>
+            <h1 className="mb-2 text-[1.5rem] font-semibold">곡</h1>
 
-          {slicesTracks.length > 0 && (
-            <div className={`${artist ? 'w-calc_3' : 'w-full'}`}>
-              <h1 className="mb-2 text-[1.5rem] font-semibold">곡</h1>
-
-              <div>
-                {slicesTracks.map((track) => (
-                  <TrackGroup2
-                    key={track.id}
-                    data={track}
-                    idxWidthStyle="hidden"
-                    imgWidthStyle="w-full"
-                    albumTitleWidthStyle="hidden"
-                    formatDateStyle="hidden"
-                    trackIdArr={[track.id]}
-                  />
-                ))}
-              </div>
+            <div>
+              {slicesTracks.map((track) => (
+                <TrackGroup2
+                  key={track.id}
+                  data={track}
+                  idxWidthStyle="hidden"
+                  imgWidthStyle="w-full"
+                  albumTitleWidthStyle="hidden"
+                  formatDateStyle="hidden"
+                  trackIdArr={[track.id]}
+                />
+              ))}
             </div>
-          )}
+          </div>
         </div>
 
         {albums.items.length > 0 && (
