@@ -1,12 +1,16 @@
 import { fetchSpotifySearchData } from '@/app/api/spotify';
-import RecommenedList from '@/app/components/RecommenedList';
-import TableListTop from '@/app/components/TableListTops';
+import RecommenedList from '@/app/components/recommendedList/RecommenedList';
+import TableListTop from '@/app/components/search/tab/TableListTops';
 import TrackGroup2 from '@/app/components/trackGroup/TrackGroup2';
 import { Album } from '@/app/types/api-responses/album';
 import { MuwithObjectType } from '@/app/types/api-responses/global';
 import { TrackInSearch } from '@/app/types/api-responses/search';
 
-export default async function SearchType({ params }: { params: { searchText: string; searchType: string } }) {
+interface SearchTypeProps {
+  params: { searchText: string; searchType: string };
+}
+
+export default async function SearchType({ params }: SearchTypeProps) {
   const searchResultParam = decodeURIComponent(params.searchText);
   const searchType = params.searchType;
   const isSearchParamsTrack = searchType === 'tracks';
@@ -33,6 +37,7 @@ export default async function SearchType({ params }: { params: { searchText: str
     <>
       <div className={`${searchType === 'tracks' ? 'block' : 'hidden'} w-full mt-20 pl-6 pr-3 box-border`}>
         <TableListTop />
+
         {(datas.items as TrackInSearch[]).map((data, index) => (
           <TrackGroup2
             key={data.id}
@@ -48,8 +53,8 @@ export default async function SearchType({ params }: { params: { searchText: str
         ))}
       </div>
 
-      <div className={`${searchType === 'type' ? 'hidden' : 'block'} w-full py-4 pl-6 pr-3 box-border`}>
-        <RecommenedList datas={datas.items as Album[]} type={type} />
+      <div className={`${searchType === 'tracks' ? 'hidden' : 'block'} w-full py-4 pl-6 pr-3 box-border`}>
+        <RecommenedList type={type} datas={datas.items as Album[]} />
       </div>
     </>
   );

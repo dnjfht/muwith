@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import ButtonWrap from '@/app/components/ButtonWrap';
+import SnsButtonWrap from '@/app/components/button/SnsButtonWrap';
 
 export default function Auth() {
   return (
@@ -7,6 +7,7 @@ export default function Auth() {
       <div className="2xl:w-calc_1 2xl:order-1 sm:order-2 order-2 2xl:mt-0 sm:mt-12 mt-8 2xl:text-left sm:text-center text-center">
         <h1 className="md:text-[6.25rem] sm:text-[5.2rem] 2sm:text-[3rem] 3sm:text-[2.5rem] font-[900] leading-snug">
           음악 스트리밍 플렛폼
+          <br />
           <span className="italic">MUWITH.</span>
         </h1>
 
@@ -15,7 +16,7 @@ export default function Auth() {
         </p>
 
         <div className="2xl:mt-[108px] sm:mt-16 mt-8 flex flex-col gap-y-3">
-          <ButtonWrap />
+          <SnsButtonWrap />
         </div>
       </div>
 

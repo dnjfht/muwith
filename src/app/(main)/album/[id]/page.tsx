@@ -1,6 +1,6 @@
 import { fetchSpotifyAlbumDetailData, fetchSpotifyArtistDetailData } from '@/app/api/spotify';
 import AlbumDetailContent from '@/app/components/album/AlbumDetailContent';
-import TypeEffect from '@/app/components/TypeEffect';
+import TypeEffect from '@/app/components/typeEffect/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { timeString2 } from '@/app/layout-constants';
 import Image from 'next/image';

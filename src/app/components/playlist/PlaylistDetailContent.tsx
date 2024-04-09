@@ -1,7 +1,6 @@
-import TableListTop from '../TableListTops';
+import TableListTop from '../search/tab/TableListTops';
 import TrackGroup2 from '../trackGroup/TrackGroup2';
 import DetailContentTop from '../detail/DetailContentTop';
-import { MuwithObjectType } from '../../types/api-responses/global';
 import { Playlist } from '../../types/api-responses/playlist';
 
 interface DetailContentType {
@@ -9,8 +8,6 @@ interface DetailContentType {
 }
 
 export default async function PlaylistDetailContent({ data }: DetailContentType) {
-  const type = MuwithObjectType.PLAYLIST;
-
   const tracks = data.tracks;
   const trackIdArr = tracks.map((data) => data.id);
 
@@ -19,23 +16,21 @@ export default async function PlaylistDetailContent({ data }: DetailContentType)
       <DetailContentTop trackIds={trackIdArr} />
 
       <div className="w-full mb-6">
-        <TableListTop type={type} />
+        <TableListTop isPlaylist={true} />
 
-        {tracks.map((track, idx: number) => {
-          return (
-            <TrackGroup2
-              key={track.id}
-              idx={idx}
-              data={track}
-              isGroupTrack={true}
-              wrapStyle="text-white py-4"
-              idxWidthStyle="block w-[4%]"
-              imgWidthStyle="w-[30%]"
-              albumTitleWidthStyle="w-[30%] block"
-              trackIdArr={trackIdArr}
-            />
-          );
-        })}
+        {tracks.map((track, idx: number) => (
+          <TrackGroup2
+            key={track.id}
+            idx={idx}
+            data={track}
+            isGroupTrack={true}
+            wrapStyle="text-white py-4"
+            idxWidthStyle="block w-[4%]"
+            imgWidthStyle="w-[30%]"
+            albumTitleWidthStyle="w-[30%] block"
+            trackIdArr={trackIdArr}
+          />
+        ))}
       </div>
     </div>
   );

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { OpenCurrentPlayTrackDetailState, SidebarWidthState } from '../recoil/atoms/atom';
-import useMouseResize from '../customHook/useMouseResize';
+import { OpenCurrentPlayTrackDetailState, SidebarWidthState } from '../../recoil/atoms/atom';
+import useMouseResize from '../../customHook/useMouseResize';
 
 import { GoX } from 'react-icons/go';
 import Image from 'next/image';

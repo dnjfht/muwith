@@ -1,6 +1,6 @@
-import TableListTop from '../TableListTops';
+import TableListTop from '../search/tab/TableListTops';
 import TrackGroup2 from '../trackGroup/TrackGroup2';
-import RecommenedList from '../RecommenedList';
+import RecommenedList from '../recommendedList/RecommenedList';
 import DetailContentTop from '../detail/DetailContentTop';
 import { MuwithObjectType } from '../../types/api-responses/global';
 import { Artist } from '../../types/api-responses/artist';
@@ -22,7 +22,7 @@ export default async function AlbumDetailContent({ data, albumArtist }: DetailCo
       <DetailContentTop trackIds={trackIdArr} />
 
       <div className="w-full mb-6">
-        <TableListTop type={type} />
+        <TableListTop isAlbum={true} />
 
         {tracks.map((track, idx: number) => {
           return (
@@ -43,7 +43,16 @@ export default async function AlbumDetailContent({ data, albumArtist }: DetailCo
         })}
       </div>
 
-      {albumArtist && <RecommenedList title="아티스트의 곡 더보기" datas={albumArtist.albums} type={type} />}
+      {albumArtist && (
+        <RecommenedList
+          type={type}
+          title="아티스트의 곡 더보기"
+          titleColorStyle="text-white"
+          showAllColorStyle="text-[#c7c7c7]"
+          isSlicedData={true}
+          datas={albumArtist.albums}
+        />
+      )}
     </div>
   );
 }

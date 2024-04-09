@@ -4,8 +4,8 @@ import { BsFileMusic, BsFileMusicFill } from 'react-icons/bs';
 import { CiCirclePlus } from 'react-icons/ci';
 import MyLibraryData from './MyLibraryData';
 import { useEffect, useState } from 'react';
-import { fetchLibrarayData } from '../api/library';
-import { LibraryMyLibraryItem } from '../types/api-responses/library';
+import { fetchLibrarayData } from '../../api/library';
+import { LibraryMyLibraryItem } from '../../types/api-responses/library';
 
 interface MyLibraryProps {
   width: number;

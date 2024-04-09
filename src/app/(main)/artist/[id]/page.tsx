@@ -1,6 +1,6 @@
 import { fetchSpotifyArtistDetailData } from '@/app/api/spotify';
 import ArtistDetailContent from '@/app/components/artist/ArtistDetailContent';
-import TypeEffect from '@/app/components/TypeEffect';
+import TypeEffect from '@/app/components/typeEffect/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { numberWithCommas } from '@/app/layout-constants';
 import Image from 'next/image';

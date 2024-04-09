@@ -1,13 +1,13 @@
 import './layout.css';
-import Sidebar from '../components/Sidebar';
-import CurrentPlayDetail from '../components/CurrentPlayDetail';
+import Sidebar from '../components/sideBar/Sidebar';
+import CurrentPlayDetail from '../components/currentPlayDetail/CurrentPlayDetail';
 import { fetchCurrentPlaylist } from '../api/playlist_api';
 import { cookies } from 'next/headers';
 import { fetchUserData } from '../api/user';
-import Header from '../components/Header';
-import MainContentWrap from '../components/MainContentWrap';
-import PlayBar from '../components/PlayBar';
-import WrapContent from '../components/WrapContent';
+import Header from '../components/header/Header';
+import MainContentWrap from '../components/main/layout/MainContentWrap';
+import PlayBar from '../components/playBar/PlayBar';
+import WrapContent from '../components/main/layout/WrapContent';
 
 export default async function MainRootLayout({ children }: React.PropsWithChildren) {
   const accessToken = cookies().get('accessToken')?.value;

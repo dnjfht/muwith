@@ -8,7 +8,7 @@ import { Tab as BaseTab, tabClasses } from '@mui/base/Tab';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { PageWidthState } from '../recoil/atoms/atom';
+import { PageWidthState } from '../../../recoil/atoms/atom';
 
 export default function TabContainer() {
   const router = useRouter();

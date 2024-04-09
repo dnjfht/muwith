@@ -1,6 +1,6 @@
 import { fetchSpotifyPlaylistDetailData } from '@/app/api/spotify';
 import PlaylistDetailContent from '@/app/components/playlist/PlaylistDetailContent';
-import TypeEffect from '@/app/components/TypeEffect';
+import TypeEffect from '@/app/components/typeEffect/TypeEffect';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import { numberWithCommas, timeString2 } from '@/app/layout-constants';
 import Image from 'next/image';
