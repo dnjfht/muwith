@@ -1,23 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-
-import { convertSecondsToTime, currentPlayTimePercent } from '../../layout-constants';
-import { useEffect, useState } from 'react';
-import { PlayTimeProgressBar } from '../playTimeProgressBar/PlayTimeProgressBar';
+import { useEffect } from 'react';
 import { getPlayerMethodValue } from '../../api/youtube_music_api';
-import VolumeControl from '../volumeControl/VolumeControl';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-  CurrentTrackDataState,
-  CurrentTrackIndexState,
-  OpenCurrentPlayTrackDetailState,
-} from '../../recoil/atoms/atom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { CurrentTimeState, CurrentTrackDataState, OpenCurrentPlayTrackDetailState } from '../../recoil/atoms/atom';
+import { DEFAULT_PICTURE } from '@/app/constants';
 
 import { GoChevronUp, GoChevronDown } from 'react-icons/go';
-import { BsFillPlayFill, BsFillPauseFill, BsFillSkipStartFill, BsFillSkipEndFill } from 'react-icons/bs';
-import { PiHeart, PiShuffleLight, PiRepeatThin, PiArrowsOutThin, PiPlaylistThin } from 'react-icons/pi';
-
+import PlayCurrentMusicSet from '../playCurrentMusicSet/PlayCurrentMusicSet';
 interface PlayBarProps {
   player: YT.Player | null;
 }
@@ -25,13 +16,11 @@ interface PlayBarProps {
 export default function PlayBar({ player }: PlayBarProps) {
   const currentTrackData = useRecoilValue(CurrentTrackDataState);
 
-  const thumbnailUrl = currentTrackData?.album?.thumbnailUrl;
+  const thumbnailUrl = currentTrackData?.album.thumbnailUrl ?? DEFAULT_PICTURE;
   const name = currentTrackData?.name;
-  const artists = currentTrackData?.artists;
-  const artistsArr = artists?.map((artist) => artist.name);
-  const artistsName = artistsArr?.join(', ');
+  const artists = currentTrackData?.artists.map((artist) => artist.name).join(', ');
 
-  const [currentTime, setCurrentTime] = useState<number>(0);
+  const setCurrentTime = useSetRecoilState(CurrentTimeState);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,27 +31,20 @@ export default function PlayBar({ player }: PlayBarProps) {
     // 컴포넌트 unmount 시에 interval 해제
   }, [player]);
 
-  const totalTime = getPlayerMethodValue(player, 'getDuration', 0.0) as number;
-  const playTimePercent: number = currentPlayTimePercent(currentTime, totalTime);
-  const musicPlayState = getPlayerMethodValue(player, 'getPlayerState', -1) as number;
-
   const [openCurrentPlayTrackDetail, setOpenCurrentPlayTrackDetail] = useRecoilState(OpenCurrentPlayTrackDetailState);
-  const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
 
   return (
     <div className="w-full px-4 mt-2 box-border bg-[#232426] shadow-[0_-10px_10px_10px_rgba(0,0,0,0.3)] text-white flex flex-col justify-center">
       <div className="flex items-center gap-x-8">
         <div className="flex items-center gap-x-2">
           <div className="group relative">
-            {thumbnailUrl && (
-              <Image
-                width={1000}
-                height={1000}
-                className="w-[56px] h-[56px] aspect-square rounded-2xl shadow-[4px_4px_8px_4px_rgba(0,0,0,0.3)]"
-                src={thumbnailUrl ?? ''}
-                alt="track_thumbnail"
-              />
-            )}
+            <Image
+              width={1000}
+              height={1000}
+              className="w-[56px] h-[56px] aspect-square rounded-2xl shadow-[4px_4px_8px_4px_rgba(0,0,0,0.3)]"
+              src={thumbnailUrl}
+              alt="track_thumbnail"
+            />
 
             <button
               onClick={() => {
@@ -76,80 +58,11 @@ export default function PlayBar({ player }: PlayBarProps) {
 
           <div>
             <p>{name}</p>
-            <p className="text-[0.875rem] text-[#a1a1a1]">{artistsName}</p>
+            <p className="text-[0.875rem] text-[#a1a1a1]">{artists}</p>
           </div>
         </div>
 
-        <div className="w-[50%] mx-auto text-[1.2rem]">
-          <div className="w-full flex justify-between items-center font-light text-[0.6875rem]">
-            <p>{convertSecondsToTime(currentTime)}</p>
-            <PlayTimeProgressBar playTimePercent={playTimePercent} player={player} />
-            <p>{convertSecondsToTime(totalTime)}</p>
-          </div>
-
-          <div className="w-[86%] my-[5px] mx-auto flex items-center justify-between text-[#a1a1a1]">
-            <div className="flex items-center gap-x-7">
-              <button>
-                <PiHeart />
-              </button>
-
-              <button>
-                <PiShuffleLight />
-              </button>
-            </div>
-
-            <div className="flex items-center gap-x-8">
-              <button
-                onClick={() => {
-                  if (currentTrackIndex > 0) {
-                    setCurrentTrackIndex((prev) => prev - 1);
-                  }
-                }}
-                className="p-[6px] border-[1px] border-solid border-white rounded-full text-[1rem]"
-              >
-                <BsFillSkipStartFill />
-              </button>
-
-              <button
-                onClick={() => {
-                  if (player?.playVideo && musicPlayState !== 1) {
-                    player.playVideo();
-                  } else if (player?.pauseVideo && musicPlayState === 1) {
-                    player.pauseVideo();
-                  }
-                }}
-                className="p-2 border-[1px] border-solid border-white rounded-full text-white"
-              >
-                {musicPlayState !== 1 ? <BsFillPlayFill /> : <BsFillPauseFill />}
-              </button>
-
-              <button
-                onClick={() => {
-                  setCurrentTrackIndex((prev) => prev + 1);
-                }}
-                className="p-[6px] border-[1px] border-solid border-white rounded-full text-[1rem]"
-              >
-                <BsFillSkipEndFill />
-              </button>
-            </div>
-
-            <div className="flex items-center gap-x-7">
-              <button>
-                <PiRepeatThin />
-              </button>
-
-              <button>
-                <PiPlaylistThin />
-              </button>
-
-              <button>
-                <PiArrowsOutThin />
-              </button>
-            </div>
-          </div>
-
-          <VolumeControl player={player} />
-        </div>
+        <PlayCurrentMusicSet player={player} wrapStyle="w-[50%]" isPlayBar={true} />
       </div>
     </div>
   );

@@ -17,9 +17,11 @@ export default async function AlbumDetailContent({ data, albumArtist }: DetailCo
   const tracks = data.tracks;
   const trackIdArr = tracks.map((data) => data.id);
 
+  const currentPlaylistTitle = data.name;
+
   return (
     <div className="w-full min-h-[44vh] p-6 box-border bg-gradient-to-b from-[#2c2d2e] to-[#a1d4a0]">
-      <DetailContentTop trackIds={trackIdArr} />
+      <DetailContentTop trackIds={trackIdArr} currentPlaylistTitle={currentPlaylistTitle} />
 
       <div className="w-full mb-6">
         <TableListTop isAlbum={true} />
@@ -31,6 +33,7 @@ export default async function AlbumDetailContent({ data, albumArtist }: DetailCo
               idx={idx}
               data={track}
               isGroupTrack={true}
+              isHiddenIcon="hidden"
               wrapStyle="text-white py-4"
               idxWidthStyle="block w-[4%]"
               imgWidthStyle="w-[90%]"
@@ -38,6 +41,7 @@ export default async function AlbumDetailContent({ data, albumArtist }: DetailCo
               trackIdArr={trackIdArr}
               isHiddenThumbnail="hidden"
               formatDateStyle="hidden"
+              currentPlaylistTitle={currentPlaylistTitle}
             />
           );
         })}

@@ -26,7 +26,7 @@ export interface Playlist {
   id: string; // 플레이리스트 ID
   name: string; // 플레이리스트명
   description: string; // 플레이리스트 설명
-  followers: number; // 구독자수
+  followers?: number; // 구독자수
   thumbnailUrl?: string; // 플레이리스트 이미지 URL
   owner: {
     // 플레이리스트를 만든 유저

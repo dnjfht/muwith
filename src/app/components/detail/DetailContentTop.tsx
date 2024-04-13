@@ -4,17 +4,23 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { PiHeart } from 'react-icons/pi';
 import { RiMoreLine } from 'react-icons/ri';
 import { useSetRecoilState } from 'recoil';
-import { CurrentPlayListDataState, CurrentTrackIndexState } from '../../recoil/atoms/atom';
+import { CurrentPlayListDataState, CurrentPlaylistTitle, CurrentTrackIndexState } from '../../recoil/atoms/atom';
 import Button from './button/Button';
 
 interface DetailContentTopProps {
   trackIds: string[];
   hideLikeAndMoreButton?: boolean;
+  currentPlaylistTitle: string;
 }
 
-export default function Det0ailContentTop({ trackIds, hideLikeAndMoreButton }: DetailContentTopProps) {
+export default function Det0ailContentTop({
+  trackIds,
+  hideLikeAndMoreButton,
+  currentPlaylistTitle,
+}: DetailContentTopProps) {
   const setCurrentPlaylist = useSetRecoilState(CurrentPlayListDataState);
   const setCurrentTrackIndex = useSetRecoilState(CurrentTrackIndexState);
+  const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
 
   return (
     <div className="w-full mb-8 flex items-center gap-x-5 text-[2rem] text-white">
@@ -23,6 +29,8 @@ export default function Det0ailContentTop({ trackIds, hideLikeAndMoreButton }: D
           if (typeof Window !== 'undefined') {
             setCurrentPlaylist(trackIds);
             setCurrentTrackIndex(0);
+            setCurrentPlaylistTitle(currentPlaylistTitle);
+            localStorage.setItem('currentPlaylistTitle', currentPlaylistTitle);
           }
         }}
         icon={<BsFillPlayFill />}

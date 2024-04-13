@@ -4,9 +4,9 @@
       {
         "id": "a25eeaa7-ab8b-4772-8932-813dd985d67b",
         "type": "playlist",
-        "thumbnail": "/image/my_library/playlist1_thumbnail.png",
+        "thumbnail": "https://misc.scdn.co/liked-songs/liked-songs-300.png",
         "title": "좋아요 표시한 곡",
-        "description": "플레이리스트 · 3곡",
+        "description": "플레이리스트 · 539곡",
         "author": "dnjfht",
         "songs": [
           {
@@ -259,630 +259,256 @@
         "title": "aespa 믹스"
       }
     ],
-    "_comment": "current_play_list : 현재 듣고 있는 노래 + 앞으로 재생될 노래 리스트",
-    "current_playlist": {
-      "current_playlist_title": "데일리 믹스 4",
-      "current_play_list": [
-        {
-          "id": "983c1b7b-5ed1-4317-873f-3c80f9955649",
-          "type": "track",
-          "thumbnail": "/image/current_playlist/song1.png",
-          "title": "Advice",
-          "artist": "태민",
-          "album": "Advice - The 3rd Mini Album",
-          "duration": "3:11",
-          "isLikeSong": true
-        },
-        {
-          "id": "9a599634-179c-458e-a500-9ef87b50674d",
-          "type": "track",
-          "thumbnail": "/image/current_playlist/song2.png",
-          "title": "Phantom",
-          "artist": "WayV",
-          "album": "Phantom - The 4th Mini Album",
-          "duration": "3:47",
-          "isLikeSong": false
-        },
-        {
-          "id": "6b9227f4-18b1-4928-a894-05ffce6ea520",
-          "type": "track",
-          "thumbnail": "/image/current_playlist/song3.png",
-          "title": "Talk Saxy",
-          "artist": "RIIZE",
-          "album": "Talk Sexy",
-          "duration": "3:10",
-          "isLikeSong": true
-        },
-        {
-          "id": "b26720af-476e-4b82-a6e5-778cbd1422a4",
-          "type": "track",
-          "thumbnail": "/image/current_playlist/song4.png",
-          "title": "What kind of future",
-          "artist": "WOOZI",
-          "album": "What kind of future",
-          "duration": "3:51",
-          "isLikeSong": true
-        },
-        {
-          "id": "024cfa27-6985-4c03-be59-08df7651d2ca",
-          "type": "track",
-          "thumbnail": "/image/current_playlist/song5.png",
-          "title": "Baggy Jeans",
-          "artist": "NCT U",
-          "album": "iScreaM Vol.27 : Baggy Jeans Remixes",
-          "duration": "3:31",
-          "isLikeSong": true
-        },
-        {
-          "id": "31937cc7-ffb1-457e-88ab-4335ea61e0ca",
-          "type": "track",
-          "thumbnail": "/image/current_playlist/song6.png",
-          "title": "ISTJ",
-          "artist": "NCT DREAM",
-          "album": "ISTJ - The 3rd Album",
-          "duration": "3:05",
-          "isLikeSong": true
-        },
-        {
-          "id": "fa7cad77-c809-48ed-a961-ad1d13055c06",
-          "type": "track",
-          "thumbnail": "/image/current_playlist/song7.png",
-          "title": "Chasing That Feeling",
-          "artist": "투모로우바이투게더",
-          "album": "The Name Chapter: FREEFALL",
-          "duration": "3:02",
-          "isLikeSong": true
-        },
-        {
-          "id": "efa17591-6cb1-4d0a-a1b4-90f0ce5d8769",
-          "type": "track",
-          "thumbnail": "/image/current_playlist/song8.png",
-          "title": "Criminal",
-          "artist": "태민",
-          "album": "Never Gonna Dance Again : Act1 - The 3rd Album",
-          "duration": "3:31",
-          "isLikeSong": false
-        }
-      ]
-    },
     "listen_again_recommened": {
       "id": "aae01b42-5beb-4f8d-a59a-b00422f3e561",
       "title": "listen_again_recommened",
       "data": [
         {
           "id": "ffc8afe2-63d8-4a4b-8d09-8fdf311fd5f9",
-          "type": "playlist",
-          "thumbnail": "/image/listen_again/playlist1_thumbnail.png",
-          "title": "식케이 믹스",
-          "description": "Crush, DPR LIVE 및 Hash Swan 등"
+          "name": "식케이 믹스",
+          "description": "Crush, DPR LIVE 및 Hash Swan 등",
+          "thumbnailUrl": "/image/listen_again/playlist1_thumbnail.png",
+          "owner": {
+            "loginId": "spotify",
+            "name": "Spotify",
+            "profileImage": "https://i.scdn.co/image/ab67757000003b8255c25988a6ac314394d3fbf5"
+          },
+          "tracks": []
         },
         {
           "id": "fc6fea70-5045-46c4-bf39-25c391f2d33b",
-          "type": "artist",
-          "thumbnail": "/image/my_library/playlist2_thumbnail.png",
-          "title": "RIIZE",
-          "description": "아티스트"
+          "name": "RIIZE",
+          "thumbnailUrl": "https://i.scdn.co/image/ab67616100005174a48cd94312fdac83835e40ae",
+          "followers": 3302051,
+          "popularity": 75,
+          "albums": [],
+          "genres": [{ "name": "boyGroup" }]
         },
         {
           "id": "272a8c26-96f7-489b-86b4-537189bfc654",
-          "type": "album",
-          "thumbnail": "/image/listen_again/playlist3_thumbnail.png",
-          "title": "Kiss Me More (feat. SZA)",
-          "description": "Doja Cat, SZA"
+          "name": "Kiss Me More (feat. SZA)",
+          "albumType": "single",
+          "totalTracks": 1,
+          "thumbnailUrl": "/image/listen_again/playlist3_thumbnail.png",
+          "releaseDate": "2021"
         },
         {
           "id": "43fd67f8-793e-4704-8c14-0bd3738e23d4",
-          "type": "playlist",
-          "thumbnail": "/image/listen_again/playlist4_thumbnail.png",
-          "title": "몽환적인 팝송",
-          "description": "만든 사람 : 희재"
+          "name": "몽환적인 팝송",
+          "description": "만든 사람 : 희재",
+          "thumbnailUrl": "/image/listen_again/playlist4_thumbnail.png",
+          "owner": {
+            "loginId": "heejae0824",
+            "name": "희재",
+            "profileImage": "https://i.scdn.co/image/ab67757000003b82980672a01de5d796545a1b3a"
+          },
+          "tracks": []
         },
         {
           "id": "d35b718b-2777-4704-a88e-6dd77640416d",
-          "type": "album",
-          "thumbnail": "/image/listen_again/playlist5_thumbnail.png",
-          "title": "흑백영화",
-          "description": "Leellamarz"
+          "name": "흑백영화",
+          "albumType": "album",
+          "totalTracks": 6,
+          "thumbnailUrl": "/image/listen_again/playlist5_thumbnail.png",
+          "releaseDate": "2021"
+        },
+        {
+          "id": "4a4f893e-afa2-46c6-9af2-9ad400aaf844",
+          "name": "ILLIT",
+          "thumbnailUrl": "https://i.scdn.co/image/ab676161000051745884b5e3bdc71d42b62bfcfd",
+          "followers": 6858376,
+          "popularity": 51,
+          "albums": [],
+          "genres": [{ "name": "girlGroup" }]
+        },
+        {
+          "id": "b7e09a05-fc95-4348-86f3-bdfb674d4c58",
+          "name": "Drama - The 4th Mini Album",
+          "albumType": "album",
+          "totalTracks": 7,
+          "thumbnailUrl": "https://i.scdn.co/image/ab67616d00001e02c54e39f2ae0dd10731f93c08",
+          "releaseDate": "2023"
+        },
+        {
+          "id": "0308c50e-66a2-4587-9b70-064309b34866",
+          "name": "빡세게 드가자 마라맛 남돌 케이팝 노동요",
+          "description": "NCT 127, 카이 및 투모로우바이투게더 등",
+          "thumbnailUrl": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84974027449f6bbd743733b950",
+          "owner": {
+            "loginId": "rolarola88",
+            "name": "김로라",
+            "profileImage": "https://i.scdn.co/image/ab67757000003b82400c86a73b5386251cc760d1"
+          },
+          "tracks": []
+        },
+        {
+          "id": "9d079466-84a9-436a-b574-c65d52fbd429",
+          "name": "카이",
+          "thumbnailUrl": "https://i.scdn.co/image/ab67616100005174f58d1dda95d21ff6c0c8354f",
+          "followers": 2635598,
+          "popularity": 83,
+          "albums": [],
+          "genres": [{ "name": "boySingle" }]
+        }
+      ]
+    },
+    "recently_heard": {
+      "id": "e7abeb78-a9f8-44f6-96b8-c94b78d6e583",
+      "title": "recently_heard",
+      "data": [
+        {
+          "id": "a25eeaa7-ab8b-4772-8932-813dd985d67b",
+          "name": "좋아요 표시한 곡",
+          "description": "539곡",
+          "thumbnailUrl": "https://misc.scdn.co/liked-songs/liked-songs-300.png",
+          "owner": {
+            "loginId": "dnjfht00",
+            "name": "dnjfht",
+            "profileImage": "https://scontent.fmaa10-1.fna.fbcdn.net/v/t1.30497-1/84628273_176159830277856_972693363922829312_n.jpg?stp=c15.0.50.50a_cp0_dst-jpg_p50x50&_nc_cat=1&ccb=1-7&_nc_sid=5f2048&_nc_ohc=4fun6CrPaWUAb4XISqg&_nc_ht=scontent.fmaa10-1.fna&edm=AP4hL3IEAAAA&oh=00_AfCjMaQITy_Y7FNjfXHLT_l83D0GxOnVAn5p9FlAZ-HVcg&oe=663C5C59"
+          }
+        },
+        {
+          "id": "8f30e25d-1114-4c7a-8646-4294bc64d34f",
+          "name": "Next Level",
+          "albumType": "single",
+          "totalTracks": 1,
+          "thumbnailUrl": "https://i.scdn.co/image/ab67616d00001e027a393b04e8ced571618223e8",
+          "releaseDate": "2021"
+        },
+        {
+          "id": "d1af2424-2ff6-4669-9b38-7712e4c4ffb0",
+          "name": "투어스",
+          "thumbnailUrl": "https://i.scdn.co/image/ab67616100005174e12bcfad0fb8fe12298ecd09",
+          "followers": 2164439,
+          "popularity": 57,
+          "albums": [],
+          "genres": [{ "name": "boyGroup" }]
+        },
+        {
+          "id": "07a3d848-7dc9-4f92-b37d-cd027697d443",
+          "name": "oceanfromtheblue",
+          "thumbnailUrl": "https://i.scdn.co/image/ab6761610000101fb666cb7a3013fae7c95275b0",
+          "followers": 288118,
+          "popularity": 85,
+          "albums": [],
+          "genres": [{ "name": "singer" }]
+        },
+        {
+          "id": "28e079be-99c3-43c6-a53f-58ef733391fd",
+          "name": "5WORLD",
+          "albumType": "album",
+          "totalTracks": 10,
+          "thumbnailUrl": "https://i.scdn.co/image/ab67616d00001e02d2867c15cc4bf28de0321fb6",
+          "releaseDate": "2023"
+        },
+        {
+          "id": "c1658af0-eea1-4e1c-a957-ba8dc628f72b9",
+          "name": "[때껄룩] Playlist 날씨도 선선한데 오늘은 미뤘던 방 청소나 해볼까나  🌈cleaning room music",
+          "description": "Paul Russell, Stonekeepers 및 Kelsea Ballerini 등",
+          "thumbnailUrl": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8465896bd62ee31e5f32049858",
+          "owner": {
+            "loginId": "sihyeon850466",
+            "name": "김시현",
+            "profileImage": "https://i.scdn.co/image/ab67757000003b8255c25988a6ac314394d3fbf5"
+          },
+          "tracks": []
+        },
+        {
+          "id": "946c9847-d27b-439e-bc96-80cb6888539f",
+          "name": "떼껄룩 플리 너 꼬실 때 듣는 노래",
+          "description": "만든 사람 : hahaha",
+          "thumbnailUrl": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da842436b8dd4c3911639b8d4b03",
+          "owner": {
+            "loginId": "hahahahohoho",
+            "name": "hahaha",
+            "profileImage": "https://i.scdn.co/image/ab67757000003b8295d7a4927568a22bb61a8295"
+          },
+          "tracks": []
+        },
+        {
+          "id": "72db7aeb-2126-4f9a-afe1-32db9ff120b2",
+          "name": "레스토랑을 위한 재즈 음악: 낭만적인 저녁 식사를 위한 다양한 재즈 트랙",
+          "albumType": "compilation",
+          "totalTracks": 30,
+          "thumbnailUrl": "https://i.scdn.co/image/ab67616d00001e02eb7de06a192bbdc2f59821e3",
+          "releaseDate": "2022"
+        },
+        {
+          "id": "9283f81a-af88-46fb-948b-99d35383ff4f",
+          "name": "벅차오르는 플리",
+          "description": "DAY6, 페퍼톤스 및 Red Velvet 등",
+          "thumbnailUrl": "https://mosaic.scdn.co/640/ab67616d00001e027365be3b8f82f8144c5cfd1aab67616d00001e0275a05a342311ea842c4deec6ab67616d00001e028c4a282e84a53c1c8acf129aab67616d00001e02f5c462d7e8e62123270bf72e",
+          "owner": {
+            "loginId": "Jiwoorang",
+            "name": "Jiwoo",
+            "profileImage": "https://i.scdn.co/image/ab67757000003b82826a8a9faf6dfb433590b110"
+          },
+          "tracks": []
+        },
+        {
+          "id": "2ded7da2-d780-4442-b19e-07a102881f04",
+          "name": "서리",
+          "thumbnailUrl": "https://i.scdn.co/image/ab6761610000101f639dc73ec795e329d064dbb2",
+          "followers": 746128,
+          "popularity": 27,
+          "albums": [],
+          "genres": [{ "name": "singer" }]
+        },
+        {
+          "id": "31346903-008b-4283-8a69-4c03f777dfb1",
+          "name": "[Playlist] 띵곡 이별노래",
+          "description": "Zozzart, 김도환 및 Han Seungui 등",
+          "thumbnailUrl": "https://i2o.scdn.co/image/ab67706c0000cfa37e2c8b506c57a9ecea13f4ab",
+          "owner": {
+            "loginId": "iLoveYooooo",
+            "name": "위로해줄게요. 노래로",
+            "profileImage": "https://i.scdn.co/image/ab67757000003b8247118e4399a6812fd26635ca"
+          },
+          "tracks": []
         }
       ]
     }
   },
-  "playlist": {
-    "a25eeaa7-ab8b-4772-8932-813dd985d67b": {
-      "id": "a25eeaa7-ab8b-4772-8932-813dd985d67b",
-      "type": "playlist",
-      "thumbnail": "/image/often_listen/playlist1_thumbnail.png",
-      "title": "좋아요 표시한 곡",
-      "description": "",
-      "author": "dnjfht",
-      "authorProfileImg": "/image/often_listen/author_profile_img1.png",
-      "songs": [
-        {
-          "image": "/image/often_listen/playlist1_song1.png",
-          "title": "우리 다투게 돼도 이것만 기억해 줄래 눈을 맞추고 서로가 서로의 손잡아 주며 낮은 목소리와 예쁜 말투로 상처 주지 않게 노력을 하고 ●",
-          "artist": "그리즐리",
-          "album": "꽃zip2",
-          "date": "2024-01-21",
-          "duration": "3:18",
-          "isLikeSong": true
+  "kpop_dance_music": {
+    "id": "be576977-99f8-4a9e-8f9c-079ac0c68d9e",
+    "title": "K-pop_dance_music",
+    "data": [
+      {
+        "id": "141cacee-157c-41a3-87d9-534c662eb92f",
+        "name": "Hallyu Boy Bands",
+        "description": "Is it your favorite oppa or dongsaeng? (Cover: EPEX) [당신의 최애 아이돌 보이 그룹은 어떤 그룹인가요?]",
+        "thumbnailUrl": "https://i.scdn.co/image/ab67706f000000028162aa958f4cccfdce3ce170",
+        "owner": {
+          "loginId": "spotify",
+          "name": "Spotify",
+          "profileImage": "https://i.scdn.co/image/ab67757000003b8255c25988a6ac314394d3fbf5"
         },
-        {
-          "image": "/image/often_listen/playlist1_song2.png",
-          "title": "MOVIE",
-          "artist": "JUNNY",
-          "album": "MOVIE",
-          "date": "2024-01-15",
-          "duration": "3:03",
-          "isLikeSong": true
+        "tracks": []
+      },
+      {
+        "id": "42459a3a-d1b9-4a21-a2b9-5263d79d77cf",
+        "name": "Nolja!",
+        "description": "Time to press play on these jaem jams from 2010 onwards! Cover: JEON SOMI",
+        "thumbnailUrl": "https://i.scdn.co/image/ab67706f00000002931087ee59e2c41853fbc48f",
+        "owner": {
+          "loginId": "spotify",
+          "name": "Spotify",
+          "profileImage": "https://i.scdn.co/image/ab67757000003b8255c25988a6ac314394d3fbf5"
         },
-        {
-          "image": "/image/often_listen/playlist1_song3.png",
-          "title": "생각해 (feat. 박재범)",
-          "artist": "레디, 박재범",
-          "album": "생각해",
-          "date": "2024-01-12",
-          "duration": "3:51",
-          "isLikeSong": true
-        }
-      ]
-    },
-    "05e918c9-9c56-446a-ab3f-551238ff75fd": {
-      "id": "05e918c9-9c56-446a-ab3f-551238ff75fd",
-      "type": "playlist",
-      "thumbnail": "/image/often_listen/playlist2_thumbnail.png",
-      "title": "신곡 레이더",
-      "description": "팔로우하는 아티스트의 최신 음악과 회원님만을 위해 선별한 최신 싱글을 모두 들어보세요. 금요일마다 업데이트됩니다.",
-      "author": "31cu4fxs2q6kle2seslygt55di4a",
-      "authorProfileImg": "/image/often_listen/author_profile_img2.png",
-      "likes": 142,
-      "isLikeTracks": false,
-      "songs": [
-        {
-          "image": "/image/my_library/playlist2_song1.png",
-          "title": "Super Lady",
-          "artist": "여자(아이들)",
-          "album": "2",
-          "date": "21시간 전",
-          "duration": "2:32",
-          "isLikeSong": true
+        "tracks": []
+      },
+      {
+        "id": "2e614417-12cc-41bc-a5b7-5150e7786297",
+        "name": "Girl Krush",
+        "description": "All your girl crushes(걸크러쉬) in one place. (Cover: KISS OF LIFE)",
+        "thumbnailUrl": "https://i.scdn.co/image/ab67706f000000022ec451a36150aad81e5317db",
+        "owner": {
+          "loginId": "spotify",
+          "name": "Spotify",
+          "profileImage": "https://i.scdn.co/image/ab67757000003b8255c25988a6ac314394d3fbf5"
         },
-        {
-          "image": "/image/my_library/playlist2_song2.png",
-          "title": "Popular (Slowed) (with Playboi Carti & Madonna)",
-          "artist": "The Weeknd, Madonna, Playboi Carti, xxtristanxo",
-          "album": "Popular",
-          "date": "21시간 전",
-          "duration": "4:18",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song3.png",
-          "title": "LEveL",
-          "artist": "SawanoHiroyuki[nZk], 투모로우바이투게더",
-          "album": "LEveL",
-          "date": "21시간 전",
-          "duration": "3:02",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song4.png",
-          "title": "All Night (Feat. Saweetie) (Clean Ver.)",
-          "artist": "IVE, Saweetie",
-          "album": "All Night",
-          "date": "21시간",
-          "duration": "3:17",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song5.png",
-          "title": "Love wins all",
-          "artist": "아이유",
-          "album": "Love wins all",
-          "date": "21시간 전",
-          "duration": "4:31",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song6.png",
-          "title": "plot twist",
-          "artist": "투어스",
-          "album": "TWS 1st Mini Album 'Sparkling Blue'",
-          "date": "21시간 전",
-          "duration": "2:32",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist2_song7.png",
-          "title": "What kind of future",
-          "artist": "WOOZI",
-          "album": "What kind of future",
-          "date": "21시간 전",
-          "duration": "3:51",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist2_song8.png",
-          "title": "Thinkin' About You",
-          "artist": "H1-KEY",
-          "album": "H1-KEYnote #1 [Thinkin' About You]",
-          "date": "21시간 전",
-          "duration": "3:07",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song9.png",
-          "title": "UGLY",
-          "artist": "EVNNE",
-          "album": "Un: SEEN",
-          "date": "21시간 전",
-          "duration": "3:21",
-          "isLikeSong": false
-        }
-      ]
-    },
-    "cf996b62-ec51-4783-98fd-4e6f4321d2f2": {
-      "id": "cf996b62-ec51-4783-98fd-4e6f4321d2f2",
-      "type": "playlist",
-      "thumbnail": "/image/often_listen/playlist3_thumbnail.png",
-      "title": "RIIZE",
-      "description": "",
-      "author": "eungyeong lee",
-      "authorProfileImg": "/image/often_listen/author_profile_img3.png",
-      "likes": 2,
-      "isLikeTracks": false,
-      "songs": [
-        {
-          "image": "/image/my_library/playlist3_song1.png",
-          "title": "Talk Saxy",
-          "artist": "RIIZE",
-          "album": "Talk Sexy",
-          "date": "2023년 11월 16일",
-          "duration": "3:10",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist3_song2.png",
-          "title": "Get A Guitar",
-          "artist": "RIIZE",
-          "album": "Get A Guitar",
-          "date": "2023년 11월 16일",
-          "duration": "2:40",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist3_song3.png",
-          "title": "Memories",
-          "artist": "RIIZE",
-          "album": "Memories",
-          "date": "2023년 11월 16일",
-          "duration": "2:58",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist3_song4.png",
-          "title": "Love 119",
-          "artist": "RIIZE",
-          "album": "Love 119",
-          "date": "2주 전",
-          "duration": "2:53",
-          "isLikeSong": true
-        }
-      ]
-    },
-    "83e7acf5-9564-4c9c-8189-147f54abaf1a": {
-      "id": "83e7acf5-9564-4c9c-8189-147f54abaf1a",
-      "type": "playlist",
-      "thumbnail": "/image/my_library/playlist3_thumbnail.png",
-      "title": "술 마실때 들으면, 분위기 야해지는 알앤비 힙합",
-      "description": "서울의 밤이 생각나는 플레이리스트 (서울 날 기다려 내가 곧 다시 올거야 💕)",
-      "author": "Manal",
-      "authorProfileImg": "/image/often_listen/author_profile_img4.png",
-      "likes": 259,
-      "isLikeTracks": true,
-      "songs": [
-        {
-          "image": "/image/my_library/playlist3_song1.png",
-          "title": "Justin Bieber (feat. Jay Park)",
-          "artist": "쿠기, 박재범",
-          "album": "EMO #1",
-          "date": "2024-03-09",
-          "duration": "3:37",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist3_song2.png",
-          "title": "Is You Down",
-          "artist": "Jimmy Brown, Minshik, Harms",
-          "album": "Is You Down",
-          "date": "2024-03-09",
-          "duration": "4:19",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist3_song3.png",
-          "title": "미안해 (1000) (Prod. by Girlnexxtdoor)",
-          "artist": "식케이, Crush",
-          "album": "FL1P",
-          "date": "2022-03-09",
-          "duration": "3:41",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist3_song4.png",
-          "title": "생각해 (feat. 박재범)",
-          "artist": "레디, 박재범",
-          "album": "생각해",
-          "date": "2024-01-12",
-          "duration": "3:51",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist3_song5.png",
-          "title": "Droppa (Feat. GRAY)",
-          "artist": "멜로, GRAY",
-          "album": "사인히어(SignHere) episode6",
-          "date": "2022-03-09",
-          "duration": "3:57",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist3_song6.png",
-          "title": "SMILE (Feat. 보이비) (Prod. WOOGIE)",
-          "artist": "멜로, 보이비",
-          "album": "사인히어(SignHere) episode2",
-          "date": "2022-03-09",
-          "duration": "4:18",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist3_song7.png",
-          "title": "Runners",
-          "artist": "CAMO",
-          "album": "Fragile",
-          "date": "2022-03-09",
-          "duration": "2:28",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist3_song8.png",
-          "title": "Stand by you",
-          "artist": "레디",
-          "album": "Stand by you",
-          "date": "2022-03-09",
-          "duration": "2:34",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist3_song9.png",
-          "title": "지켜줄게",
-          "artist": "기리보이",
-          "album": "성인식",
-          "date": "2022-03-09",
-          "duration": "4:12",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist3_song10.png",
-          "title": "전화기를 꺼놔 (Feat. ELO) - Remix",
-          "artist": "박재범, ELO",
-          "album": "EVERYTHING YOU WANTED",
-          "date": "2022-03-09",
-          "duration": "4:03",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist3_song11.png",
-          "title": "Like Me",
-          "artist": "pH-1",
-          "album": "HALO",
-          "date": "2022-03-09",
-          "duration": "3:51",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist3_song12.png",
-          "title": "LOVE IN DA CAR",
-          "artist": "MINO",
-          "album": "'TO INFINITY.'",
-          "date": "2022-03-09",
-          "duration": "3:33",
-          "isLikeSong": false
-        }
-      ]
-    },
-    "74996c63-2f7a-4cea-94fe-a11eb653bbd1": {
-      "id": "74996c63-2f7a-4cea-94fe-a11eb653bbd1",
-      "type": "playlist",
-      "thumbnail": "/image/often_listen/playlist5_thumbnail.png",
-      "title": "[𝑃𝑙𝑎𝑦𝑙𝑖𝑠𝑡] 틀어놓으면 2시간이 훌쩍 지나가는 감성힙합 플레이리스트",
-      "description": "",
-      "author": "sinwjdgns",
-      "authorProfileImg": "/image/often_listen/author_profile_img5.png",
-      "likes": 1121,
-      "isLikeTracks": false,
-      "songs": [
-        {
-          "image": "/image/my_library/playlist3_song1.png",
-          "title": "Talk Saxy",
-          "artist": "RIIZE",
-          "album": "Talk Sexy",
-          "date": "2023년 11월 16일",
-          "duration": "3:10",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist3_song2.png",
-          "title": "Get A Guitar",
-          "artist": "RIIZE",
-          "album": "Get A Guitar",
-          "date": "2023년 11월 16일",
-          "duration": "2:40",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist3_song3.png",
-          "title": "Memories",
-          "artist": "RIIZE",
-          "album": "Memories",
-          "date": "2023년 11월 16일",
-          "duration": "2:58",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist3_song4.png",
-          "title": "Love 119",
-          "artist": "RIIZE",
-          "album": "Love 119",
-          "date": "2주 전",
-          "duration": "2:53",
-          "isLikeSong": true
-        }
-      ]
-    },
-    "23e1dc10-ad44-42ba-b1fc-37192086fc0b": {
-      "id": "23e1dc10-ad44-42ba-b1fc-37192086fc0b",
-      "type": "playlist",
-      "thumbnail": "/image/often_listen/playlist6_thumbnail.png",
-      "title": "aespa 믹스",
-      "description": "RIIZE, LE SSERAFIM 및 KISS OF LIFE",
-      "author": "Spotify",
-      "authorProfileImg": "/image/often_listen/author_profile_img6.png",
-      "likes": 71,
-      "isLikeTracks": false,
-      "songs": [
-        {
-          "image": "/image/my_library/playlist2_song1.png",
-          "title": "Super Lady",
-          "artist": "여자(아이들)",
-          "album": "2",
-          "date": "21시간 전",
-          "duration": "2:32",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist2_song2.png",
-          "title": "Popular (Slowed) (with Playboi Carti & Madonna)",
-          "artist": "The Weeknd, Madonna, Playboi Carti, xxtristanxo",
-          "album": "Popular",
-          "date": "21시간 전",
-          "duration": "4:18",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song3.png",
-          "title": "LEveL",
-          "artist": "SawanoHiroyuki[nZk], 투모로우바이투게더",
-          "album": "LEveL",
-          "date": "21시간 전",
-          "duration": "3:02",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song4.png",
-          "title": "All Night (Feat. Saweetie) (Clean Ver.)",
-          "artist": "IVE, Saweetie",
-          "album": "All Night",
-          "date": "21시간",
-          "duration": "3:17",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song5.png",
-          "title": "Love wins all",
-          "artist": "아이유",
-          "album": "Love wins all",
-          "date": "21시간 전",
-          "duration": "4:31",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song6.png",
-          "title": "plot twist",
-          "artist": "투어스",
-          "album": "TWS 1st Mini Album 'Sparkling Blue'",
-          "date": "21시간 전",
-          "duration": "2:32",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist2_song7.png",
-          "title": "What kind of future",
-          "artist": "WOOZI",
-          "album": "What kind of future",
-          "date": "21시간 전",
-          "duration": "3:51",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/my_library/playlist2_song8.png",
-          "title": "Thinkin' About You",
-          "artist": "H1-KEY",
-          "album": "H1-KEYnote #1 [Thinkin' About You]",
-          "date": "21시간 전",
-          "duration": "3:07",
-          "isLikeSong": false
-        },
-        {
-          "image": "/image/my_library/playlist2_song9.png",
-          "title": "UGLY",
-          "artist": "EVNNE",
-          "album": "Un: SEEN",
-          "date": "21시간 전",
-          "duration": "3:21",
-          "isLikeSong": false
-        }
-      ]
-    },
-    "ffc8afe2-63d8-4a4b-8d09-8fdf311fd5f9": {
-      "id": "ffc8afe2-63d8-4a4b-8d09-8fdf311fd5f9",
-      "type": "playlist",
-      "thumbnail": "/image/listen_again/playlist1_thumbnail.png",
-      "title": "식케이 믹스",
-      "description": "Crush, DPR LIVE 및 Hash Swan 등",
-      "author": "Spotify",
-      "authorProfileImg": "/image/listen_again/author_profile_img1.png",
-      "songs": [
-        {
-          "image": "/image/listen_again/playlist1_song1.png",
-          "title": "My Man",
-          "artist": "식케이",
-          "album": "My Man",
-          "date": "2024-02-21",
-          "duration": "2:44",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/listen_again/playlist1_song2.png",
-          "title": "Counting Stars (Feat. Beenzino)",
-          "artist": "BE'O, 빈지노",
-          "album": "Counting Stars",
-          "date": "2024-02-21",
-          "duration": "2:31",
-          "isLikeSong": true
-        },
-        {
-          "image": "/image/often_listen/playlist1_song3.png",
-          "title": "생각해 (feat. 박재범)",
-          "artist": "레디, 박재범",
-          "album": "생각해",
-          "date": "2024-01-12",
-          "duration": "3:51",
-          "isLikeSong": true
-        }
-      ]
-    }
-  },
-  "album": {},
-  "artist": {
-    "fc6fea70-5045-46c4-bf39-25c391f2d33b": {
-      "id": "fc6fea70-5045-46c4-bf39-25c391f2d33b",
-      "type": "artist",
-      "artist_profile": "/image/listen_again/artist_profile_img2.png",
-      "thumbnail": "/image/listen_again/artist_bg_img2.png",
-      "title": "RIIZE",
-      "listener": 3496260,
-      "follower": 523222,
-      "description": "RIIZE – made up of SHOTARO, EUNSEOK, SUNGCHAN, WONBIN, SEUNGHAN, SOHEE, and ANTON – is already taking the industry by storm, just over a month since they were announced. They broke the record for fastest K-Pop group to hit 1 million followers on Instagram, just four days after their account was launched. Focusing on authenticity and relatability, RIIZE forges a deep connection with their ever-growing fanbase by sharing their down-to-earth personalities and humble moments at the start of their new journey. The group name RIIZE combines two words – “rise,” symbolizing growth, and “realize” representing achievements – which together encapsulate the idea of a team that grows as one while achieving their dreams. The seven exceptional members all possess both talent and visual appeal. With each member bringing their own unique characteristics and strengths, they embark on a real-time odyssey as one team."
-    }
+        "tracks": []
+      }
+    ]
   }
 }

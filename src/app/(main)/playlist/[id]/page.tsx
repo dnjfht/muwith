@@ -49,7 +49,7 @@ export default async function DetailPage({ params }: { params: { id: string } })
             <p>{profileName}</p>
 
             <p>·</p>
-            <p>{'좋아요 ' + numberWithCommas(playlist.followers) + '개'}</p>
+            <p>{'좋아요 ' + numberWithCommas(playlist.followers ?? 0) + '개'}</p>
             <p>·</p>
             <p>{playlist.tracks.length}곡</p>
             <p>·</p>

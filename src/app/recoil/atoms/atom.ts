@@ -31,12 +31,26 @@ export const CurrentPlayListDataState = atom<string[]>({
   default: [],
 });
 
+// 현재 재생 중인 곡, 앞으로 재생될 곡 리스트에서 현재 재생 중인 곡이 몇 번째인지
 export const CurrentTrackIndexState = atom({
   key: 'CurrentTrackIndexState',
   default: -1,
 });
 
+// 현재 재생 중인 곡
 export const CurrentTrackDataState = atom<Track | null>({
   key: 'CurrentTrackDataState',
   default: null,
+});
+
+// 현재 재생된 시간
+export const CurrentTimeState = atom<number>({
+  key: 'CurrentTimeState',
+  default: 0,
+});
+
+// 현재 재생 중인 곡, 앞으로 재생될 곡 리스트 타이틀
+export const CurrentPlaylistTitle = atom<string>({
+  key: 'CurrentPlaylistTitle',
+  default: '',
 });

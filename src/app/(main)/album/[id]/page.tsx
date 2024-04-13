@@ -18,8 +18,7 @@ export default async function AlbumDetailPage({ params }: { params: { id: string
   const thumbnailImg = album.thumbnailUrl ?? DEFAULT_PICTURE;
   // TODO: SPOTIFY랑 연동해서 다른 사람들의 프로필 정보를 가져올 수 있을 것인가?
   const profileImg = DEFAULT_PICTURE;
-  const artistNames = album.artists.map((artist: { name: string }) => artist.name);
-  const artistsName = artistNames.join(', ');
+  const artistsName = album.artists.map((artist: { name: string }) => artist.name).join(', ');
   const profileName = artistsName ?? '아티스트';
 
   const totalTimes = album.tracks.map((track: { duration: number }) => track.duration);
