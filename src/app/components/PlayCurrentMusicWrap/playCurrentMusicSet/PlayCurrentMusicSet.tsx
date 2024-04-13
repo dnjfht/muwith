@@ -1,27 +1,54 @@
+'use client';
+
 import VolumeControl from './volumeControl/VolumeControl';
 import PlayTimeProgress from './playTimeProgress/PlayTimeProgress';
 import Button from './button/Button';
 import { getPlayerMethodValue } from '@/app/api/youtube_music_api';
 import { currentPlayTimePercent } from '@/app/layout-constants';
-import { CurrentTimeState, CurrentTrackIndexState } from '@/app/recoil/atoms/atom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  CurrentTimeState,
+  CurrentTrackIndexState,
+  OpenFullScreenCurrentPlayDetailState,
+} from '@/app/recoil/atoms/atom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRouter } from 'next/navigation';
+import { AppPage } from '@/app/types/app';
 
 import { BsFillPlayFill, BsFillPauseFill, BsFillSkipStartFill, BsFillSkipEndFill } from 'react-icons/bs';
 import { PiHeart, PiShuffleLight, PiRepeatThin, PiArrowsOutThin, PiPlaylistThin } from 'react-icons/pi';
-import { RiMoreLine } from 'react-icons/ri';
 
 interface PlayCurrentMusicSetProps {
   player: YT.Player | null;
   wrapStyle: string;
+  smallIconStyle?: string;
   isPlayBar: boolean;
+  icon?: React.ReactNode;
+  onClick?: () => void;
+  playCurrentMusicSetStyle?: string;
+  playIconStyle?: string;
+  prevNextIconStyle?: string;
 }
 
-export default function PlayCurrentMusicSet({ player, wrapStyle, isPlayBar }: PlayCurrentMusicSetProps) {
+export default function PlayCurrentMusicSet({
+  player,
+  wrapStyle,
+  smallIconStyle,
+  isPlayBar,
+  icon,
+  onClick,
+  playCurrentMusicSetStyle,
+  playIconStyle,
+  prevNextIconStyle,
+}: PlayCurrentMusicSetProps) {
+  const router = useRouter();
+
   const currentTime = useRecoilValue(CurrentTimeState);
   const totalTime = getPlayerMethodValue(player, 'getDuration', 0.0) as number;
   const playTimePercent = currentPlayTimePercent(currentTime, totalTime);
   const musicPlayState = getPlayerMethodValue(player, 'getPlayerState', -1) as number;
+
   const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
+  const setOpenFullScreenCurrentPlayDetail = useSetRecoilState(OpenFullScreenCurrentPlayDetailState);
 
   return (
     <div className={`${wrapStyle} mx-auto text-[1.2rem]`}>
@@ -37,9 +64,9 @@ export default function PlayCurrentMusicSet({ player, wrapStyle, isPlayBar }: Pl
       />
 
       <div
-        className={`${isPlayBar ? 'w-[86%] my-[5px] text-[#a1a1a1]' : 'w-full mt-8 mb-4'} mx-auto flex items-center justify-between `}
+        className={`${isPlayBar ? 'w-[86%] my-[5px] text-[#a1a1a1]' : playCurrentMusicSetStyle} mx-auto flex items-center justify-between `}
       >
-        <div className={`${isPlayBar ? 'gap-x-7' : 'gap-x-3'} flex items-center`}>
+        <div className={`${isPlayBar ? 'gap-x-7' : 'gap-x-3'} ${smallIconStyle} flex items-center`}>
           <Button icon={<PiHeart />} />
           <Button icon={<PiShuffleLight />} />
         </div>
@@ -52,7 +79,7 @@ export default function PlayCurrentMusicSet({ player, wrapStyle, isPlayBar }: Pl
               }
             }}
             icon={<BsFillSkipStartFill />}
-            basicStyle={`${isPlayBar ? 'p-[6px] text-[1rem]' : 'p-[8px] text-[1rem]'} border-[1px] border-solid border-white rounded-full`}
+            basicStyle={`${isPlayBar ? 'p-[6px] text-[1rem]' : prevNextIconStyle} border-[1px] border-solid border-white rounded-full`}
           />
 
           <Button
@@ -64,7 +91,7 @@ export default function PlayCurrentMusicSet({ player, wrapStyle, isPlayBar }: Pl
               }
             }}
             icon={musicPlayState !== 1 ? <BsFillPlayFill /> : <BsFillPauseFill />}
-            basicStyle={`${isPlayBar ? 'p-2 text-[1rem]' : 'p-3 text-[1.6rem]'} border-[1px] border-solid border-white rounded-full`}
+            basicStyle={`${isPlayBar ? 'p-2 text-[1rem]' : playIconStyle} border-[1px] border-solid border-white rounded-full`}
           />
 
           <Button
@@ -72,15 +99,27 @@ export default function PlayCurrentMusicSet({ player, wrapStyle, isPlayBar }: Pl
               setCurrentTrackIndex((prev) => prev + 1);
             }}
             icon={<BsFillSkipEndFill />}
-            basicStyle={`${isPlayBar ? 'p-[6px] text-[1rem]' : 'p-[8px] text-[1rem]'} border-[1px] border-solid border-white rounded-full`}
+            basicStyle={`${isPlayBar ? 'p-[6px] text-[1rem]' : prevNextIconStyle} border-[1px] border-solid border-white rounded-full`}
           />
         </div>
 
-        <div className={`${isPlayBar ? 'gap-x-7' : 'gap-x-3'} flex items-center`}>
+        <div className={`${isPlayBar ? 'gap-x-7' : 'gap-x-3'} ${smallIconStyle} flex items-center`}>
           <Button icon={<PiRepeatThin />} />
-          <Button icon={<PiPlaylistThin />} isHidden={isPlayBar ? '' : 'hidden'} />
-          <Button icon={<PiArrowsOutThin />} isHidden={isPlayBar ? '' : 'hidden'} />
-          <Button icon={<RiMoreLine />} isHidden={isPlayBar ? 'hidden' : ''} />
+          <Button
+            onClick={() => {
+              router.push(AppPage.CURRENTPLAYLIST);
+            }}
+            icon={<PiPlaylistThin />}
+            isHidden={isPlayBar ? '' : 'hidden'}
+          />
+          <Button
+            onClick={() => {
+              setOpenFullScreenCurrentPlayDetail(true);
+            }}
+            icon={<PiArrowsOutThin />}
+            isHidden={isPlayBar ? '' : 'hidden'}
+          />
+          <Button onClick={onClick} icon={icon} isHidden={isPlayBar ? 'hidden' : ''} />
         </div>
       </div>
 

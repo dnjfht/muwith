@@ -8,6 +8,7 @@ import MainContentWrap from '../components/main/layout/MainContentWrap';
 import PlayBar from '../components/playBar/PlayBar';
 import WrapContent from '../components/main/layout/WrapContent';
 import FlexContentWrap from '../components/main/layout/FlexContentWrap';
+import FullScreenCurrentPlayDetail from '../components/currentPlayDetail/FullScreenCurrentPlayDetail';
 
 export default async function MainRootLayout({ children }: React.PropsWithChildren) {
   const accessToken = cookies().get('accessToken')?.value;
@@ -38,6 +39,8 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
           </FlexContentWrap>
 
           <PlayBar player={null} />
+
+          <FullScreenCurrentPlayDetail />
         </WrapContent>
       </div>
     </div>

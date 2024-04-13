@@ -18,9 +18,9 @@ interface TrackGroup4Props {
 export default function TrackGroup4({ data }: TrackGroup4Props) {
   const setCurrentTrackIndex = useSetRecoilState(CurrentTrackIndexState);
 
-  const thumbnailUrl = data?.album.thumbnailUrl ?? DEFAULT_PICTURE;
+  const thumbnailUrl = data?.album?.thumbnailUrl ?? DEFAULT_PICTURE;
   const name = data?.name;
-  const artistsName = data?.artists.map((artist: { name: string }) => artist.name).join(', ');
+  const artistsName = data?.artists?.map((artist: { name: string }) => artist.name).join(', ');
   console.log(data, thumbnailUrl, name, artistsName);
 
   return (
@@ -36,9 +36,9 @@ export default function TrackGroup4({ data }: TrackGroup4Props) {
       <div className="flex items-center gap-x-2">
         <Image className="w-10 aspect-square rounded-lg" width={500} height={500} src={thumbnailUrl} alt="track_img" />
 
-        <div>
-          <p>{name}</p>
-          <SubText text={artistsName as string} basicStyle="text-[0.875rem]" />
+        <div className="text-left">
+          <p className="line-clamp-1">{name}</p>
+          <SubText text={artistsName as string} basicStyle="text-[0.875rem] line-clamp-1" />
         </div>
       </div>
     </div>

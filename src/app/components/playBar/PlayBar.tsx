@@ -8,7 +8,7 @@ import { CurrentTimeState, CurrentTrackDataState, OpenCurrentPlayTrackDetailStat
 import { DEFAULT_PICTURE } from '@/app/constants';
 
 import { GoChevronUp, GoChevronDown } from 'react-icons/go';
-import PlayCurrentMusicSet from '../playCurrentMusicSet/PlayCurrentMusicSet';
+import PlayCurrentMusicSet from '../PlayCurrentMusicWrap/playCurrentMusicSet/PlayCurrentMusicSet';
 interface PlayBarProps {
   player: YT.Player | null;
 }

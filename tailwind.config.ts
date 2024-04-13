@@ -15,6 +15,7 @@ const config: Config = {
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
+      '3xl': '1921px',
     },
     extend: {
       spacing: {
