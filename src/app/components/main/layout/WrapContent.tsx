@@ -2,8 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { CurrentPlayListDataState, CurrentTrackDataState, CurrentTrackIndexState } from '../../../recoil/atoms/atom';
-import { useRecoilState } from 'recoil';
+import {
+  CurrentPlayListDataState,
+  CurrentPlaylistTitle,
+  CurrentTrackDataState,
+  CurrentTrackIndexState,
+} from '../../../recoil/atoms/atom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { fetchSpotifyRecommendedTracksData, fetchSpotifyTrackDetailData } from '../../../api/spotify';
 import { Track } from '../../../types/api-responses/track';
 
@@ -25,6 +30,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   const [currentTrackData, setCurrentTrackData] = useRecoilState(CurrentTrackDataState);
   const [player, setPlayer] = useState<YT.Player | null>(null);
   const [recommendedTracks, setRecommenedTracks] = useState<Omit<Track, 'youtubeUrl'>[]>([]);
+  const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
 
   const selectVideoID = currentTrackData?.youtubeUrl?.split('v=')[1];
   const videoId =
@@ -142,6 +148,15 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
     };
     fetchCurrentListenTrackData();
   }, [currentTrackIndex, currentPlaylist, setCurrentTrackData]);
+
+  useEffect(() => {
+    if (typeof Window === 'undefined') return;
+
+    const currentPlaylistTitle = localStorage.getItem('currentPlaylistTitle');
+    if (currentPlaylistTitle) {
+      setCurrentPlaylistTitle(currentPlaylistTitle);
+    }
+  }, []);
 
   const childrenWithProps = React.Children.map(children, (child) => {
     // 타입 검사를 통해 React 요소인지 확인합니다.

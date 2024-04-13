@@ -11,7 +11,7 @@ import { getDescription } from '@/utilities';
 import MainText from '../text/MainText';
 
 export interface RecommenedListProps {
-  type: MuwithObjectType;
+  type?: MuwithObjectType;
   title?: string;
   titleColorStyle?: string;
   showAllColorStyle?: string;
@@ -39,6 +39,16 @@ export default function RecommenedList({
       ? 'block'
       : 'hidden';
 
+  const typeArr = datas.map((data) => {
+    if ('owner' in data) {
+      return MuwithObjectType.PLAYLIST;
+    } else if ('albumType' in data) {
+      return MuwithObjectType.ALBUM;
+    } else {
+      return MuwithObjectType.ARTIST;
+    }
+  });
+
   return (
     <div className={`${isTrackDataOne ? 'w-auto' : 'w-full'} py-6`}>
       <div className="w-full flex items-center justify-between">
@@ -56,14 +66,14 @@ export default function RecommenedList({
       </div>
 
       <div className={`${isTrackDataOne ? 'w-[200px]' : `w-full grid gap-x-6 ${gridCustom}`}`}>
-        {allDatas.map((data) => (
+        {allDatas.map((data, index) => (
           <TrackGroup
             key={data.id}
             image={data.thumbnailUrl}
-            isThumbnailCircle={type === MuwithObjectType.ARTIST}
+            isThumbnailCircle={type === MuwithObjectType.ARTIST || typeArr[index] === MuwithObjectType.ARTIST}
             title={data.name}
-            description={getDescription(type, data)}
-            clickLink={`/${type}/${data.id}`}
+            description={getDescription(type ?? typeArr[index], data)}
+            clickLink={`/${type ?? typeArr[index]}/${data.id}`}
           />
         ))}
       </div>

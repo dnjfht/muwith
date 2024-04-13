@@ -43,6 +43,7 @@ export default async function SearchType({ params }: SearchTypeProps) {
             key={data.id}
             idx={index}
             data={data}
+            isHiddenIcon="hidden"
             idxWidthStyle={isSearchParamsTrack ? 'block w-[4%]' : 'hidden'}
             imgWidthStyle={isSearchParamsTrack ? 'w-[50%]' : 'w-full'}
             albumTitleWidthStyle={isSearchParamsTrack ? 'w-[40%] block' : 'hidden'}

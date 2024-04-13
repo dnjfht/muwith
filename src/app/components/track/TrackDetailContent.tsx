@@ -4,7 +4,7 @@ import TrackLylics from './TrackLylics';
 import DetailContentTop from '../detail/DetailContentTop';
 import { MuwithObjectType } from '../../types/api-responses/global';
 import { Track } from '../../types/api-responses/track';
-import { fetchSpotifyRecommendedTracksData } from '@/app/api/spotify';
+import { fetchSpotifyArtistDetailData, fetchSpotifyRecommendedTracksData } from '@/app/api/spotify';
 import TrackGroup2 from '../trackGroup/TrackGroup2';
 import MainText from '../text/MainText';
 import SubText from '../text/SubText';
@@ -17,10 +17,17 @@ export default async function TrackDetailContent({ data }: DetailContentType) {
   const recommendationsByTracks = await fetchSpotifyRecommendedTracksData(data.id, 5);
 
   const isFlex = data.artists.length === 1;
+  const artistIdArr = data.artists.map((artist) => artist.id);
+
+  const artistInfoArr = [];
+  for (const id of artistIdArr) {
+    const artistInfo = await fetchSpotifyArtistDetailData(id);
+    artistInfoArr.push(artistInfo);
+  }
 
   return (
     <div className="w-full min-h-[44vh] p-6 box-border bg-gradient-to-b from-[#2c2d2e] to-[#ffc9dc]">
-      <DetailContentTop trackIds={[data.id]} />
+      <DetailContentTop trackIds={[data.id]} currentPlaylistTitle="" />
 
       <div>
         <MainText text="가사" basicStyle="text-white" />

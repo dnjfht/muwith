@@ -10,10 +10,11 @@ interface DetailContentType {
 export default async function PlaylistDetailContent({ data }: DetailContentType) {
   const tracks = data.tracks;
   const trackIdArr = tracks.map((data) => data.id);
+  const currentPlaylistTitle = data.name;
 
   return (
     <div className="w-full min-h-[44vh] p-6 box-border bg-gradient-to-b from-[#2c2d2e] to-[#a1d2de]">
-      <DetailContentTop trackIds={trackIdArr} />
+      <DetailContentTop trackIds={trackIdArr} currentPlaylistTitle={currentPlaylistTitle} />
 
       <div className="w-full mb-6">
         <TableListTop isPlaylist={true} />
@@ -24,11 +25,13 @@ export default async function PlaylistDetailContent({ data }: DetailContentType)
             idx={idx}
             data={track}
             isGroupTrack={true}
+            isHiddenIcon="hidden"
             wrapStyle="text-white py-4"
             idxWidthStyle="block w-[4%]"
             imgWidthStyle="w-[30%]"
             albumTitleWidthStyle="w-[30%] block"
             trackIdArr={trackIdArr}
+            currentPlaylistTitle={currentPlaylistTitle}
           />
         ))}
       </div>

@@ -1,12 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { PiHeart } from 'react-icons/pi';
-import { RiMoreLine } from 'react-icons/ri';
 import { formatDate, timeString } from '../../layout-constants';
 import { useRouter } from 'next/navigation';
 import { useSetRecoilState } from 'recoil';
-import { CurrentPlayListDataState, CurrentTrackIndexState } from '../../recoil/atoms/atom';
+import { CurrentPlayListDataState, CurrentPlaylistTitle, CurrentTrackIndexState } from '../../recoil/atoms/atom';
 import { DEFAULT_PICTURE } from '../../constants';
 import Button from './button/Button';
 import { TrackInAlbum } from '@/app/types/api-responses/album';
@@ -14,10 +12,15 @@ import { TrackInPlaylist } from '@/app/types/api-responses/playlist';
 import { TrackInSearch } from '@/app/types/api-responses/search';
 import { ArtistTopTrack } from '@/app/types/api-responses/artist';
 
+import { CiMusicNote1 } from 'react-icons/ci';
+import { PiHeart } from 'react-icons/pi';
+import { RiMoreLine } from 'react-icons/ri';
+
 interface TrackType {
   idx?: number;
   data: TrackInSearch | TrackInPlaylist | TrackInAlbum | ArtistTopTrack;
   isGroupTrack?: boolean;
+  isHiddenIcon?: string;
   wrapStyle?: string;
   idxWidthStyle?: string;
   imgWidthStyle?: string;
@@ -26,12 +29,14 @@ interface TrackType {
   buttonWrapStyle?: string;
   trackIdArr: string[];
   isHiddenThumbnail?: string;
+  currentPlaylistTitle?: string;
 }
 
 export default function TrackGroup2({
   idx,
   data,
   isGroupTrack,
+  isHiddenIcon,
   wrapStyle,
   idxWidthStyle,
   imgWidthStyle,
@@ -40,11 +45,13 @@ export default function TrackGroup2({
   buttonWrapStyle,
   trackIdArr,
   isHiddenThumbnail,
+  currentPlaylistTitle,
 }: TrackType) {
   const router = useRouter();
 
   const setCurrentPlaylist = useSetRecoilState(CurrentPlayListDataState);
   const setCurrentTrackIndex = useSetRecoilState(CurrentTrackIndexState);
+  const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
 
   const thumbnail = (data as TrackInPlaylist | TrackInSearch | ArtistTopTrack).album?.thumbnailUrl ?? DEFAULT_PICTURE;
 
@@ -57,14 +64,22 @@ export default function TrackGroup2({
       tabIndex={0}
       className={`${wrapStyle} w-full px-3 py-2 box-border rounded-lg flex justify-between group hover:bg-[#1d1e22] hover:text-white transition-all duration-700 font-normal focus:bg-[#1d1e22] focus:text-white`}
     >
+      <p className={`${isHiddenIcon}`}>
+        <CiMusicNote1 />
+      </p>
+
       <div
         className={`${idxWidthStyle} flex items-center`}
         onClick={() => {
           setCurrentPlaylist(trackIdArr);
+          setCurrentPlaylistTitle('');
+          localStorage.setItem('currentPlaylistTitle', '');
           if (!isGroupTrack) {
             setCurrentTrackIndex(0);
           } else if (isGroupTrack && (idx || idx === 0)) {
             setCurrentTrackIndex(idx);
+            setCurrentPlaylistTitle(currentPlaylistTitle ?? '');
+            localStorage.setItem('currentPlaylistTitle', currentPlaylistTitle ?? '');
           }
         }}
       >

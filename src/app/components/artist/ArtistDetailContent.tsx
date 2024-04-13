@@ -12,9 +12,15 @@ export default async function ArtistDetailContent({ artist }: ArtistDetailConten
   const artistTopTracksData = await fetchSpotifyArtistTopTracksData(artist.id);
   const trackIdArr = artistTopTracksData.map((data) => data.id);
 
+  const currentPlaylistTitle = artist.name;
+
   return (
     <div className="w-full min-h-[44vh] p-6 box-border bg-gradient-to-b from-[#2c2d2e] to-[#ffb685]">
-      <DetailContentTop trackIds={artistTopTracksData.map((track) => track.id)} hideLikeAndMoreButton={true} />
+      <DetailContentTop
+        trackIds={artistTopTracksData.map((track) => track.id)}
+        hideLikeAndMoreButton={true}
+        currentPlaylistTitle={currentPlaylistTitle}
+      />
 
       <div
         className="w-full h-[32.5rem] p-10 box-border rounded-xl relative overflow-hidden shadow-[0_8px_6px_3px_rgba(0,0,0,0.3)] hover-bg-size group"
@@ -42,11 +48,13 @@ export default async function ArtistDetailContent({ artist }: ArtistDetailConten
             idx={idx}
             data={topTrack}
             isGroupTrack={true}
+            isHiddenIcon="hidden"
             wrapStyle="text-white py-4"
             imgWidthStyle="w-full"
             albumTitleWidthStyle="hidden"
             formatDateStyle="hidden"
             trackIdArr={trackIdArr}
+            currentPlaylistTitle={currentPlaylistTitle}
           />
         ))}
       </div>

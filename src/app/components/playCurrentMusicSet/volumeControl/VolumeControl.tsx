@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 import { CiVolume, CiVolumeHigh, CiVolumeMute } from 'react-icons/ci';
-import { getPlayerMethodValue } from '../../api/youtube_music_api';
+import { getPlayerMethodValue } from '../../../api/youtube_music_api';
 
 interface VolumeControlProps {
   player: YT.Player | null;
@@ -64,7 +64,7 @@ export default function VolumeControl({ player }: VolumeControlProps) {
   };
 
   return (
-    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', fontSize: '1.3rem' }}>
+    <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', gridGap: '5%', fontSize: '1.3rem' }}>
       <button
         onClick={(): void => {
           if (player && !soundMutedState) {
