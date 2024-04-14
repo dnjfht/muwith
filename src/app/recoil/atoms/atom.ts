@@ -56,6 +56,12 @@ export const CurrentPlaylistTitle = atom<string>({
   default: '',
 });
 
+// 현재 재생 중인 곡, 앞으로 재생될 곡 리스트 반복 버튼 클릭 횟수
+export const CurrentPlaylistRepeatClickNumState = atom<number>({
+  key: 'CurrentPlaylistRepeatClickNumState',
+  default: 0,
+});
+
 // FullScreenCurrentPlayDetail component를 닫힘 여부를 결정하는 boolean
 export const OpenFullScreenCurrentPlayDetailState = atom<boolean>({
   key: 'OpenFullScreenCurrentPlayDetailState',

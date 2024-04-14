@@ -50,17 +50,13 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
 
     //플레이어 변수 설정
     window.onYouTubeIframeAPIReady = () => {
-      if (!videoId) {
-        console.log('Video ID has not been set yet');
-        return;
-      }
-
       setPlayer(
         new YT.Player('player', {
           height: '0', //변경가능-영상 높이
           width: '0', //변경가능-영상 너비
           videoId: videoId,
           playerVars: {
+            autoplay: 1, // 자동재생여부
             loop: 1, //반복재생여부(1:반복재생 함)
           },
           events: {
@@ -76,11 +72,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
       event.target.playVideo(); //자동재생
     };
 
-    const onPlayerStateChange = (event: YT.OnStateChangeEvent) => {
-      if (event.data === YT.PlayerState.ENDED) {
-        router.push('/');
-      }
-    };
+    const onPlayerStateChange = (event: YT.OnStateChangeEvent) => {};
   }, [router, videoId]);
 
   useEffect(() => {

@@ -1,11 +1,13 @@
 'use client';
 
+import { useEffect } from 'react';
 import VolumeControl from './volumeControl/VolumeControl';
 import PlayTimeProgress from './playTimeProgress/PlayTimeProgress';
 import Button from './button/Button';
 import { getPlayerMethodValue } from '@/app/api/youtube_music_api';
 import { currentPlayTimePercent } from '@/app/layout-constants';
 import {
+  CurrentPlaylistRepeatClickNumState,
   CurrentTimeState,
   CurrentTrackIndexState,
   OpenFullScreenCurrentPlayDetailState,
@@ -15,7 +17,14 @@ import { useRouter } from 'next/navigation';
 import { AppPage } from '@/app/types/app';
 
 import { BsFillPlayFill, BsFillPauseFill, BsFillSkipStartFill, BsFillSkipEndFill } from 'react-icons/bs';
-import { PiHeart, PiShuffleLight, PiRepeatThin, PiArrowsOutThin, PiPlaylistThin } from 'react-icons/pi';
+import {
+  PiHeart,
+  PiShuffleLight,
+  PiRepeatThin,
+  PiArrowsOutThin,
+  PiPlaylistThin,
+  PiRepeatOnceThin,
+} from 'react-icons/pi';
 
 interface PlayCurrentMusicSetProps {
   player: YT.Player | null;
@@ -49,6 +58,34 @@ export default function PlayCurrentMusicSet({
 
   const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
   const setOpenFullScreenCurrentPlayDetail = useSetRecoilState(OpenFullScreenCurrentPlayDetailState);
+  const [currentPlaylistRepeatClickNum, setCurrentPlaylistRepeatClickNum] = useRecoilState(
+    CurrentPlaylistRepeatClickNumState,
+  );
+
+  useEffect(() => {
+    if (typeof Window === 'undefined') return;
+
+    const repeatClickNum = localStorage.getItem('currentPlaylistRepeatClickNum');
+    if (repeatClickNum) setCurrentPlaylistRepeatClickNum(JSON.parse(repeatClickNum));
+  }, []);
+
+  useEffect(() => {
+    /*
+    musicPlayState 상태 코드 별 설명
+    -1: 시작되지 않음
+    0: 종료
+    1: 재생 중
+    2: 일시중지
+    3: 버퍼링
+    5: 동영상 신호
+    */
+    if ((currentPlaylistRepeatClickNum - 2) % 3 === 0 && musicPlayState === 0) {
+      setCurrentTrackIndex((prev) => prev);
+      player?.playVideo();
+    } else if ((currentPlaylistRepeatClickNum - 2) % 3 !== 0 && musicPlayState === 0) {
+      setCurrentTrackIndex(currentTrackIndex + 1);
+    }
+  }, [currentPlaylistRepeatClickNum, musicPlayState]);
 
   return (
     <div className={`${wrapStyle} mx-auto text-[1.2rem]`}>
@@ -104,7 +141,15 @@ export default function PlayCurrentMusicSet({
         </div>
 
         <div className={`${isPlayBar ? 'gap-x-7' : 'gap-x-3'} ${smallIconStyle} flex items-center`}>
-          <Button icon={<PiRepeatThin />} />
+          <Button
+            onClick={() => {
+              const newCount = (currentPlaylistRepeatClickNum + 1) % 3;
+              setCurrentPlaylistRepeatClickNum(currentPlaylistRepeatClickNum + 1);
+              localStorage.setItem('currentPlaylistRepeatClickNum', JSON.stringify(currentPlaylistRepeatClickNum + 1));
+            }}
+            icon={(currentPlaylistRepeatClickNum - 2) % 3 === 0 ? <PiRepeatOnceThin /> : <PiRepeatThin />}
+            basicStyle={`${currentPlaylistRepeatClickNum % 3 === 0 ? '' : 'text-[#ff0000]'}`}
+          />
           <Button
             onClick={() => {
               router.push(AppPage.CURRENTPLAYLIST);
