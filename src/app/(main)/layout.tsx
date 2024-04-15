@@ -30,7 +30,7 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
                     width={0}
                     height={0}
                     src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
-                  ></iframe>{' '}
+                  ></iframe>
                 </div>
                 <div className="w-full h-[70vh] overflow-x-hidden overflow-y-scroll">{children}</div>
               </div>
@@ -40,7 +40,7 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
 
           <PlayBar player={null} />
 
-          <FullScreenCurrentPlayDetail />
+          <FullScreenCurrentPlayDetail player={null} />
         </WrapContent>
       </div>
     </div>

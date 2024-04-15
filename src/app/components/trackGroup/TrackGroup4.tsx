@@ -21,7 +21,6 @@ export default function TrackGroup4({ data }: TrackGroup4Props) {
   const thumbnailUrl = data?.album?.thumbnailUrl ?? DEFAULT_PICTURE;
   const name = data?.name;
   const artistsName = data?.artists?.map((artist: { name: string }) => artist.name).join(', ');
-  console.log(data, thumbnailUrl, name, artistsName);
 
   return (
     <div className="w-full mt-4 mb-1 flex items-center gap-x-3">

@@ -127,10 +127,18 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   const recommenedTracksIdArr = recommendedTracks.map((track: { id: string }) => track.id);
 
   useEffect(() => {
-    if (recommenedTracksIdArr?.length > 0 && currentPlaylist.length - 1 === currentTrackIndex) {
+    if (recommenedTracksIdArr.length > 0 && currentPlaylist.length - 1 === currentTrackIndex) {
       setCurrentPlaylist((prev) => [...prev, ...recommenedTracksIdArr]);
     }
   }, [recommenedTracksIdArr, currentPlaylist, currentTrackIndex]);
+
+  useEffect(() => {
+    if (currentPlaylist.length > 100) {
+      const deleteTracksNum = currentPlaylist.length - 100;
+      setCurrentPlaylist(currentPlaylist.slice(deleteTracksNum));
+      setCurrentTrackIndex((prev) => prev - deleteTracksNum);
+    }
+  }, [currentPlaylist, setCurrentTrackIndex]);
 
   useEffect(() => {
     const fetchCurrentListenTrackData = async () => {

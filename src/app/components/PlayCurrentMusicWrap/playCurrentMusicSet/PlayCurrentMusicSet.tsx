@@ -148,7 +148,7 @@ export default function PlayCurrentMusicSet({
               localStorage.setItem('currentPlaylistRepeatClickNum', JSON.stringify(currentPlaylistRepeatClickNum + 1));
             }}
             icon={(currentPlaylistRepeatClickNum - 2) % 3 === 0 ? <PiRepeatOnceThin /> : <PiRepeatThin />}
-            basicStyle={`${currentPlaylistRepeatClickNum % 3 === 0 ? '' : 'text-[#ff0000]'}`}
+            basicStyle={`${currentPlaylistRepeatClickNum % 3 === 0 ? '' : 'text-[#FFAB59]'}`}
           />
           <Button
             onClick={() => {

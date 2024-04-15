@@ -1,9 +1,14 @@
+import CurrentMusic from '@/app/components/currentPlaylist/CurrentMusic';
+import NextPlaylist from '@/app/components/currentPlaylist/NextPlaylist';
+import MainText from '@/app/components/text/MainText';
+
 export default function CurrentPlaylistPage() {
   return (
     <div className="w-full px-6 box-border">
-      <h1>재생 목록</h1>
+      <MainText text="재생목록" basicStyle="mb-8" />
 
-      <div></div>
+      <CurrentMusic />
+      <NextPlaylist />
     </div>
   );
 }
