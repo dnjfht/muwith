@@ -3,8 +3,13 @@
 import Image from 'next/image';
 import { formatDate, timeString } from '../../layout-constants';
 import { useRouter } from 'next/navigation';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { CurrentPlayListDataState, CurrentPlaylistTitle, CurrentTrackIndexState } from '../../recoil/atoms/atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  CurrentPlayListDataState,
+  CurrentPlaylistTitle,
+  CurrentTrackDataState,
+  CurrentTrackIndexState,
+} from '../../recoil/atoms/atom';
 import { DEFAULT_PICTURE } from '../../constants';
 import Button from './button/Button';
 import { TrackInAlbum } from '@/app/types/api-responses/album';
@@ -52,9 +57,10 @@ export default function TrackGroup2({
 }: TrackType) {
   const router = useRouter();
 
-  const [currentPlaylist, setCurrentPlaylist] = useRecoilState(CurrentPlayListDataState);
-  const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
+  const setCurrentPlaylist = useSetRecoilState(CurrentPlayListDataState);
+  const setCurrentTrackIndex = useSetRecoilState(CurrentTrackIndexState);
   const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
+  const currentTrack = useRecoilValue(CurrentTrackDataState);
 
   const thumbnail = (data as TrackInPlaylist | TrackInSearch | ArtistTopTrack).album?.thumbnailUrl ?? DEFAULT_PICTURE;
 
@@ -62,7 +68,7 @@ export default function TrackGroup2({
   const artistList = artistArr?.join(', ');
   const albumTitle = (data as TrackInPlaylist | TrackInSearch).album?.name;
 
-  const isCurrentTrack = currentPlaylist && currentTrackIndex && data.id === currentPlaylist[currentTrackIndex];
+  const isCurrentTrack = data.id === currentTrack?.id;
   const currentTrackStyle = isCurrentTrack ? 'bg-[#1d1e22] text-white' : '';
   const idxOrIcon = isCurrentTrack ? <CiMusicNote1 /> : idx;
   const idxOrIconStyle = isCurrentTrack ? 'text-[#FFAB59] text-[1.4rem]' : '';
@@ -81,6 +87,7 @@ export default function TrackGroup2({
         className={`${idxWidthStyle} ${idxOrIconStyle} flex items-center`}
         onClick={() => {
           setCurrentPlaylist(trackIdArr);
+          localStorage.setItem('original_currentPlaylist', JSON.stringify(trackIdArr));
           setCurrentPlaylistTitle('');
           localStorage.setItem('currentPlaylistTitle', '');
           if (!isGroupTrack) {

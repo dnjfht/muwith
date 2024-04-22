@@ -60,7 +60,7 @@ export default function MainContentWrap({ children }: MainContentWrapProps) {
 
   useEffect(() => {
     setPageResponsiveNum(responsiveNum);
-  });
+  }, [setPageResponsiveNum, responsiveNum]);
 
   return (
     <div ref={pageWidthRef} className="w-full box-border bg-[#ebebeb] rounded-lg shadow-lg overflow-hidden">

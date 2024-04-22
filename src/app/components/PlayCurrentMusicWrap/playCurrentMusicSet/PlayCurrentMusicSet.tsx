@@ -11,6 +11,7 @@ import {
   CurrentTimeState,
   CurrentTrackIndexState,
   OpenFullScreenCurrentPlayDetailState,
+  OriginalCurrentPlayListDataState,
 } from '@/app/recoil/atoms/atom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/navigation';
@@ -61,6 +62,7 @@ export default function PlayCurrentMusicSet({
   const [currentPlaylistRepeatClickNum, setCurrentPlaylistRepeatClickNum] = useRecoilState(
     CurrentPlaylistRepeatClickNumState,
   );
+  const originalCurrentPlaylist = useRecoilValue(OriginalCurrentPlayListDataState);
 
   useEffect(() => {
     if (typeof Window === 'undefined') return;
@@ -105,7 +107,10 @@ export default function PlayCurrentMusicSet({
       >
         <div className={`${isPlayBar ? 'gap-x-7' : 'gap-x-3'} ${smallIconStyle} flex items-center`}>
           <Button icon={<PiHeart />} />
-          <Button icon={<PiShuffleLight />} />
+          <Button
+            icon={<PiShuffleLight />}
+            basicStyle={`${currentPlaylistRepeatClickNum % 3 === 0 && originalCurrentPlaylist.length <= currentTrackIndex ? 'hidden' : 'block'}`}
+          />
         </div>
 
         <div className={`${isPlayBar ? 'gap-x-8' : 'gap-x-[13px]'} flex items-center`}>
@@ -143,12 +148,11 @@ export default function PlayCurrentMusicSet({
         <div className={`${isPlayBar ? 'gap-x-7' : 'gap-x-3'} ${smallIconStyle} flex items-center`}>
           <Button
             onClick={() => {
-              const newCount = (currentPlaylistRepeatClickNum + 1) % 3;
               setCurrentPlaylistRepeatClickNum(currentPlaylistRepeatClickNum + 1);
               localStorage.setItem('currentPlaylistRepeatClickNum', JSON.stringify(currentPlaylistRepeatClickNum + 1));
             }}
             icon={(currentPlaylistRepeatClickNum - 2) % 3 === 0 ? <PiRepeatOnceThin /> : <PiRepeatThin />}
-            basicStyle={`${currentPlaylistRepeatClickNum % 3 === 0 ? '' : 'text-[#FFAB59]'}`}
+            basicStyle={`${currentPlaylistRepeatClickNum % 3 === 0 ? '' : 'text-[#FFAB59]'} ${currentPlaylistRepeatClickNum % 3 === 0 && originalCurrentPlaylist.length <= currentTrackIndex ? 'hidden' : 'block'}`}
           />
           <Button
             onClick={() => {

@@ -28,6 +28,7 @@ export default function Det0ailContentTop({
         onClick={() => {
           if (typeof Window !== 'undefined') {
             setCurrentPlaylist(trackIds);
+            localStorage.setItem('original_currentPlaylist', JSON.stringify(trackIds));
             setCurrentTrackIndex(0);
             setCurrentPlaylistTitle(currentPlaylistTitle);
             localStorage.setItem('currentPlaylistTitle', currentPlaylistTitle);

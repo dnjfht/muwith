@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   CurrentPlayListDataState,
+  CurrentPlaylistRepeatClickNumState,
   CurrentPlaylistTitle,
   CurrentTrackDataState,
   CurrentTrackIndexState,
+  OriginalCurrentPlayListDataState,
 } from '../../../recoil/atoms/atom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { fetchSpotifyRecommendedTracksData, fetchSpotifyTrackDetailData } from '../../../api/spotify';
 import { Track } from '../../../types/api-responses/track';
 
@@ -31,6 +33,8 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   const [player, setPlayer] = useState<YT.Player | null>(null);
   const [recommendedTracks, setRecommenedTracks] = useState<Omit<Track, 'youtubeUrl'>[]>([]);
   const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
+  const currentPlaylistRepeatClickNum = useRecoilValue(CurrentPlaylistRepeatClickNumState);
+  const [originalCurrentPlaylist, setOriginalCurrentPlaylist] = useRecoilState(OriginalCurrentPlayListDataState);
 
   const selectVideoID = currentTrackData?.youtubeUrl?.split('v=')[1];
   const videoId =
@@ -89,6 +93,15 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
 
   useEffect(() => {
     if (typeof Window === 'undefined') return;
+    const localStorageOriginalCurrentPlaylist = localStorage.getItem('original_currentPlaylist');
+    console.log(localStorageOriginalCurrentPlaylist);
+    if (localStorageOriginalCurrentPlaylist) {
+      setOriginalCurrentPlaylist(JSON.parse(localStorageOriginalCurrentPlaylist));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof Window === 'undefined') return;
 
     const localStorageCurrentPlaylist = localStorage.getItem('currentPlaylist');
     if (localStorageCurrentPlaylist) {
@@ -115,6 +128,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
     localStorage.setItem('currentTrackIndex', JSON.stringify(currentTrackIndex));
   }, [currentTrackIndex]);
 
+  // 현재 재생 중인 플레이리스트의 맨 마지막 곡과 관련된 20개의 추천 곡
   useEffect(() => {
     if (currentTrackIndex !== -1 && currentPlaylist.length > 0) {
       const fetchRecommenedTrackList = async () => {
@@ -126,19 +140,111 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
 
   const recommenedTracksIdArr = recommendedTracks.map((track: { id: string }) => track.id);
 
+  // 현재 재생 중인 플레이리스트 관련 로직
   useEffect(() => {
-    if (recommenedTracksIdArr.length > 0 && currentPlaylist.length - 1 === currentTrackIndex) {
-      setCurrentPlaylist((prev) => [...prev, ...recommenedTracksIdArr]);
+    let shouldUpdate = false;
+    let updatedPlaylist = [...currentPlaylist];
+
+    if (currentPlaylist.length - 1 === currentTrackIndex) {
+      if (currentPlaylistRepeatClickNum % 3 === 0 && currentPlaylist.length <= 10000) {
+        updatedPlaylist = [...updatedPlaylist, ...recommenedTracksIdArr];
+        shouldUpdate = true;
+      } else if ((currentPlaylistRepeatClickNum - 1) % 3 === 0 || (currentPlaylistRepeatClickNum - 2) % 3 === 0) {
+        updatedPlaylist = [...updatedPlaylist, ...originalCurrentPlaylist];
+        shouldUpdate = true;
+      }
     }
-  }, [recommenedTracksIdArr, currentPlaylist, currentTrackIndex]);
+
+    if (shouldUpdate) {
+      setCurrentPlaylist(updatedPlaylist);
+    }
+  }, [recommenedTracksIdArr, currentPlaylist, currentTrackIndex, currentPlaylistRepeatClickNum]);
 
   useEffect(() => {
-    if (currentPlaylist.length > 100) {
-      const deleteTracksNum = currentPlaylist.length - 100;
-      setCurrentPlaylist(currentPlaylist.slice(deleteTracksNum));
-      setCurrentTrackIndex((prev) => prev - deleteTracksNum);
+    if (
+      ((currentPlaylistRepeatClickNum - 1) % 3 === 0 || (currentPlaylistRepeatClickNum - 2) % 3 === 0) &&
+      currentPlaylist.length > 10000
+    ) {
+      setCurrentPlaylist((prev) => {
+        return [...prev.slice(0, originalCurrentPlaylist.length)];
+      });
+
+      const arr = Array.from({ length: originalCurrentPlaylist.length }, (_, index) => index);
+
+      arr.forEach((idx) => {
+        if (originalCurrentPlaylist[idx] === currentTrackData?.id) {
+          setCurrentTrackIndex(idx);
+        }
+      });
     }
-  }, [currentPlaylist, setCurrentTrackIndex]);
+  }, [currentPlaylist, currentTrackIndex, currentPlaylistRepeatClickNum, currentTrackData]);
+
+  const [count, setCount] = useState(0);
+  console.log(count);
+
+  function countConsecutiveRepeats(original: string[], current: string[]) {
+    let originalString = original.join(',');
+    let currentString = current.join(',');
+    let index = 0;
+    let count = 0;
+
+    while (true) {
+      index = currentString.indexOf(originalString, index);
+      if (index === -1) break; // 더 이상 일치하는 부분이 없으면 반복 종료
+      let nextIndex = index + originalString.length;
+
+      // 다음 연속 부분이 또 있는지 확인
+      if (currentString.substring(nextIndex, nextIndex + 1) === ',') {
+        count++;
+        index = nextIndex + 1; // 다음 검색 시작 위치를 업데이트
+      } else {
+        break; // 연속되지 않으면 종료
+      }
+    }
+
+    return count;
+  }
+
+  useEffect(() => {
+    setCount(countConsecutiveRepeats(originalCurrentPlaylist, currentPlaylist));
+  }, [setCount]);
+
+  useEffect(() => {
+    if (
+      currentPlaylistRepeatClickNum % 3 === 0 &&
+      originalCurrentPlaylist.length - 1 < currentTrackIndex &&
+      count > 1
+    ) {
+      setCurrentPlaylist((prev) => {
+        return [...prev.slice(0, originalCurrentPlaylist.length)];
+      });
+
+      const arr = Array.from({ length: originalCurrentPlaylist.length }, (_, index) => index);
+
+      arr.forEach((idx) => {
+        if (originalCurrentPlaylist[idx] === currentTrackData?.id) {
+          setCurrentTrackIndex(idx);
+        }
+      });
+    }
+  }, [
+    originalCurrentPlaylist,
+    currentPlaylist,
+    currentTrackIndex,
+    currentPlaylistRepeatClickNum,
+    currentTrackData,
+    count,
+  ]);
+
+  console.log(currentPlaylist, originalCurrentPlaylist, currentTrackData, currentTrackIndex);
+
+  useEffect(() => {
+    if ((currentPlaylistRepeatClickNum - 1) % 3 === 0 && currentTrackIndex === originalCurrentPlaylist.length - 1) {
+      setCurrentPlaylist((prev) => {
+        return [...prev.slice(0, originalCurrentPlaylist.length), ...originalCurrentPlaylist];
+      });
+    }
+  }, [setCurrentPlaylist, currentTrackIndex, currentPlaylistRepeatClickNum, originalCurrentPlaylist]);
 
   useEffect(() => {
     const fetchCurrentListenTrackData = async () => {

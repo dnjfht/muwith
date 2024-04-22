@@ -15,6 +15,7 @@ export default function NextPlaylist() {
   const [currentPlaylist, setCurrentPlaylist] = useRecoilState(CurrentPlayListDataState);
   const nextPlaylistIdArr: string[] = currentPlaylist.slice(currentTrackIndex + 1);
 
+  console.log(nextPlaylistIdArr);
   const fetchNextPlaylist = async () => {
     const details = await Promise.all(
       nextPlaylistIdArr.map((id) =>
@@ -31,13 +32,12 @@ export default function NextPlaylist() {
     fetchNextPlaylist();
   }, [currentTrackIndex, currentPlaylist]);
 
-  // console.log('nextPlaylistInfo', nextPlaylistInfo, 'currentPlaylist', currentPlaylist);
-  console.log(currentPlaylist.slice(0, currentTrackIndex + 1).length, currentPlaylist.length);
+  console.log('nextPlaylistInfo', nextPlaylistInfo, 'currentPlaylist', currentPlaylist, currentTrackIndex);
 
   return (
     <div className="w-full mt-10">
-      <div className="w-full flex items-center justify-between">
-        <SubText text="다음 재생 플레이리스트" basicStyle="mb-2" />
+      <div className="w-full mb-2 flex items-center justify-between">
+        <SubText text="다음 재생 플레이리스트" />
 
         <button
           className="px-2 py-1 rounded-3xl text-[0.875rem] font-semibold border-[2px] border-solid border-[#232426]"
