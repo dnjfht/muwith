@@ -4,14 +4,14 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 import { CiVolume, CiVolumeHigh, CiVolumeMute } from 'react-icons/ci';
-import { getPlayerMethodValue } from '../../../api/youtube_music_api';
+import { getPlayerMethodValue } from '../../../../api/youtube_music_api';
 
 interface VolumeControlProps {
   player: YT.Player | null;
 }
 
 const PrettoSlider = styled(Slider)({
-  color: 'pink',
+  color: '#FFAB59',
   width: '86%',
   height: 6,
   margin: '0 auto',
@@ -39,7 +39,7 @@ const PrettoSlider = styled(Slider)({
     width: 32,
     height: 32,
     borderRadius: '50% 50% 50% 0',
-    backgroundColor: 'pink',
+    backgroundColor: '#FFAB59',
     transformOrigin: 'bottom left',
     transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
     '&::before': { display: 'none' },

@@ -6,4 +6,5 @@ export enum AppPage {
   ALBUM = '/album',
   ARTIST = '/artist',
   TRACK = '/track',
+  CURRENTPLAYLIST = '/currentPlaylist',
 }
