@@ -9,6 +9,7 @@ import {
   CurrentPlaylistTitle,
   CurrentTrackDataState,
   CurrentTrackIndexState,
+  TryCurrentPlaylistRandomModeState,
 } from '../../recoil/atoms/atom';
 import { DEFAULT_PICTURE } from '../../constants';
 import Button from './button/Button';
@@ -61,6 +62,7 @@ export default function TrackGroup2({
   const setCurrentTrackIndex = useSetRecoilState(CurrentTrackIndexState);
   const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
   const currentTrack = useRecoilValue(CurrentTrackDataState);
+  const setTryCurrentPlaylistRandomMode = useSetRecoilState(TryCurrentPlaylistRandomModeState);
 
   const thumbnail = (data as TrackInPlaylist | TrackInSearch | ArtistTopTrack).album?.thumbnailUrl ?? DEFAULT_PICTURE;
 
@@ -90,6 +92,8 @@ export default function TrackGroup2({
           localStorage.setItem('original_currentPlaylist', JSON.stringify(trackIdArr));
           setCurrentPlaylistTitle('');
           localStorage.setItem('currentPlaylistTitle', '');
+          localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(trackIdArr));
+          setTryCurrentPlaylistRandomMode(true);
           if (!isGroupTrack) {
             setCurrentTrackIndex(0);
           } else if ((isGroupTrack && currentIdx) || currentIdx === 0) {

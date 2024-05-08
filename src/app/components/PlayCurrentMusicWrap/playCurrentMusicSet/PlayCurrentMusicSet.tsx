@@ -5,13 +5,17 @@ import VolumeControl from './volumeControl/VolumeControl';
 import PlayTimeProgress from './playTimeProgress/PlayTimeProgress';
 import Button from './button/Button';
 import { getPlayerMethodValue } from '@/app/api/youtube_music_api';
-import { currentPlayTimePercent } from '@/app/layout-constants';
+import { currentPlayTimePercent, shuffleCurrentPlaylist } from '@/app/layout-constants';
 import {
+  CurrentPlayListDataState,
+  CurrentPlaylistRandomModeState,
   CurrentPlaylistRepeatClickNumState,
   CurrentTimeState,
+  CurrentTrackDataState,
   CurrentTrackIndexState,
   OpenFullScreenCurrentPlayDetailState,
   OriginalCurrentPlayListDataState,
+  TryCurrentPlaylistRandomModeState,
 } from '@/app/recoil/atoms/atom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useRouter } from 'next/navigation';
@@ -57,18 +61,27 @@ export default function PlayCurrentMusicSet({
   const playTimePercent = currentPlayTimePercent(currentTime, totalTime);
   const musicPlayState = getPlayerMethodValue(player, 'getPlayerState', -1) as number;
 
+  const [currentPlaylist, setCurrentPlaylist] = useRecoilState(CurrentPlayListDataState);
   const [currentTrackIndex, setCurrentTrackIndex] = useRecoilState(CurrentTrackIndexState);
   const setOpenFullScreenCurrentPlayDetail = useSetRecoilState(OpenFullScreenCurrentPlayDetailState);
   const [currentPlaylistRepeatClickNum, setCurrentPlaylistRepeatClickNum] = useRecoilState(
     CurrentPlaylistRepeatClickNumState,
   );
   const originalCurrentPlaylist = useRecoilValue(OriginalCurrentPlayListDataState);
+  const [currentPlaylistRandomMode, setCurrentPlaylistRandomMode] = useRecoilState(CurrentPlaylistRandomModeState);
+  const currentTrackData = useRecoilValue(CurrentTrackDataState);
+  const [tryCurrentPlaylistRandomMode, setTryCurrentPlaylistRandomMode] = useRecoilState(
+    TryCurrentPlaylistRandomModeState,
+  );
 
   useEffect(() => {
     if (typeof Window === 'undefined') return;
 
     const repeatClickNum = localStorage.getItem('currentPlaylistRepeatClickNum');
     if (repeatClickNum) setCurrentPlaylistRepeatClickNum(JSON.parse(repeatClickNum));
+
+    const currentPlaylistRandomMode = localStorage.getItem('currentPlaylistRandomMode');
+    if (currentPlaylistRandomMode) setCurrentPlaylistRandomMode(JSON.parse(currentPlaylistRandomMode));
   }, []);
 
   useEffect(() => {
@@ -84,10 +97,30 @@ export default function PlayCurrentMusicSet({
     if ((currentPlaylistRepeatClickNum - 2) % 3 === 0 && musicPlayState === 0) {
       setCurrentTrackIndex((prev) => prev);
       player?.playVideo();
-    } else if ((currentPlaylistRepeatClickNum - 2) % 3 !== 0 && musicPlayState === 0) {
+    } else if ((currentPlaylistRepeatClickNum - 1) % 3 === 0 && musicPlayState === 0) {
+      setCurrentTrackIndex(currentTrackIndex + 1);
+    } else if (currentPlaylistRepeatClickNum % 3 === 0 && musicPlayState === 0 && currentPlaylist.length < 10000) {
       setCurrentTrackIndex(currentTrackIndex + 1);
     }
-  }, [currentPlaylistRepeatClickNum, musicPlayState]);
+  }, [currentPlaylistRepeatClickNum, musicPlayState, currentPlaylist]);
+
+  useEffect(() => {
+    if (currentPlaylistRandomMode && tryCurrentPlaylistRandomMode) {
+      const shuffledCurrentPlaylist = shuffleCurrentPlaylist(currentPlaylist);
+      setCurrentPlaylist(shuffledCurrentPlaylist);
+
+      shuffledCurrentPlaylist.forEach((_, idx) => {
+        if (shuffledCurrentPlaylist[idx] === currentTrackData?.id) {
+          setCurrentTrackIndex(idx);
+        }
+      });
+
+      setTryCurrentPlaylistRandomMode(false);
+    }
+  }, [currentPlaylistRandomMode, tryCurrentPlaylistRandomMode]);
+
+  console.log(currentPlaylistRandomMode, currentPlaylist);
+  console.log('tryCurrentPlaylistRandomModeState', tryCurrentPlaylistRandomMode);
 
   return (
     <div className={`${wrapStyle} mx-auto text-[1.2rem]`}>
@@ -108,8 +141,30 @@ export default function PlayCurrentMusicSet({
         <div className={`${isPlayBar ? 'gap-x-7' : 'gap-x-3'} ${smallIconStyle} flex items-center`}>
           <Button icon={<PiHeart />} />
           <Button
+            onClick={() => {
+              setCurrentPlaylistRandomMode((prev) => !prev);
+              localStorage.setItem('currentPlaylistRandomMode', JSON.stringify(!currentPlaylistRandomMode));
+
+              if (!currentPlaylistRandomMode) {
+                localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(currentPlaylist));
+                setTryCurrentPlaylistRandomMode(true);
+              } else if (currentPlaylistRandomMode && localStorage.getItem('beforeShuffleCurrentPlaylist')) {
+                const beforeShuffleCurrentPlaylist = JSON.parse(localStorage.getItem('beforeShuffleCurrentPlaylist')!);
+                setCurrentPlaylist(beforeShuffleCurrentPlaylist);
+
+                beforeShuffleCurrentPlaylist.forEach((_: string, idx: number) => {
+                  if (beforeShuffleCurrentPlaylist[idx] === currentTrackData?.id) {
+                    console.log(idx);
+                    setCurrentTrackIndex(idx);
+                  }
+                });
+              }
+            }}
             icon={<PiShuffleLight />}
-            basicStyle={`${currentPlaylistRepeatClickNum % 3 === 0 && originalCurrentPlaylist.length <= currentTrackIndex ? 'hidden' : 'block'}`}
+            basicStyle={`
+            ${currentPlaylistRepeatClickNum % 3 === 0 && originalCurrentPlaylist.length <= currentTrackIndex ? 'hidden' : 'block'}
+            ${!currentPlaylistRandomMode ? '' : 'text-[#FFAB59]'}
+            `}
           />
         </div>
 
@@ -138,7 +193,11 @@ export default function PlayCurrentMusicSet({
 
           <Button
             onClick={() => {
-              setCurrentTrackIndex((prev) => prev + 1);
+              if (currentPlaylistRepeatClickNum % 3 === 0 && currentPlaylist.length === 10000) {
+                setCurrentTrackIndex((prev) => prev);
+              } else {
+                setCurrentTrackIndex((prev) => prev + 1);
+              }
             }}
             icon={<BsFillSkipEndFill />}
             basicStyle={`${isPlayBar ? 'p-[6px] text-[1rem]' : prevNextIconStyle} border-[1px] border-solid border-white rounded-full`}

@@ -73,3 +73,15 @@ export const OpenFullScreenCurrentPlayDetailState = atom<boolean>({
   key: 'OpenFullScreenCurrentPlayDetailState',
   default: false,
 });
+
+// 현재 재생 중인 곡, 앞으로 재생될 곡 랜덤 재생 모드가 실행 중인지, 아닌지
+export const CurrentPlaylistRandomModeState = atom<boolean>({
+  key: 'CurrentPlaylistRandomModeState',
+  default: false,
+});
+
+// 현재 재생 중인 곡, 앞으로 재생될 곡 랜덤 재생 모드를 실행시켜야 하는지, 아닌지
+export const TryCurrentPlaylistRandomModeState = atom<boolean>({
+  key: 'TryCurrentPlaylistRandomModeState',
+  default: false,
+});

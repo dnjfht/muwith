@@ -9,14 +9,15 @@ import {
   CurrentTrackDataState,
   CurrentTrackIndexState,
   OriginalCurrentPlayListDataState,
+  TryCurrentPlaylistRandomModeState,
 } from '../../../recoil/atoms/atom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { fetchSpotifyRecommendedTracksData, fetchSpotifyTrackDetailData } from '../../../api/spotify';
 import { Track } from '../../../types/api-responses/track';
 
-// window 객체에 직접 onYouTubeIframeAPIReady 메소드를 추가하는 부분은 TypeScript에서 에러를 발생시킬 수 있습니다.
-// TypeScript는 기본적으로 window 객체에 이와 같은 메소드가 없다고 가정하기 때문입니다.
-// 이를 해결하기 위해, window 객체에 대한 커스텀 인터페이스를 선언해야 합니다.
+// window 객체에 직접 onYouTubeIframeAPIReady 메소드를 추가하는 부분은 TypeScript에서 에러를 발생시킬 수.
+// TypeScript는 기본적으로 window 객체에 이와 같은 메소드가 없다고 가정하기 때문.
+// 이를 해결하기 위해, window 객체에 대한 커스텀 인터페이스를 선언해야.
 declare global {
   interface Window {
     onYouTubeIframeAPIReady: () => void;
@@ -35,6 +36,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
   const currentPlaylistRepeatClickNum = useRecoilValue(CurrentPlaylistRepeatClickNumState);
   const [originalCurrentPlaylist, setOriginalCurrentPlaylist] = useRecoilState(OriginalCurrentPlayListDataState);
+  const setTryCurrentPlaylistRandomMode = useSetRecoilState(TryCurrentPlaylistRandomModeState);
 
   const selectVideoID = currentTrackData?.youtubeUrl?.split('v=')[1];
   const videoId =
@@ -148,11 +150,12 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
     if (currentPlaylist.length - 1 === currentTrackIndex) {
       if (currentPlaylistRepeatClickNum % 3 === 0 && currentPlaylist.length <= 10000) {
         updatedPlaylist = [...updatedPlaylist, ...recommenedTracksIdArr];
-        shouldUpdate = true;
       } else if ((currentPlaylistRepeatClickNum - 1) % 3 === 0 || (currentPlaylistRepeatClickNum - 2) % 3 === 0) {
         updatedPlaylist = [...updatedPlaylist, ...originalCurrentPlaylist];
-        shouldUpdate = true;
       }
+      shouldUpdate = true;
+      setTryCurrentPlaylistRandomMode(true);
+      localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(updatedPlaylist));
     }
 
     if (shouldUpdate) {
@@ -180,34 +183,28 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   }, [currentPlaylist, currentTrackIndex, currentPlaylistRepeatClickNum, currentTrackData]);
 
   const [count, setCount] = useState(0);
-  console.log(count);
 
   function countConsecutiveRepeats(original: string[], current: string[]) {
-    let originalString = original.join(',');
-    let currentString = current.join(',');
+    let originalString = original.join(',') + ','; // 구분자를 추가하여 배열의 끝을 명확히 함
+    let currentString = current.join(',') + ',';
     let index = 0;
     let count = 0;
 
     while (true) {
       index = currentString.indexOf(originalString, index);
       if (index === -1) break; // 더 이상 일치하는 부분이 없으면 반복 종료
-      let nextIndex = index + originalString.length;
-
-      // 다음 연속 부분이 또 있는지 확인
-      if (currentString.substring(nextIndex, nextIndex + 1) === ',') {
-        count++;
-        index = nextIndex + 1; // 다음 검색 시작 위치를 업데이트
-      } else {
-        break; // 연속되지 않으면 종료
-      }
+      count++;
+      index += originalString.length; // 다음 검색 시작 위치를 업데이트
     }
 
     return count;
   }
 
   useEffect(() => {
-    setCount(countConsecutiveRepeats(originalCurrentPlaylist, currentPlaylist));
-  }, [setCount]);
+    if (currentPlaylist && originalCurrentPlaylist) {
+      setCount(countConsecutiveRepeats(originalCurrentPlaylist, currentPlaylist));
+    }
+  }, [currentPlaylist, originalCurrentPlaylist]);
 
   useEffect(() => {
     if (
@@ -236,8 +233,6 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
     count,
   ]);
 
-  console.log(currentPlaylist, originalCurrentPlaylist, currentTrackData, currentTrackIndex);
-
   useEffect(() => {
     if ((currentPlaylistRepeatClickNum - 1) % 3 === 0 && currentTrackIndex === originalCurrentPlaylist.length - 1) {
       setCurrentPlaylist((prev) => {
@@ -265,7 +260,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   }, []);
 
   const childrenWithProps = React.Children.map(children, (child) => {
-    // 타입 검사를 통해 React 요소인지 확인합니다.
+    // 타입 검사를 통해 React 요소인지 확인.
     if (React.isValidElement(child)) {
       // @ts-expect-error Force inject player prop
       return React.cloneElement(child, { player });
