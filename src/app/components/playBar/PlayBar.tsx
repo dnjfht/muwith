@@ -8,7 +8,7 @@ import { CurrentTimeState, CurrentTrackDataState, OpenCurrentPlayTrackDetailStat
 import { DEFAULT_PICTURE } from '@/app/constants';
 
 import { GoChevronUp, GoChevronDown } from 'react-icons/go';
-import PlayCurrentMusicSet from '../playCurrentMusicSet/PlayCurrentMusicSet';
+import PlayCurrentMusicSet from '../PlayCurrentMusicWrap/playCurrentMusicSet/PlayCurrentMusicSet';
 interface PlayBarProps {
   player: YT.Player | null;
 }
@@ -36,7 +36,7 @@ export default function PlayBar({ player }: PlayBarProps) {
   return (
     <div className="w-full px-4 mt-2 box-border bg-[#232426] shadow-[0_-10px_10px_10px_rgba(0,0,0,0.3)] text-white flex flex-col justify-center">
       <div className="flex items-center gap-x-8">
-        <div className="flex items-center gap-x-2">
+        <div className="w-[20%] flex items-center gap-x-2">
           <div className="group relative">
             <Image
               width={1000}
@@ -57,8 +57,8 @@ export default function PlayBar({ player }: PlayBarProps) {
           </div>
 
           <div>
-            <p>{name}</p>
-            <p className="text-[0.875rem] text-[#a1a1a1]">{artists}</p>
+            <p className="line-clamp-1">{name}</p>
+            <p className="line-clamp-1 text-[0.875rem] text-[#a1a1a1]">{artists}</p>
           </div>
         </div>
 

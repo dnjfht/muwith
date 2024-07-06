@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { PageResponsiveNumState, PageWidthState } from '../../../recoil/atoms/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
@@ -13,7 +13,11 @@ declare global {
   }
 }
 
-export default function MainContentWrap({ children }: React.PropsWithChildren) {
+interface MainContentWrapProps {
+  children: React.ReactNode;
+}
+
+export default function MainContentWrap({ children }: MainContentWrapProps) {
   const pageWidthRef = useRef<HTMLDivElement | null>(null);
 
   const [pageWidth, setPageWidth] = useRecoilState(PageWidthState);
@@ -56,7 +60,7 @@ export default function MainContentWrap({ children }: React.PropsWithChildren) {
 
   useEffect(() => {
     setPageResponsiveNum(responsiveNum);
-  });
+  }, [setPageResponsiveNum, responsiveNum]);
 
   return (
     <div ref={pageWidthRef} className="w-full box-border bg-[#ebebeb] rounded-lg shadow-lg overflow-hidden">

@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html>
-      <body className="overflow-x-hidden">
+      <body className="overflow-x-hidden break-all">
         <RecoilRootProvider>
           <CookiesProvider>{children}</CookiesProvider>
         </RecoilRootProvider>

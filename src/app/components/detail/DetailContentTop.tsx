@@ -1,11 +1,17 @@
 'use client';
 
+import { useSetRecoilState } from 'recoil';
+import {
+  CurrentPlayListDataState,
+  CurrentPlaylistTitle,
+  CurrentTrackIndexState,
+  TryCurrentPlaylistRandomModeState,
+} from '../../recoil/atoms/atom';
+import Button from './button/Button';
+
 import { BsFillPlayFill } from 'react-icons/bs';
 import { PiHeart } from 'react-icons/pi';
 import { RiMoreLine } from 'react-icons/ri';
-import { useSetRecoilState } from 'recoil';
-import { CurrentPlayListDataState, CurrentPlaylistTitle, CurrentTrackIndexState } from '../../recoil/atoms/atom';
-import Button from './button/Button';
 
 interface DetailContentTopProps {
   trackIds: string[];
@@ -21,6 +27,7 @@ export default function Det0ailContentTop({
   const setCurrentPlaylist = useSetRecoilState(CurrentPlayListDataState);
   const setCurrentTrackIndex = useSetRecoilState(CurrentTrackIndexState);
   const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
+  const setTryCurrentPlaylistRandomMode = useSetRecoilState(TryCurrentPlaylistRandomModeState);
 
   return (
     <div className="w-full mb-8 flex items-center gap-x-5 text-[2rem] text-white">
@@ -28,9 +35,12 @@ export default function Det0ailContentTop({
         onClick={() => {
           if (typeof Window !== 'undefined') {
             setCurrentPlaylist(trackIds);
+            localStorage.setItem('original_currentPlaylist', JSON.stringify(trackIds));
             setCurrentTrackIndex(0);
             setCurrentPlaylistTitle(currentPlaylistTitle);
             localStorage.setItem('currentPlaylistTitle', currentPlaylistTitle);
+            localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(trackIds));
+            setTryCurrentPlaylistRandomMode(true);
           }
         }}
         icon={<BsFillPlayFill />}

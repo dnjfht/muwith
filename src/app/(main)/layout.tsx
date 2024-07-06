@@ -8,6 +8,7 @@ import MainContentWrap from '../components/main/layout/MainContentWrap';
 import PlayBar from '../components/playBar/PlayBar';
 import WrapContent from '../components/main/layout/WrapContent';
 import FlexContentWrap from '../components/main/layout/FlexContentWrap';
+import FullScreenCurrentPlayDetail from '../components/currentPlayDetail/FullScreenCurrentPlayDetail';
 
 export default async function MainRootLayout({ children }: React.PropsWithChildren) {
   const accessToken = cookies().get('accessToken')?.value;
@@ -29,7 +30,7 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
                     width={0}
                     height={0}
                     src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
-                  ></iframe>{' '}
+                  ></iframe>
                 </div>
                 <div className="w-full h-[70vh] overflow-x-hidden overflow-y-scroll">{children}</div>
               </div>
@@ -38,6 +39,8 @@ export default async function MainRootLayout({ children }: React.PropsWithChildr
           </FlexContentWrap>
 
           <PlayBar player={null} />
+
+          <FullScreenCurrentPlayDetail player={null} />
         </WrapContent>
       </div>
     </div>

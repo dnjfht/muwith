@@ -26,8 +26,15 @@ export const PlayerDataState = atom<YT.Player | null>({
   default: null,
 });
 
+// 현재 재생 중인 곡, 앞으로 재생될 곡 리스트
 export const CurrentPlayListDataState = atom<string[]>({
   key: 'CurrentPlayListDataState',
+  default: [],
+});
+
+// 현재 재생 중인 곡, 앞으로 재생될 곡 리스트 오리지널
+export const OriginalCurrentPlayListDataState = atom<string[]>({
+  key: 'OriginalCurrentPlayListDataState',
   default: [],
 });
 
@@ -53,4 +60,28 @@ export const CurrentTimeState = atom<number>({
 export const CurrentPlaylistTitle = atom<string>({
   key: 'CurrentPlaylistTitle',
   default: '',
+});
+
+// 현재 재생 중인 곡, 앞으로 재생될 곡 리스트 반복 버튼 클릭 횟수
+export const CurrentPlaylistRepeatClickNumState = atom<number>({
+  key: 'CurrentPlaylistRepeatClickNumState',
+  default: 0,
+});
+
+// FullScreenCurrentPlayDetail component를 닫힘 여부를 결정하는 boolean
+export const OpenFullScreenCurrentPlayDetailState = atom<boolean>({
+  key: 'OpenFullScreenCurrentPlayDetailState',
+  default: false,
+});
+
+// 현재 재생 중인 곡, 앞으로 재생될 곡 랜덤 재생 모드가 실행 중인지, 아닌지
+export const CurrentPlaylistRandomModeState = atom<boolean>({
+  key: 'CurrentPlaylistRandomModeState',
+  default: false,
+});
+
+// 현재 재생 중인 곡, 앞으로 재생될 곡 랜덤 재생 모드를 실행시켜야 하는지, 아닌지
+export const TryCurrentPlaylistRandomModeState = atom<boolean>({
+  key: 'TryCurrentPlaylistRandomModeState',
+  default: false,
 });

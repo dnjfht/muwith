@@ -66,3 +66,12 @@ export function formatDate(dateString?: string) {
 
   return `${year}년 ${month}월 ${day}일`;
 }
+
+export function shuffleCurrentPlaylist(array: string[]) {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
