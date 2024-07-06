@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   CurrentPlayListDataState,
+  CurrentPlaylistRandomModeState,
   CurrentPlaylistRepeatClickNumState,
   CurrentPlaylistTitle,
   CurrentTrackDataState,
@@ -36,6 +37,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
   const currentPlaylistRepeatClickNum = useRecoilValue(CurrentPlaylistRepeatClickNumState);
   const [originalCurrentPlaylist, setOriginalCurrentPlaylist] = useRecoilState(OriginalCurrentPlayListDataState);
+  const [currentPlaylistRandomMode, setCurrentPlaylistRandomMode] = useRecoilState(CurrentPlaylistRandomModeState);
   const setTryCurrentPlaylistRandomMode = useSetRecoilState(TryCurrentPlaylistRandomModeState);
 
   const selectVideoID = currentTrackData?.youtubeUrl?.split('v=')[1];
@@ -74,7 +76,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
     };
 
     const onPlayerReady = (event: YT.PlayerEvent) => {
-      //로딩된 후에 실행될 동작을 작성한다(소리 크기,동영상 속도를 미리 지정하는 것등등...)
+      //로딩된 후에 실행될 동작을 작성한다(소리 크기,동영상 속도를 미리 지정하는 것 등)
       event.target.playVideo(); //자동재생
     };
 
@@ -96,7 +98,6 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   useEffect(() => {
     if (typeof Window === 'undefined') return;
     const localStorageOriginalCurrentPlaylist = localStorage.getItem('original_currentPlaylist');
-    console.log(localStorageOriginalCurrentPlaylist);
     if (localStorageOriginalCurrentPlaylist) {
       setOriginalCurrentPlaylist(JSON.parse(localStorageOriginalCurrentPlaylist));
     }
@@ -150,18 +151,30 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
     if (currentPlaylist.length - 1 === currentTrackIndex) {
       if (currentPlaylistRepeatClickNum % 3 === 0 && currentPlaylist.length <= 10000) {
         updatedPlaylist = [...updatedPlaylist, ...recommenedTracksIdArr];
+
+        const addRecommended = [
+          ...JSON.parse(localStorage.getItem('beforeShuffleCurrentPlaylist')!),
+          ...recommenedTracksIdArr,
+        ];
+        localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(addRecommended));
       } else if ((currentPlaylistRepeatClickNum - 1) % 3 === 0 || (currentPlaylistRepeatClickNum - 2) % 3 === 0) {
         updatedPlaylist = [...updatedPlaylist, ...originalCurrentPlaylist];
+
+        const addRepeat = [
+          ...JSON.parse(localStorage.getItem('beforeShuffleCurrentPlaylist')!),
+          ...originalCurrentPlaylist,
+        ];
+        localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(addRepeat));
       }
       shouldUpdate = true;
       setTryCurrentPlaylistRandomMode(true);
-      localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(updatedPlaylist));
     }
 
     if (shouldUpdate) {
       setCurrentPlaylist(updatedPlaylist);
     }
   }, [recommenedTracksIdArr, currentPlaylist, currentTrackIndex, currentPlaylistRepeatClickNum]);
+  console.log(currentPlaylist);
 
   useEffect(() => {
     if (
@@ -171,6 +184,15 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
       setCurrentPlaylist((prev) => {
         return [...prev.slice(0, originalCurrentPlaylist.length)];
       });
+
+      const sliceBeforeCurrentPlaylist = JSON.parse(localStorage.getItem('beforeShuffleCurrentPlaylist')!).slice(
+        0,
+        originalCurrentPlaylist.length,
+      );
+      localStorage.setItem(
+        'beforeShuffleCurrentPlaylist',
+        JSON.stringify(sliceBeforeCurrentPlaylist.slice(0, originalCurrentPlaylist.length)),
+      );
 
       const arr = Array.from({ length: originalCurrentPlaylist.length }, (_, index) => index);
 
