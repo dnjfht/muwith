@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   CurrentPlayListDataState,
-  CurrentPlaylistRandomModeState,
   CurrentPlaylistRepeatClickNumState,
   CurrentPlaylistTitle,
   CurrentTrackDataState,
