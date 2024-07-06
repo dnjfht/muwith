@@ -37,7 +37,6 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
   const currentPlaylistRepeatClickNum = useRecoilValue(CurrentPlaylistRepeatClickNumState);
   const [originalCurrentPlaylist, setOriginalCurrentPlaylist] = useRecoilState(OriginalCurrentPlayListDataState);
-  const [currentPlaylistRandomMode, setCurrentPlaylistRandomMode] = useRecoilState(CurrentPlaylistRandomModeState);
   const setTryCurrentPlaylistRandomMode = useSetRecoilState(TryCurrentPlaylistRandomModeState);
 
   const selectVideoID = currentTrackData?.youtubeUrl?.split('v=')[1];
@@ -80,7 +79,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
       event.target.playVideo(); //자동재생
     };
 
-    const onPlayerStateChange = (event: YT.OnStateChangeEvent) => {};
+    const onPlayerStateChange = () => {};
   }, [router, videoId]);
 
   useEffect(() => {
@@ -207,8 +206,8 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   const [count, setCount] = useState(0);
 
   function countConsecutiveRepeats(original: string[], current: string[]) {
-    let originalString = original.join(',') + ','; // 구분자를 추가하여 배열의 끝을 명확히 함
-    let currentString = current.join(',') + ',';
+    const originalString = original.join(',') + ','; // 구분자를 추가하여 배열의 끝을 명확히 함
+    const currentString = current.join(',') + ',';
     let index = 0;
     let count = 0;
 

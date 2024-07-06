@@ -11,7 +11,6 @@ import {
   SidebarWidthState,
 } from '../../recoil/atoms/atom';
 import useMouseResize from '../../customHook/useMouseResize';
-import Image from 'next/image';
 import { DEFAULT_PICTURE } from '@/app/constants';
 import NextTrack from './NextTrack';
 import { fetchSpotifyTrackDetailData } from '@/app/api/spotify';
