@@ -29,11 +29,14 @@ export default function Det0ailContentTop({
   const setCurrentPlaylistTitle = useSetRecoilState(CurrentPlaylistTitle);
   const setTryCurrentPlaylistRandomMode = useSetRecoilState(TryCurrentPlaylistRandomModeState);
 
+  console.log('trackIds', trackIds);
+
   return (
     <div className="w-full mb-8 flex items-center gap-x-5 text-[2rem] text-white">
       <Button
         onClick={() => {
           if (typeof Window !== 'undefined') {
+            console.log('trackIds', trackIds);
             setCurrentPlaylist(trackIds);
             localStorage.setItem('original_currentPlaylist', JSON.stringify(trackIds));
             setCurrentTrackIndex(0);

@@ -94,7 +94,9 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   }, [params]);
 
   useEffect(() => {
+    // 로컬 스토리지에 오리지널 현재 플레이리스트가 있다면 가져와 originalCurrentPlaylist에 담아주기.
     if (typeof Window === 'undefined') return;
+
     const localStorageOriginalCurrentPlaylist = localStorage.getItem('original_currentPlaylist');
     if (localStorageOriginalCurrentPlaylist) {
       setOriginalCurrentPlaylist(JSON.parse(localStorageOriginalCurrentPlaylist));
@@ -102,6 +104,7 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
   }, []);
 
   useEffect(() => {
+    // 로컬스토리지에 담긴 현재 플레이리스트가 있으면 받아와서 currentPlaylist에 담아주기.
     if (typeof Window === 'undefined') return;
 
     const localStorageCurrentPlaylist = localStorage.getItem('currentPlaylist');
@@ -146,33 +149,43 @@ export default function WrapContent({ children }: React.PropsWithChildren) {
     let shouldUpdate = false;
     let updatedPlaylist = [...currentPlaylist];
 
+    // 재생 플레이리스트의 마지막 곡일 때
     if (currentPlaylist.length - 1 === currentTrackIndex) {
+      // 일반재생 && 재생 플레이리스트가 10000개 미만
       if (currentPlaylistRepeatClickNum % 3 === 0 && currentPlaylist.length <= 10000) {
         updatedPlaylist = [...updatedPlaylist, ...recommenedTracksIdArr];
 
-        const addRecommended = [
-          ...JSON.parse(localStorage.getItem('beforeShuffleCurrentPlaylist')!),
-          ...recommenedTracksIdArr,
-        ];
-        localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(addRecommended));
+        if (localStorage.getItem('beforeShuffleCurrentPlaylist')) {
+          const addRecommended = [
+            ...JSON.parse(localStorage.getItem('beforeShuffleCurrentPlaylist')!),
+            ...recommenedTracksIdArr,
+          ];
+          localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(addRecommended));
+        }
       } else if ((currentPlaylistRepeatClickNum - 1) % 3 === 0 || (currentPlaylistRepeatClickNum - 2) % 3 === 0) {
+        // 전체곡 반복재생 && 한 곡 반복재생 => 전체 플레이리스트 뒤에 다시 한 번 붙여주기
         updatedPlaylist = [...updatedPlaylist, ...originalCurrentPlaylist];
 
-        const addRepeat = [
-          ...JSON.parse(localStorage.getItem('beforeShuffleCurrentPlaylist')!),
-          ...originalCurrentPlaylist,
-        ];
+        let addRepeat;
+        // 랜덤모드에서 비랜덤모드로 돌아오기 위해서
+        if (localStorage.getItem('beforeShuffleCurrentPlaylist')) {
+          addRepeat = [
+            ...JSON.parse(localStorage.getItem('beforeShuffleCurrentPlaylist')!),
+            ...originalCurrentPlaylist,
+          ];
+        } else {
+          addRepeat = [...originalCurrentPlaylist];
+        }
         localStorage.setItem('beforeShuffleCurrentPlaylist', JSON.stringify(addRepeat));
       }
       shouldUpdate = true;
       setTryCurrentPlaylistRandomMode(true);
     }
 
-    if (shouldUpdate) {
+    if (shouldUpdate && updatedPlaylist.length > 0) {
       setCurrentPlaylist(updatedPlaylist);
     }
   }, [recommenedTracksIdArr, currentPlaylist, currentTrackIndex, currentPlaylistRepeatClickNum]);
-  console.log(currentPlaylist);
 
   useEffect(() => {
     if (

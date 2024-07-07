@@ -19,8 +19,8 @@ export async function GET(request: NextRequest) {
       client_id: GOOGLE_API_CLIENT_ID,
       client_secret: GOOGLE_API_CLIENT_SECRET,
       code: googleAuthCode,
-      // redirect_uri: 'https://muwith.vercel.app/google-auth',
-      redirect_uri: 'http://localhost:3000/google-auth',
+      redirect_uri: 'https://muwith.vercel.app/google-auth',
+      //redirect_uri: 'http://localhost:3000/google-auth',
       grant_type: 'authorization_code',
     }),
   })

@@ -73,6 +73,7 @@ export default function PlayCurrentMusicSet({
   const [tryCurrentPlaylistRandomMode, setTryCurrentPlaylistRandomMode] = useRecoilState(
     TryCurrentPlaylistRandomModeState,
   );
+  console.log('currnetTrackIndex', currentTrackIndex, 'currentPlaylist', currentPlaylist);
 
   useEffect(() => {
     if (typeof Window === 'undefined') return;
@@ -105,6 +106,8 @@ export default function PlayCurrentMusicSet({
   }, [currentPlaylistRepeatClickNum, musicPlayState, currentPlaylist]);
 
   useEffect(() => {
+    // 랜덤모드가 실행 중이고 앞으로 랜덤모드가 실행되어야 할 때.
+    // 현재 플레이리스트를 랜덤으로 섞은 후 현재 재생 중인 곡을 찾아 현재 index를 변경.
     if (currentPlaylistRandomMode && tryCurrentPlaylistRandomMode) {
       const shuffledCurrentPlaylist = shuffleCurrentPlaylist(currentPlaylist);
       setCurrentPlaylist(shuffledCurrentPlaylist);
@@ -114,13 +117,10 @@ export default function PlayCurrentMusicSet({
           setCurrentTrackIndex(idx);
         }
       });
-
+      // 앞으로 랜덤모드가 실행되지 않아야 함.
       setTryCurrentPlaylistRandomMode(false);
     }
   }, [currentPlaylistRandomMode, tryCurrentPlaylistRandomMode]);
-
-  console.log(currentPlaylistRandomMode, currentPlaylist);
-  console.log('tryCurrentPlaylistRandomModeState', tryCurrentPlaylistRandomMode);
 
   return (
     <div className={`${wrapStyle} mx-auto text-[1.2rem]`}>
